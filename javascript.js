@@ -1,0 +1,19 @@
+$(document).ready(function(){
+    $(".select-theme1").click(function(){
+      $(".theme1").toggle();
+    });
+  });
+  $(document).ready(function(){
+    $(".select-theme2").click(function(){
+      $(".theme2").toggle();
+    });
+  });
+  $(document).ready(function(){
+    $(".select-theme3").click(function(){
+      $(".theme3").toggle();
+    });
+  });
+  $("div").click(function(){
+    $(this).toggleClass("bananas");
+  });
+  
