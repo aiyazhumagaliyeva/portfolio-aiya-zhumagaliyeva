@@ -81,8 +81,7 @@
   .stage .clock { position: absolute; z-index: 2; top: 348px; display: flex; flex-direction: column; line-height: normal; white-space: nowrap;
                   padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
   /* the selected city is bold (Anton SC); the card shows that city's sky */
-  .stage .clock b { font-family: var(--font); font-weight: 400; font-size: 40px; transition: opacity .2s; }
-  .stage .clock.on b { font-family: "Anton SC", Impact, sans-serif; }
+  .stage .clock b { font-family: "Anton SC", Impact, sans-serif; font-weight: 400; font-size: 40px; transition: opacity .2s; }
   .stage .clock:not(.on):hover b { opacity: .7; }
   /* Figma "Vector 12": hand-drawn circle around the selected time, drawn again each time it is picked */
   .stage .scribble { position: absolute; z-index: 2; top: 300px; width: 254px; height: 196px; overflow: visible; pointer-events: none; color: var(--ink); }
