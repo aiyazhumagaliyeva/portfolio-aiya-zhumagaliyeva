@@ -1,114 +1,985 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIYA ZHUMAGALIYEVA - Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header id="header">
-        <div class="container">
-            <h1 class="logo">Aiya Zhumagaliyeva</h1>
-            <nav id="nav">
-                <a href="#about">About</a>
-                <a href="#work">Work</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <button class="nav-toggle" aria-label="toggle navigation">
-                <span class="hamburger"></span>
-            </button>
-        </div>
-    </header>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Aiya Zhumagaliyeva — product designer from Kazakhstan, based in NYC.">
+<title>Aiya Zhumagaliyeva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap">
+<style>
+  /* SIZES
+     Desktop: every number below is a Figma px from the 1728px frame, multiplied by --u.
+     --u = screen width / 1728 (capped at 1). It is set once from the SCREEN, not the window:
+       on a 1470px MacBook screen everything is 85% of Figma, exactly like the Figma frame fitted to that screen,
+       and resizing the browser window never changes text size — cards and pictures just shrink to fit.
+     Phone (≤760px wide): numbers from the 393px phone frame, in real px.
+     The apple card is one picture (text + apples) and always scales with its card.
+     Light-only by design (matches Figma). */
+  :root {
+    --u: 1px;
+    --mk: 1px;
+    --bg: #ffffff;
+    --fg: #000000;
+    --card: #ebebeb;
+    --border: #e1e1e1;
+    --scrim: rgba(0, 0, 0, 0.2);
+    --muted: #6b6b6b;
+    --red: #ff0000;
+    --emoji: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    --font: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --ease: cubic-bezier(.22, .8, .24, 1);
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--font); line-height: normal; -webkit-font-smoothing: antialiased; }
+  body.locked { overflow: hidden; }
+  ::selection { background: #f05a50; color: #fff; }
+  a { color: inherit; text-decoration: none; }
+  :focus { outline: none; }
+  :focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; border-radius: 8px; }
+  .page { min-height: 100dvh; display: flex; flex-direction: column; }
+  .page > main { flex: 1; }
 
-    <main>
-        <section id="about" class="section">
-            <div class="container">
-                <h2>About Aiya</h2>
-                <div class="about-content">
-                    <p>
-                        Hello! I am Aiya, a multidisciplinary designer specializing in visual identity, illustration, UX/UI and graphic design. 
-                        My goal is to create thoughtful and impactful work that communicates complex ideas with simplicity and elegance.
-                    </p>
-                    <p>
-                        I'm based in New York, USA, ariginally from Almaty, Kazakhstan. 
-                        Currently am a student in Parsons School of Design, open to work and collaboration!My work is shown in the link below and you can contact me through social media or email! 
-                    </p>
-                    <a href="#contact" class="btn">Get In Touch</a>
-                </div>
-            </div>
-        </section>
-<!--- used gemini to help figure out portfolio grid-->
-        <section id="work" class="section work-section">
-            <div class="container">
-                <h2>Work</h2>
-                <div class="portfolio-grid">
-                    <div class="project-item">
-                      <a href="circles.html" class="project-link">
-                        <img src="https://cdn.myportfolio.com/30b136dc-1e0c-4425-9dfc-b5c6d14f7b64/c7a041f7-8e7a-4286-933e-82bb31dddd21.png?h=cf4b792c0be049f44545699e148307ed" alt="Circles Zine">
-                        <div class="project-info">
-                            <h3>Circles - Zine</h3>
-                            <p>Editorial Design, Print</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="project-item">
-                      <a href="mereke.html" class="project-link">
-                        <img src="https://cdn.myportfolio.com/30b136dc-1e0c-4425-9dfc-b5c6d14f7b64/9304d19b-bb31-45aa-a6eb-0be8c8b7e219_rw_1920.png?h=d84e0d1690abd581227f0ba592274666" alt="Mereke Illustrations">
-                        <div class="project-info">
-                            <h3>Mereke Illustrations</h3>
-                            <p>illustration, Branding</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="project-item">
-                      <a href="qazaqblend.html" class="project-link">
-                        <img src="https://cdn.myportfolio.com/30b136dc-1e0c-4425-9dfc-b5c6d14f7b64/7cf7e67a-54ff-45b2-8613-1dcadd9b4cbd_rw_1920.png?h=a7538cfa8283c6cf9856c4035bd8b39d" alt="Qazaq Blend">
-                        <div class="project-info">
-                            <h3>Qazaq Blend</h3>
-                            <p>Visual Identity, Packaging</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="project-item">
-                      <a href="safeblock.html" class="project-link">
-                        <img src="https://cdn.myportfolio.com/30b136dc-1e0c-4425-9dfc-b5c6d14f7b64/679b8f8b-0eaa-4cec-abd4-24a77ea33d92_rw_1920.png?h=7074f9c5ea2d9f05b1a64d2cc91b29de" alt="Safeblock App">
-                        <div class="project-info">
-                            <h3>Safeblock</h3>
-                            <p>UX/UI Design</p>
-                        </div>
-                      </a>
-                    </div>
-                </div>
-            </div>
-        </section>
+  /* Underline that grows on hover */
+  .ul { background-image: linear-gradient(currentColor, currentColor); background-size: 0 1px; background-position: 100% 100%; background-repeat: no-repeat; transition: background-size .35s var(--ease); }
+  .ul:hover { background-size: 100% 1px; background-position: 0 100%; }
 
-        <section id="contact" class="section">
-            <div class="container">
-                <h2>Contact</h2>
-                <p>Ready to collaborate on a new project? Let's talk.</p>
-                <div class="contact-links">
-                    <a href="mailto:aikartist133@gmail.com" class="contact-link" >Email: aikartist133@gmail.com</a>
-                    <a href="https://instagram.com/aiya_zhuma" target="_blank" class="contact-link">Instagram: @aiya_zhuma</a>
-                </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" rows="5" required></textarea>
-                    <button type="submit" class="btn">Send Message</button>
-                </form>
-            </div>
-        </section>
+  /* ---------- Header (scrolls with the page). Figma: apples 116×27 at x 49, y 30.6; links 20px at y 36; cards start at y 135, 48 from the right, gap 40 ---------- */
+  .top { position: relative; z-index: 5; background: var(--bg); height: calc(100 * var(--u)); }
+  .top-in { position: relative; height: 100%; max-width: calc(1728 * var(--u)); margin: 0 auto; }
+  .logo { position: absolute; left: calc(49 * var(--u)); top: calc(30.6 * var(--u)); width: calc(116.4 * var(--u)); height: calc(27 * var(--u));
+          display: flex; justify-content: space-between; align-items: center; font-family: var(--emoji); font-size: calc(27 * var(--u)); line-height: 1; }
+  .logo:focus-visible { outline: none; }
+  .logo > * { display: block; height: 100%; width: auto; transition: transform .45s var(--ease); }
+  .logo:hover > * { transform: translateY(-20%) rotate(-8deg); }
+  .logo:hover > :nth-child(2) { transition-delay: .04s; }
+  .logo:hover > :nth-child(3) { transition-delay: .08s; }
+  .logo:hover > :nth-child(4) { transition-delay: .12s; }
+  .nav { position: absolute; right: calc(48 * var(--u)); top: calc(36 * var(--u)); display: flex; gap: calc(40 * var(--u)); font-size: calc(20 * var(--u)); line-height: 1.2; }
+  .nav-mobile { display: none; }
 
-    </main>
+  /* ---------- Grid (Figma: cards 800×800, gap 30, 49 from the sides, starts 135 from the top) ---------- */
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, calc(800 * var(--u)))); justify-content: center; gap: calc(30 * var(--u));
+          padding: calc(35 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Aiya Zhumagaliyeva. All Rights Reserved.</p>
-        </div>
-    </footer>
+  /* Apple card: a fixed-size stage (800×800, phone 354×269) scaled to fit — text and apples scale together. */
+  .apples { position: relative; width: 100%; aspect-ratio: 1 / 1; }
+  .stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; background: var(--card); overflow: hidden; isolation: isolate; user-select: none; -webkit-user-select: none;
+           transition: background 1.2s ease; }
+  .stage .sky { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .stage .intro { position: absolute; z-index: 2; transform: translateX(-50%); text-align: center; pointer-events: none; transition: color 1.2s ease; }
+  .stage .bio { margin: 0; font-weight: 400; line-height: normal; }
+  .stage .quote { margin: 0; line-height: normal; white-space: nowrap; }
+  .apple { position: absolute; z-index: 1; left: 0; top: 0; max-width: none; will-change: transform; pointer-events: none; -webkit-user-drag: none; }
+  .stage, .logo, .project { -webkit-tap-highlight-color: transparent; outline: none; }
+  .logo img { -webkit-user-drag: none; user-select: none; }
+  .stage.can-drag { cursor: grab; }
+  .stage.dragging { cursor: grabbing; }
 
-    <script src="script.js"></script>
-</body>
+  /* Project card (Figma: white, 3px #e1e1e1 stroke, radius 40; name 24px at top 37 on hover) */
+  .project { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; padding: 0; margin: 0; background: var(--bg);
+             border: max(1px, calc(3 * var(--u))) solid var(--border); border-radius: calc(40 * var(--u)); overflow: hidden; cursor: pointer; font: inherit; color: inherit; }
+  .project.no-stroke { border: 0; }
+  .square { position: absolute; left: 50%; top: 50%; height: 100%; aspect-ratio: 1 / 1; max-width: none; transform: translate(-50%, -50%); }
+  .card-media { position: absolute; overflow: hidden; border-radius: calc(40 * var(--u)); transition: transform .6s var(--ease); }
+  .card-media.fill-card { inset: 0; border-radius: 0; }
+  .card-media > img, .card-media > video { position: absolute; display: block; max-width: none; }
+  .card-media .fill { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .card-title { position: absolute; z-index: 1; left: 0; right: 0; top: calc(37 * var(--u)); text-align: center; font-size: calc(24 * var(--u)); line-height: normal;
+                transform: translateY(calc(-80 * var(--u))); transition: transform .55s var(--ease); pointer-events: none; }
+  .project:hover .card-media, .project:focus-visible .card-media { transform: translateY(calc(22 * var(--u))); }
+  .project:hover .card-media.fill-card, .project:focus-visible .card-media.fill-card { transform: scale(1.04); }
+  .project:hover .card-title, .project:focus-visible .card-title { transform: none; }
+
+  .desk { position: absolute; inset: 0; }
+  .mob { display: none; }
+  .foot-nav { display: none; }
+
+  /* ---------- About (Figma: photo 483×724 radius 20, gap 101, text 18px × 459 wide, starts 196 from the top) ---------- */
+  .about { padding: calc(96 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
+  .about-in { display: flex; justify-content: center; align-items: flex-start; gap: calc(101 * var(--u)); }
+  .about-photo { flex: 0 1 calc(483 * var(--u)); min-width: 0; aspect-ratio: 483 / 724; object-fit: cover; display: block; border-radius: calc(20 * var(--u)); }
+  .about-text { flex: 0 1 calc(459 * var(--u)); min-width: 0; font-size: calc(18 * var(--u)); line-height: normal; }
+  .about-text p { margin: 0 0 1.2em; }
+  .about-text p:last-child { margin: 0; }
+  .red { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ---------- Footer (Figma: 62 tall, 48 from the sides; name left, links right; 18px) ---------- */
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px calc(40 * var(--u)); flex-wrap: wrap;
+          padding: calc(20 * var(--u)) calc(48 * var(--u)); font-size: calc(18 * var(--u)); line-height: normal; }
+  .foot-links { display: flex; flex-wrap: wrap; gap: 8px calc(20 * var(--u)); }
+
+
+  /* ---------- Living Archive (layout from the old Cargo page: 3 columns, captions under each picture) ---------- */
+  .archive { padding: calc(35 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
+  .arch-cols { display: flex; align-items: flex-start; gap: calc(15 * var(--u)); }
+  .arch-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+  .arch-item { display: block; margin: 0 0 calc(30 * var(--u)); padding: 0; border: 0; background: none; text-align: left; font: inherit; color: inherit; cursor: zoom-in; width: 100%; }
+  a.arch-item { cursor: pointer; }
+  .arch-item .arch-media { display: block; width: 100%; height: auto; aspect-ratio: var(--ar); object-fit: cover; background: #f4f4f4; transition: opacity .3s var(--ease); }
+  .arch-item:hover .arch-media { opacity: .85; }
+  .arch-cap { display: block; margin-top: calc(12 * var(--u)); font-size: calc(16 * var(--u)); line-height: 1.3; color: rgba(0, 0, 0, .4); }
+  .zoom { position: fixed; inset: 0; z-index: 20; background: #fff; display: grid; place-items: center; padding: calc(48 * var(--u)); cursor: zoom-out; opacity: 0; transition: opacity .25s var(--ease); }
+  .zoom.open { opacity: 1; }
+  .zoom img { max-width: 100%; max-height: calc(100dvh - 140px); object-fit: contain; display: block; }
+  .zoom p { margin: 16px 0 0; text-align: center; font-size: calc(16 * var(--u)); color: rgba(0, 0, 0, .4); }
+
+  /* ---------- Project window (Figma: 1272×821, radius 30; icons 20; title 24, date 16, text 18, captions 18) ---------- */
+  .scrim { position: fixed; inset: 0; z-index: 10; background: var(--scrim); opacity: 0; transition: opacity .35s var(--ease); }
+  .scrim.open { opacity: 1; }
+  .modal { position: fixed; z-index: 11; left: 50%; top: 50%; width: min(calc(1272 * var(--mk)), calc(100vw - 32px)); height: min(calc(821 * var(--mk)), calc(100dvh - 32px));
+           transform: translate(-50%, -50%) scale(.96); opacity: 0; background: var(--bg); border-radius: calc(30 * var(--mk)); overflow: hidden; display: flex; flex-direction: column;
+           transition: opacity .3s var(--ease), transform .45s var(--ease), width .5s var(--ease), height .5s var(--ease), border-radius .5s var(--ease); }
+  .modal.open { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .modal.expanded { width: 100vw; height: 100dvh; border-radius: 0; }
+  .modal-controls { position: absolute; z-index: 2; top: 0; left: 0; right: 0; background: var(--bg); display: flex; justify-content: space-between;
+                    padding: calc(30 * var(--mk)) calc(27 * var(--mk)) calc(12 * var(--mk)) calc(28 * var(--mk)); }
+  .icon-btn { width: calc(20 * var(--mk)); height: calc(20 * var(--mk)); border: 0; padding: 0; background: none; display: grid; place-items: center; cursor: pointer; transition: transform .2s var(--ease); }
+  .icon-btn:hover { transform: scale(1.12); }
+  .icon-btn svg { width: 100%; height: 100%; display: block; }
+  .modal-scroll { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: calc(96 * var(--mk)) calc(28 * var(--mk)) calc(60 * var(--mk)); }
+  .cs { max-width: calc(1135 * var(--mk)); margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: calc(70 * var(--mk)); }
+  .media-group { width: 100%; display: flex; flex-direction: column; align-items: center; }
+  .cs-head { width: 100%; display: flex; flex-direction: column; align-items: center; gap: calc(30 * var(--mk)); }
+  .cs-brand { width: 100%; max-width: calc(1054 * var(--mk)); display: flex; align-items: center; gap: calc(28 * var(--mk)); }
+  .cs-logo { width: calc(94 * var(--mk)); height: calc(94 * var(--mk)); border-radius: 50%; overflow: hidden; flex: none; position: relative; }
+  .cs-logo img { position: absolute; display: block; max-width: none; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cs-title { margin: 0; font-size: calc(24 * var(--mk)); font-weight: 400; line-height: normal; }
+  .cs-time { margin: calc(10 * var(--mk)) 0 0; font-size: calc(16 * var(--mk)); }
+  .cs-rule { width: 100%; max-width: calc(1054 * var(--mk)); height: 1px; background: var(--fg); border: 0; margin: 0; }
+  .note { display: flex; gap: calc(13 * var(--mk)); width: 100%; max-width: calc(803 * var(--mk)); }
+  .note::before { content: ""; width: calc(10 * var(--mk)); flex: none; border-radius: calc(20 * var(--mk)); background: var(--accent, #d9d9d9); }
+  .note-body { min-width: 0; font-size: calc(18 * var(--mk)); line-height: normal; }
+  .note-body p { margin: 0 0 1.2em; }
+  .note-body p:last-child { margin: 0; }
+  .media-row { width: 100%; display: flex; align-items: flex-start; justify-content: center; }
+  .media { flex: var(--fw) 1 0; min-width: 0; margin: 0; display: flex; flex-direction: column; }
+  .media-frame { position: relative; aspect-ratio: var(--fw) / var(--fh); max-width: 100%; overflow: hidden; }
+  .media-frame.round { border-radius: calc(20 * var(--mk)) calc(20 * var(--mk)) 0 0; }
+  .media-frame img, .media-frame video { position: absolute; display: block; max-width: none; }
+  .media-frame .fill { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .media-soon { position: absolute; inset: 0; display: grid; place-items: center; background: #f2f2f2; color: var(--muted); font-size: calc(14 * var(--mk)); }
+  .media figcaption { font-size: calc(18 * var(--mk)); text-align: center; }
+
+  /* ---------- Phone (≤760px): real px from the 393 phone frame ---------- */
+  @media (max-width: 760px) {
+    :root { --u: 1px !important; --mk: 1px !important; }
+    .top { height: 60px; }
+    .logo { left: 20px; top: 20.4px; width: 77.6px; height: 18px; font-size: 18px; }
+    .nav { display: none; }
+    .nav-mobile { display: block; position: absolute; right: 20px; top: 21px; font-size: 16px; line-height: 1.2; }
+    .grid { grid-template-columns: minmax(0, 420px); gap: 40px; padding: 10px 20px 48px; }
+    .apples { aspect-ratio: 354 / 269; }
+    /* Phone cards (Figma "PHONE EXAMPLE" frames): radius 20, name always shown under the picture, no hover */
+    .project { aspect-ratio: var(--pr); border-width: 3px; border-radius: 20px; }
+    .project.no-stroke { border: 0; }
+    .desk { display: none; }
+    .mob { display: block; position: absolute; inset: 0; }
+    .mob-media { position: absolute; overflow: hidden; }
+    .mob-media > img, .mob-media > video { position: absolute; display: block; max-width: none; }
+    .mob-media .fill { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .mob-title { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; line-height: normal; }
+    .about { padding: 10px 20px 48px; }
+    .archive { padding: 10px 20px 48px; }
+    .arch-cols { flex-direction: column; gap: 0; }
+    .arch-item { margin-bottom: 28px; }
+    .arch-cap { font-size: 14px; margin-top: 8px; }
+    .zoom { padding: 20px; }
+    .about-in { flex-direction: column; gap: 28px; }
+    .about-photo { flex: none; width: 100%; border-radius: 20px; }
+    .about-text { flex: none; font-size: 16px; }
+    .foot-nav { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 0 20px 40px; font-size: 16px; }
+    .foot { flex-direction: column; align-items: flex-start; padding: 20px; font-size: 14px; border-top: 1px solid var(--border); }
+    .foot-links { gap: 8px 16px; }
+
+    /* Project window fills the phone screen */
+    .modal { width: 100vw; height: 100dvh; border-radius: 0; }
+    .modal-controls { padding: 20px 20px 10px; }
+    .icon-btn { width: 20px; height: 20px; }
+    #expand-btn { visibility: hidden; }
+    .modal-scroll { padding: 70px 20px 48px; }
+    .cs { gap: 44px; }
+    .cs-head { gap: 28px; }
+    .media-group { gap: 16px !important; }
+    .media figcaption { margin-top: 6px; }
+    .cs-brand { gap: 16px; }
+    .cs-logo { width: 60px; height: 60px; }
+    .cs-title { font-size: 20px; }
+    .cs-time { font-size: 14px; margin-top: 4px; }
+    .note { gap: 10px; }
+    .note::before { width: 6px; }
+    .note-body, .media figcaption { font-size: 16px; }
+    .media-row { flex-direction: column; gap: 16px !important; max-width: none !important; }
+    .media { width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
+  }
+</style>
+
+<div class="page">
+<header class="top"><div class="top-in">
+  <a class="logo" id="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a>
+  <nav class="nav" aria-label="Main" id="nav"></nav>
+  <a class="nav-mobile ul" id="nav-mobile-about" href="#about">About</a>
+</div></header>
+
+<main id="home">
+  <section class="grid" id="grid" aria-label="Work"></section>
+  <nav class="foot-nav" id="foot-nav" aria-label="Links"></nav>
+</main>
+
+<main id="archive" class="archive" hidden>
+  <div class="arch-cols" id="arch-cols"></div>
+</main>
+<div class="zoom" id="zoom" hidden><figure style="margin:0"><img id="zoom-img" alt=""><p id="zoom-cap"></p></figure></div>
+
+<main id="about" class="about" hidden>
+  <div class="about-in">
+    <img class="about-photo" src="assets/about-photo.jpg" alt="Aiya sitting on a wooden stool">
+    <div class="about-text">
+      <p>Hi, my name is Aiya!</p>
+      <p>I was born and raised in <a class="red" href="https://www.google.com/search?q=almaty%2C+kazakhstan" target="_blank" rel="noopener">Almaty, Kazakhstan,</a> where I grew up painting and exploring the world through art. From still lives and portraits to sculptures and <a class="red" href="https://aiyapaints.cargo.site/" target="_blank" rel="noopener">human-size oil paintings</a>, I found my passion in creativity.</p>
+      <p>When I came to <a class="red" href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener">Parsons</a>, design transform the way I approach and think about creativity and became a way to contribute to the world around me. From painting for loved ones, designing brand assets for local corporations, and working on UX projects. I am dedicated to creating designs that make lives of people easier, designing for people is where my passion is at right now.</p>
+      <p>Outside of work, I love staying creative through painting, reading, and re-imagining existing designs; this keeps my thinking fresh and inspires me in the work process. I also love staying active through pilates and yoga.</p>
+      <p>Let’s connect and create something cool together!</p>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <span>Aiya Zhumagaliyeva© 2026</span>
+  <span class="foot-links">
+    <a class="ul" href="mailto:reachaiya@gmail.com">reachaiya@gmail.com</a>
+    <a class="ul" href="https://www.instagram.com/aiya_zhuma/" target="_blank" rel="noopener">Instagram</a>
+    <a class="ul" href="https://www.linkedin.com/in/aiya-zhumagaliyeva" target="_blank" rel="noopener">Linkedin</a>
+    <a class="ul" href="https://drive.google.com/file/d/1MWNHI_hF2iFlGssFl_Fzegf-QyAklVxn/view?usp=sharing" target="_blank" rel="noopener">Resume</a>
+    <a class="ul" href="https://aiyapaints.cargo.site/" target="_blank" rel="noopener">Art</a>
+  </span>
+</footer>
+</div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="modal" id="modal" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="cs-title" hidden>
+  <div class="modal-controls">
+    <button class="icon-btn" id="close-btn" type="button" aria-label="Close project">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.65 21.95a1.2 1.2 0 1 1-1.7 1.7L12 13.7l-9.95 9.95a1.2 1.2 0 0 1-1.7-1.7L10.3 12 .35 2.05a1.2 1.2 0 0 1 1.7-1.7L12 10.3 21.95.35a1.2 1.2 0 1 1 1.7 1.7L13.7 12l9.95 9.95Z"/></svg>
+    </button>
+    <button class="icon-btn" id="expand-btn" type="button" aria-label="Expand to full screen" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true" id="expand-icon"></svg>
+    </button>
+  </div>
+  <div class="modal-scroll" id="modal-scroll">
+    <article class="cs" id="cs"></article>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+<script>
+/* ============================================================
+   EDIT YOUR CONTENT HERE
+   NAV      - header links (on phones they are listed under the posts).
+   INTRO    - the text on the apple card.
+   CARDS    - homepage grid, in order (2 per row on desktop).
+              { type: "apples" }  intro card with falling apples
+              { type: "project", id, title, media, noStroke }
+                media: { src, video, box: [w, h] in the 800×800 card, crop: {w,h,x,y} in %, fillCard }
+   PROJECTS - what opens in the project window, by id.
+              accent = colour of the side bars
+              blocks, top to bottom:
+              { type: "note", html }             text with the side bar
+              { type: "media", width, gap, items: [ ... ] }   1 or 2 images/videos in a row
+                item: { src, video, caption, alt, fw, fh, round, crop: {w,h,x,y}, soon }
+                fw/fh = frame size from Figma; crop = Figma image crop in %;
+                soon: true = grey "video coming soon" box until you add the file
+   APPLE_SPEED - how fast the apples move (1 = real time, 2 = twice as fast)
+   ============================================================ */
+const APPLE_SPEED = 2;
+
+const NAV = [
+  { label: "About", href: "#about" },
+  { label: "Living Archive", href: "#archive" }
+];
+const INTRO = {
+  bio: "Aiya is a Product Designer from Kazakhstan 🇰🇿, based in NYC.",
+  quote: "“From one Big apple to another 🍎”"
+};
+
+const CARDS = [
+  { type: "apples" },
+  { type: "project", id: "open", title: "Open 10AM - 8PM", noStroke: true,
+    media: { src: "assets/open-cover.jpg", alt: "Open 10AM - 8PM spiral-bound book", box: [800, 820], crop: { w: 115.75, h: 98.84, x: -7.88, y: 0.58 }, fillCard: true },
+    phone: { size: [349, 326], box: [-3, 0, 355, 326], crop: { w: 124, h: 117.98, x: -13.74, y: -16.6 }, titleTop: 283.5 } },
+  { type: "project", id: "orderly", title: "Orderly",
+    media: { src: "assets/orderly-ai-suggest.mp4", video: true, alt: "Orderly app prototype", box: [800, 735], crop: { w: 74.9, h: 118.84, x: 12.55, y: -8.2 } },
+    phone: { size: [349, 570], box: [0, 0, 349, 514], crop: { w: 117.18, h: 119.02, x: -8.59, y: -7.26 }, titleTop: 516 } },
+  { type: "link", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/", src: "assets/almaty-card.mp4", poster: "assets/almaty-card.jpg", video: true, title: "Apple is from Almaty" },
+  { type: "project", id: "powerpoints", title: "PowerPoints",
+    media: { src: "assets/pp-card.png", alt: "PowerPoints app on a phone", box: [762, 718] },
+    phone: { size: [349, 570], box: [0, 0, 349, 513], titleTop: 515.5 } },
+  { type: "project", id: "afterimage", title: "After the Image",
+    media: { src: "assets/ati-card.png", alt: "After the Image website on a laptop", box: [762, 718] },
+    phone: { size: [349, 326], box: [-2, 0, 353, 263], titleTop: 267.5 } }
+];
+
+const PHONE_A = { w: 127.81, h: 127.22, x: -13.9, y: -13.4 };   // 486×709 phone frame
+const PHONE_B = { w: 134.83, h: 126.23, x: -17.42, y: -13.12 }; // 457×709 phone frame
+const PROJECTS = {
+  orderly: {
+    logo: "assets/orderly-icon.png", title: "Orderly", timeline: "September - December 2025", accent: "#4072b9",
+    blocks: [
+      { type: "note", html: "<p>People in New York have a hard time keeping up with friends. New York offers endless opportunities, yet many students struggle to build meaningful relationships. Between demanding schedules, long commutes, and the city's fast pace, staying connected often becomes an afterthought, leading to missed events, weaker social networks, and feelings of isolation. Orderly solves that issue by making it easier to stay in touch with your friends.</p>" },
+      { type: "media", width: 979, items: [
+        { src: "assets/orderly-themes.mp4", video: true, caption: "Customizable themes", alt: "Prototype: switching Orderly themes", fw: 457, fh: 709, round: true, crop: { w: 133, h: 125.28, x: -16.5, y: -12.64 } },
+        { src: "assets/orderly-chat.png", caption: "In-app chatting", alt: "Orderly chat list screen", fw: 486, fh: 709, round: true, crop: PHONE_A }
+      ]},
+      { type: "note", html: "<p>How do you stay close with friends when meeting up takes 4 apps?</p><p>It often takes more than one app to meet up with friends (maps, calendar, a messenger, and often also a searching tool to find where to go), making reaching out and planning feel actually impossible. What if there was an app that combined the 4 inside?</p>" },
+      { type: "media", width: 831, items: [
+        { src: "assets/orderly-screens.png", alt: "Orderly home, suggestions, friends and chat screens", fw: 831, fh: 440, crop: { w: 112.75, h: 105.49, x: -6.38, y: -2.65 } }
+      ]},
+      { type: "note", html: "<p>The app features weekly workload overview, easily accessible schedule on hand, and customizable time slots where you can insert where your loved ones live and know when you call them at any time.</p>" },
+      { type: "media", width: 831, items: [
+        { src: "assets/orderly-widgets.png", alt: "Orderly widgets: time zones, weekly load, to-do list and suggestions", fw: 831, fh: 582, crop: { w: 100, h: 99.44, x: 0, y: 0.28 } }
+      ]},
+      { type: "media", width: 979, items: [
+        { src: "assets/orderly-group-event.mp4", video: true, caption: "Group event creation", alt: "Prototype: creating a group event", fw: 457, fh: 709, round: true, crop: { w: 133, h: 125.28, x: -16.5, y: -12.64 } },
+        { src: "assets/orderly-ai-suggest.mp4", video: true, caption: "AI meet-up suggestions", alt: "Prototype: AI meet-up suggestions", fw: 486, fh: 709, round: true, crop: { w: 132.06, h: 131.45, x: -16.03, y: -15.51 } }
+      ]},
+      { type: "media", width: 995, items: [
+        { src: "assets/orderly-weekly.mp4", video: true, caption: "Solo event creation", alt: "Prototype: creating a solo event", fw: 486, fh: 709, round: true, crop: { w: 132.06, h: 131.45, x: -16.03, y: -15.51 } },
+        { src: "assets/orderly-notifications.png", caption: "Notifications", alt: "Orderly notifications on the lock screen", fw: 473, fh: 699, round: true, crop: { w: 68.76, h: 97.59, x: 15.62, y: 2.41 } }
+      ]}
+    ]
+  },
+
+  powerpoints: {
+    logo: "assets/pp-icon.png", logoCrop: { w: 124, h: 124, x: -12.7, y: -12.03 }, title: "PowerPoints", timeline: "April 2025", accent: "#0288cd",
+    blocks: [
+      { type: "note", html: "<p>Long hours of studying and working can leave students physically exhausted and mentally drained. Between all-nighters, demanding deadlines, and hours spent at a desk, pain and fatigue often build up in different parts of the body. But what if we could move that discomfort somewhere else, or share it with someone else? PowerPoints explores this possibility through a speculative app that allows users to track, redistribute, and transfer physical energy and pain within their bodies and between other people.</p>" },
+      { type: "media", width: 1055, items: [
+        { src: "assets/pp-brand.png", alt: "PowerPoints brand identity: logo, colours and type", fw: 1055, fh: 694 }
+      ]},
+      { type: "note", html: "<p>PowerPoints imagines the body as a system of energy points. Each body part has a capacity of 0 to 10, allowing users to move points from one area to another when something becomes exhausted. The same ability extends to other people, making it possible to send or request energy from friends.</p>" },
+      { type: "media", width: 1060, items: [
+        { src: "assets/pp-body.png", caption: "Selecting a body part", alt: "PowerPoints body part selection screen", fw: 528, fh: 770, round: true, crop: PHONE_A },
+        { src: "assets/pp-transmit.png", caption: "Point transmission", alt: "PowerPoints point transmission screen", fw: 496, fh: 770, round: true, crop: PHONE_B }
+      ]},
+      { type: "note", html: "<p>The interactive body dashboard lets users select individual body parts, check their energy levels, and reallocate points where needed. Through the contacts screen, users can also search for friends, choose a type of discomfort, and send or request points. Both interactions are designed to make an imaginary superpower feel simple and familiar.</p>" },
+      { type: "media", width: 1060, items: [
+        { src: "assets/pp-contacts.png", caption: "Contact list", alt: "PowerPoints contact list screen", fw: 496, fh: 770, round: true, crop: PHONE_B },
+        { src: "assets/pp-sending.png", caption: "Sending points", alt: "PowerPoints sending points screen", fw: 528, fh: 770, round: true, crop: { w: 123.66, h: 123.09, x: -9.75, y: -11.33 } }
+      ]}
+    ]
+  },
+
+  afterimage: {
+    logo: "assets/ati-thumb.png", title: "After the Image", timeline: "September - December 2025", accent: "#fa3234",
+    blocks: [
+      { type: "note", html: "<p>After the Image is a print and digital exploration of grief. How it lives in memory, and in the empty spaces memory leaves behind. The project pairs a printed book with an interactive website, each offering a different way to sit with loss.</p><p>When someone passes, their memories don't disappear, they become harder to hold. After the Image is a two-part project that explores grief through image, absence, and the spaces a reader is forced to face on their own.</p>" },
+      { type: "media", width: 1063, items: [
+        { src: "assets/ati-mockups.png", alt: "After the Image book, phone and website mockups", fw: 1063, fh: 407, round: true, crop: { w: 100, h: 100.62, x: 0, y: -0.54 } }
+      ]},
+      { type: "note", html: "<p>Across the chapters, images of my grandpa gradually fade into the background. What begins as a subtle loss of opacity progresses into desaturation, decoloration, and eventually pixelation. This visual progression reflects how memories become less distinct as time passes.</p>" },
+      { type: "media", width: 1125, items: [ { src: "assets/ati-fade-1.mp4", video: true, alt: "Memory fading across chapters, demo 1", fw: 1125, fh: 709, round: true } ] },
+      { type: "media", width: 1071, items: [ { src: "assets/ati-fade-2.mp4", video: true, alt: "Memory fading across chapters, demo 2", fw: 1071, fh: 799 } ] },
+      { type: "note", html: "<p>Each chapter is separated by an interactive puzzle that encourages visitors to pause and reflect before moving forward. By asking them to reconstruct fragments of memories, these interactions turn grief into something to actively engage with rather than passively observe.</p>" },
+      { type: "media", width: 1045, gap: 10, items: [
+        { src: "assets/ati-puzzle-1.mp4", video: true, alt: "Memory puzzle 1", fw: 831, fh: 582 },
+        { src: "assets/ati-puzzle-2.mp4", video: true, alt: "Memory puzzle 2", fw: 831, fh: 582 } ] },
+      { type: "media", width: 1045, gap: 10, items: [
+        { src: "assets/ati-puzzle-3.mp4", video: true, alt: "Memory puzzle 3", fw: 831, fh: 582 },
+        { src: "assets/ati-puzzle-4.mp4", video: true, alt: "Memory puzzle 4", fw: 831, fh: 582 } ] },
+      { type: "note", html: "<p>The final chapter reverses this progression, bringing the images back into focus. Just as a photograph or familiar detail can bring back a fading memory, the return of these images serves as a reminder that forgetting is not always permanent. Both the book and website end on a more hopeful note, emphasizing the memories that remain.</p>" },
+      { type: "media", width: 1061, gap: 10, items: [
+        { src: "assets/ati-restore-1.mp4", video: true, alt: "Memory restoration 1", fw: 831, fh: 582 },
+        { src: "assets/ati-restore-2.mp4", video: true, alt: "Memory restoration 2", fw: 831, fh: 582 } ] }
+    ]
+  },
+
+  open: {
+    logo: "assets/open-thumb.png", title: "Open 10AM - 8PM", timeline: "August - September 2026", accent: "#3b43c7", imageGap: 20,
+    blocks: [
+      { type: "note", html: "<p>Open 10AM - 8PM is a photographic archive exploring the relationship between people and the objects they choose. Through 256 photographs taken across Manhattan stores, the project documents everyday purchasing decisions, questioning what draws our attention to certain products and what those choices might reveal about us.</p>" },
+      { type: "media", width: 1047, gap: 20, items: [
+        { src: "assets/open-front.jpg", alt: "Open 10AM - 8PM front cover", fw: 410, fh: 455, crop: { w: 171.55, h: 121.41, x: -35.78, y: -10.7 } },
+        { src: "assets/open-back.jpg", alt: "Back cover with a product photograph", fw: 617, fh: 455, crop: { w: 116.63, h: 138.64, x: -11.49, y: -23.09 } }
+      ]},
+      { type: "note", html: "<p>Each spread pairs a person with an object they selected. The person appears smaller on the left, while the product occupies the entire right page. This contrast shifts attention toward the object, encouraging readers to observe the relationship between the buyer and their choice without being given an explanation.</p>" },
+      { type: "media", width: 1125, items: [
+        { src: "assets/open-walkthrough.mp4", video: true, alt: "Flipping through the buyer and object spreads", fw: 1125, fh: 709 }
+      ]},
+      { type: "note", html: "<p>The photographs are arranged chronologically, following a day of shopping from 10 AM to 8 PM. A detachable cover index records the objects and their timestamps, allowing readers to navigate the collection as both a visual archive and a timeline of everyday consumption.</p>" },
+      { type: "media", width: 1044, items: [
+        { src: "assets/open-index.jpg", alt: "Cover index and back cover", fw: 1044, fh: 498, crop: { w: 103.23, h: 162.32, x: 0.07, y: -24.43 } }
+      ]},
+      { type: "media", width: 1045, items: [
+        { src: "assets/open-timestamp.jpg", alt: "Detachable timestamp index", fw: 1045, fh: 756, crop: { w: 99.9, h: 103.57, x: 0.05, y: -1.79 } }
+      ]},
+      { type: "media", width: 1045, gap: 20, items: [
+        { src: "assets/open-backspread.jpg", alt: "Back cover and index spread", fw: 831, fh: 582 },
+        { src: "assets/open-spiral.jpg", alt: "Spiral binding and index detail", fw: 831, fh: 582 }
+      ]},
+      { type: "media", width: 1045, gap: 20, items: [
+        { src: "assets/open-canned.jpg", alt: "Buyer with a canned product", fw: 831, fh: 582, crop: { w: 102.17, h: 109.65, x: -1.18, y: -3.63 } },
+        { src: "assets/open-bag.jpg", alt: "Shopper with a black bag", fw: 831, fh: 582 }
+      ]}
+    ]
+  }
+};
+/* ============================== end of content ============================== */
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const PHONE = matchMedia("(max-width: 760px)");
+/* Design scale: screen width / 1728 (max 1). From the SCREEN, so resizing the window never changes text size. */
+const U = Math.min(screen.width || 1728, 1728) / 1728;
+document.documentElement.style.setProperty("--u", U + "px");
+/* Project window: same size relative to the window as in Figma (1272×821 inside the 1728×1117 screen) */
+function fitModal() { document.documentElement.style.setProperty("--mk", Math.min(U, innerWidth / 1728, innerHeight / 1117) + "px"); }
+fitModal(); addEventListener("resize", fitModal);
+
+/* Videos play only while you can see them */
+const vidIO = new IntersectionObserver((es) => es.forEach((e) => {
+  const v = e.target;
+  if (e.isIntersecting) { const p = v.play(); if (p) p.catch(() => {}); } else v.pause();
+}), { threshold: 0.2 });
+function watchVideos(root) { root.querySelectorAll("video[data-auto]").forEach((v) => { v.muted = true; vidIO.observe(v); }); }
+
+/* ---------- Header nav (desktop) + link list under the posts (phone) ---------- */
+const navLinks = NAV.map((n) => `<a class="ul" href="${esc(n.href)}">${esc(n.label)}</a>`).join("");
+$("#nav").innerHTML = navLinks;
+$("#foot-nav").innerHTML = navLinks;
+$("#nav-mobile-about").href = NAV.find((n) => n.label === "About")?.href || "#";
+
+/* Sizes: every number is Figma px. Text never scales with the window; only cards and pictures resize to fit. */
+
+/* ---------- Grid ---------- */
+const pct = (v, of) => (v / of * 100) + "%";
+function cardMediaHTML(m) {
+  const tag = m.video
+    ? (pos) => `<video src="${esc(m.src)}" ${pos} muted loop playsinline preload="metadata" data-auto aria-label="${esc(m.alt)}"></video>`
+    : (pos) => `<img src="${esc(m.src)}" alt="${esc(m.alt)}" ${pos} loading="lazy">`;
+  if (m.fillCard) return `<span class="card-media fill-card">${tag('class="fill"')}</span>`;
+  const [w, h] = m.box;
+  const box = `left:${pct((800 - w) / 2, 800)};top:${pct((800 - h) / 2, 800)};width:${pct(w, 800)};height:${pct(h, 800)}`;
+  const pos = m.crop ? `style="width:${m.crop.w}%;height:${m.crop.h}%;left:${m.crop.x}%;top:${m.crop.y}%"` : `class="fill"`;
+  return `<span class="square"><span class="card-media" style="${box}">${tag(pos)}</span></span>`;
+}
+// Phone card: picture + name under it, positions from the Figma "PHONE EXAMPLE" frames
+function phoneCardHTML(c) {
+  const m = c.media, ph = c.phone, [W, H] = ph.size, [x, y, w, h] = ph.box;
+  const pos = ph.crop ? `style="width:${ph.crop.w}%;height:${ph.crop.h}%;left:${ph.crop.x}%;top:${ph.crop.y}%"` : `class="fill"`;
+  const tag = m.video
+    ? `<video src="${esc(m.src)}" ${pos} muted loop playsinline preload="metadata" data-auto aria-hidden="true"></video>`
+    : `<img src="${esc(m.src)}" alt="" ${pos} loading="lazy">`;
+  return `<span class="mob"><span class="mob-media" style="left:${pct(x, W)};top:${pct(y, H)};width:${pct(w, W)};height:${pct(h, H)}">${tag}</span>
+    <span class="mob-title" style="top:${pct(ph.titleTop, H)}">${esc(c.title)}</span></span>`;
+}
+function linkCardHTML(c) {
+  const img = c.video
+    ? `<video class="fill" src="${esc(c.src)}" poster="${esc(c.poster || "")}" muted loop playsinline preload="metadata" data-auto aria-hidden="true"></video>`
+    : `<img class="fill" src="${esc(c.src)}" alt="" loading="lazy">`;
+  return `<a class="project no-stroke" href="${esc(c.href)}" target="_blank" rel="noopener" aria-label="${esc(c.title)} (opens in a new tab)" style="--pr:1 / 1">
+     <span class="desk"><span class="card-media fill-card">${img}</span></span>
+     <span class="mob"><span class="mob-media" style="inset:0">${img}</span></span></a>`;
+}
+$("#grid").innerHTML = CARDS.map((c) => c.type === "link" ? linkCardHTML(c) : c.type === "apples"
+  ? `<div class="apples"><div class="stage"><canvas class="sky" aria-hidden="true"></canvas>
+       <div class="intro"><p class="bio">${esc(INTRO.bio)}</p><p class="quote">${esc(INTRO.quote)}</p></div></div></div>`
+  : `<button class="project${c.noStroke ? " no-stroke" : ""}" type="button" data-open="${esc(c.id)}" aria-label="Open ${esc(c.title)}" style="--pr:${c.phone.size[0]} / ${c.phone.size[1]}">
+       <span class="desk">${cardMediaHTML(c.media)}<span class="card-title">${esc(c.title)}</span></span>
+       ${phoneCardHTML(c)}</button>`
+).join("");
+watchVideos($("#grid"));
+
+/* ---------- Apple physics ---------- */
+// Two layouts from Figma: desktop card 800×800, phone card 354×403.
+const LAYOUTS = {
+  desktop: { W: 800, H: 800, size: 76, count: 30, bio: { top: 235, x: 391, w: 720, fs: 42 }, quote: { fs: 26, gap: 39 }, radius: 60 },
+  phone:   { W: 354, H: 269, size: 34, count: 14, bio: { top: 64, x: 177, w: 313, fs: 20 }, quote: { fs: 16, gap: 24 }, radius: 20 }
+};
+const glyphCache = {};
+function glyph(size) {   // draw 🍎 once at 2x, crop it tight, reuse that picture
+  if (glyphCache[size] !== undefined) return glyphCache[size];
+  const K = 2, S = Math.ceil(size * 2.2) * K, c = document.createElement("canvas");
+  c.width = c.height = S;
+  const g = c.getContext("2d", { willReadFrequently: true });
+  g.font = `${size * K}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+  g.textAlign = "center"; g.textBaseline = "middle";
+  g.fillText("🍎", S / 2, S / 2);
+  const d = g.getImageData(0, 0, S, S).data;
+  let x0 = S, y0 = S, x1 = -1, y1 = -1;
+  for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+    if (d[(y * S + x) * 4 + 3] > 30) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  }
+  if (x1 < 0) return (glyphCache[size] = null);
+  const w = x1 - x0 + 1, h = y1 - y0 + 1, out = document.createElement("canvas");
+  out.width = w; out.height = h;
+  out.getContext("2d").drawImage(c, x0, y0, w, h, 0, 0, w, h);
+  return (glyphCache[size] = { url: out.toDataURL("image/png"), w: w / K, h: h / K });
+}
+
+const tiltEngines = new Set();
+function mountApples(fit, L) {
+  const { W, H, size } = L, CORNER = 60, k = size / 76, G = 1.35;
+  const GL = glyph(size), AW = GL ? GL.w : size * 0.95, AH = GL ? GL.h : size;
+  const stage = fit.querySelector(".stage");
+  stage.querySelectorAll(".apple").forEach((a) => a.remove());
+  const COUNT = L.count;
+  // Intro text in Figma px inside the stage
+  const intro = stage.querySelector(".intro");
+  Object.assign(intro.style, { left: L.bio.x + "px", top: L.bio.top + "px", width: L.bio.w + "px" });
+  Object.assign(intro.querySelector(".bio").style, { fontSize: L.bio.fs + "px" });
+  Object.assign(intro.querySelector(".quote").style, { fontSize: L.quote.fs + "px", marginTop: L.quote.gap + "px" });
+  Object.assign(stage.style, { width: W + "px", height: H + "px", borderRadius: L.radius + "px" });
+
+  let scale = 1, mouse = null, alive = true;
+  const resize = () => { scale = fit.clientWidth / W; stage.style.transform = `scale(${scale})`; if (mouse) Matter.Mouse.setScale(mouse, { x: 1 / scale, y: 1 / scale }); };
+  const ro = new ResizeObserver(resize); ro.observe(fit); resize();
+
+  const makeApple = () => {
+    let el;
+    if (GL) {
+      el = document.createElement("img"); el.src = GL.url; el.alt = "";
+      Object.assign(el.style, { width: GL.w + "px", height: GL.h + "px", margin: `${-GL.h / 2}px 0 0 ${-GL.w / 2}px` });
+    } else {
+      el = document.createElement("span"); el.textContent = "🍎";
+      el.style.cssText = `font-size:${size}px;line-height:1;margin:${-size / 2}px 0 0 ${-size / 2}px;font-family:var(--emoji)`;
+    }
+    el.className = "apple"; el.setAttribute("aria-hidden", "true");
+    stage.appendChild(el);
+    return el;
+  };
+
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !window.Matter) {
+    for (let i = 0; i < 12; i++) {   // resting pile, no motion
+      const x = W * (0.1 + 0.8 * (i % 8) / 7), y = H - AH * (i < 8 ? 0.55 : 1.4);
+      makeApple().style.transform = `translate(${x}px, ${y}px) rotate(${(i * 37) % 60 - 30}deg)`;
+    }
+    return () => { ro.disconnect(); };
+  }
+
+  const { Engine, Bodies, Body, Composite, Mouse, MouseConstraint, Events, Query } = Matter;
+  const engine = Engine.create();
+  engine.gravity.y = G; engine.gravity.scale = 0.001 * k;
+  const wall = { isStatic: true, friction: 0.4, restitution: 0.2 };
+  Composite.add(engine.world, [
+    Bodies.rectangle(W / 2, H + 50, W * 2, 100, wall),
+    Bodies.rectangle(-50, H / 2, 100, H * 4, wall),
+    Bodies.rectangle(W + 50, H / 2, 100, H * 4, wall)
+  ]);
+  [[CORNER, H - CORNER, 90, 180], [W - CORNER, H - CORNER, 0, 90]].forEach(([cx, cy, a0, a1]) => {
+    for (let a = a0; a <= a1; a += 10) {
+      const rad = a * Math.PI / 180, br = 12;
+      Composite.add(engine.world, Bodies.circle(cx + Math.cos(rad) * (CORNER + br), cy + Math.sin(rad) * (CORNER + br), br, wall));
+    }
+  });
+  const ceiling = Bodies.rectangle(W / 2, -50, W * 2, 100, wall);
+  const apples = [], timers = [];
+  const R = Math.min(AW, AH) / 2;
+
+  function drop() {
+    let lastX = -999;
+    for (let i = 0; i < COUNT; i++) {
+      timers.push(setTimeout(() => {
+        let x, tries = 0;
+        do { x = R + 20 * k + Math.random() * (W - 2 * (R + 20 * k)); } while (Math.abs(x - lastX) < AW * 1.1 && ++tries < 20);
+        lastX = x;
+        const y = -AH / 2 - 10 - Math.random() * 40 * k;
+        const body = Body.create({
+          parts: [Bodies.circle(x, y + 0.07 * AH, 0.48 * AW), Bodies.circle(x + 0.08 * AW, y - 0.36 * AH, 0.15 * AW)],
+          restitution: 0.42, friction: 0.3, frictionStatic: 0.7, frictionAir: 0.008
+        });
+        Body.setDensity(body, 0.0016);
+        const off = { x: x - body.position.x, y: y - body.position.y };
+        Body.setAngle(body, (Math.random() - 0.5) * 1.2);
+        Body.setVelocity(body, { x: (Math.random() - 0.5) * 3 * k, y: (2 + Math.random() * 2) * k });
+        Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.12);
+        Composite.add(engine.world, body);
+        apples.push({ body, off, el: makeApple() });
+      }, i * 95 + Math.random() * 40));
+    }
+    timers.push(setTimeout(() => Composite.add(engine.world, ceiling), COUNT * 95 + 1200));
+  }
+
+  // Time-based loop: same speed on every screen (60 Hz, 120 Hz, any browser).
+  const STEP = 1000 / 60;
+  let running = false, last = 0, acc = 0, raf = 0;
+  function frame(t) {
+    if (!alive) return;
+    if (running) {
+      acc += Math.min(100, t - (last || t)) * APPLE_SPEED;
+      last = t;
+      let n = 0;
+      while (acc >= STEP && n++ < 8) { Engine.update(engine, STEP); acc -= STEP; }
+      if (n >= 8) acc = 0;
+    }
+    for (const { body, off, el } of apples) {
+      const a = body.angle, c = Math.cos(a), s = Math.sin(a);
+      el.style.transform = `translate(${body.position.x + off.x * c - off.y * s}px, ${body.position.y + off.x * s + off.y * c}px) rotate(${a}rad)`;
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  const onVis = () => { last = 0; };
+  document.addEventListener("visibilitychange", onVis);
+
+  const local = (e) => { const r = stage.getBoundingClientRect(); return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale }; };
+  const capVel = (vx, vy, cap) => { const m = Math.hypot(vx, vy); return m > cap ? { x: vx / m * cap, y: vy / m * cap } : { x: vx, y: vy }; };
+
+  // Hover (mouse): apples scatter away from the cursor, harder when it moves faster.
+  let lastP = null;
+  const onMove = (e) => {
+    if (e.pointerType !== "mouse" || e.buttons) { lastP = null; return; }
+    const p = local(e), now = performance.now();
+    const speed = lastP ? Math.min(60, Math.hypot(p.x - lastP.x, p.y - lastP.y) / k / Math.max(8, now - lastP.t) * 16) : 0;
+    lastP = { ...p, t: now };
+    const reach = 95 * k;
+    for (const { body } of apples) {
+      const dx = body.position.x - p.x, dy = body.position.y - p.y, d = Math.hypot(dx, dy);
+      if (d > reach) continue;
+      const q = 1 - d / reach, push = q * (1.2 + speed * 0.35) * k;
+      Body.setVelocity(body, capVel(body.velocity.x + dx / (d || 1) * push, body.velocity.y + dy / (d || 1) * push * 0.6 - q * (1.5 + speed * 0.25) * k, 16 * k));
+      Body.setAngularVelocity(body, body.angularVelocity + (Math.random() - 0.5) * 0.06 * q);
+    }
+  };
+  const onLeave = () => { lastP = null; };
+  // Tap / click: apples near the tap jump up and away.
+  const onDown = (e) => {
+    enableTilt();
+    const p = local(e);
+    if (mouse && Query.point(apples.map((a) => a.body), p).length) return;   // computer: pressing an apple grabs it
+    const reach = 170 * k;
+    for (const { body } of apples) {
+      const dx = body.position.x - p.x, dy = body.position.y - p.y, d = Math.hypot(dx, dy);
+      if (d > reach) continue;
+      const q = 1 - d / reach;
+      Body.setVelocity(body, { x: body.velocity.x + (dx / (d || 1) * 9 * q + (Math.random() - 0.5) * 2) * k, y: body.velocity.y - (11 + Math.random() * 4) * q * k });
+      Body.setAngularVelocity(body, body.angularVelocity + (Math.random() - 0.5) * 0.35 * q);
+    }
+  };
+  stage.addEventListener("pointermove", onMove);
+  stage.addEventListener("pointerleave", onLeave);
+  stage.addEventListener("pointerdown", onDown);
+
+  // Computer: grab and toss apples. Skipped on touch so the page still scrolls.
+  if (matchMedia("(pointer: fine)").matches) {
+    mouse = Mouse.create(stage);
+    ["mousewheel", "DOMMouseScroll", "wheel"].forEach((t) => stage.removeEventListener(t, mouse.mousewheel));
+    const grab = MouseConstraint.create(engine, { mouse, constraint: { stiffness: 0.18, damping: 0.1 } });
+    Composite.add(engine.world, grab);
+    stage.classList.add("can-drag");
+    Events.on(grab, "startdrag", () => stage.classList.add("dragging"));
+    Events.on(grab, "enddrag", () => stage.classList.remove("dragging"));
+    resize();
+  }
+
+  tiltEngines.add(engine);
+  let dropped = false;
+  const io = new IntersectionObserver((entries) => {
+    const seen = entries[entries.length - 1].isIntersecting;
+    running = seen; last = 0;
+    stage.dataset.seen = seen ? "1" : "";
+    if (seen && !dropped) { dropped = true; drop(); }
+  }, { threshold: 0.35 });
+  io.observe(stage);
+
+  return () => {   // tear down (used when switching between phone and desktop layout)
+    alive = false; cancelAnimationFrame(raf); timers.forEach(clearTimeout); io.disconnect(); ro.disconnect();
+    document.removeEventListener("visibilitychange", onVis);
+    stage.removeEventListener("pointermove", onMove); stage.removeEventListener("pointerleave", onLeave); stage.removeEventListener("pointerdown", onDown);
+    if (mouse) { Matter.Mouse.clearSourceEvents(mouse); stage.classList.remove("can-drag", "dragging"); }
+    tiltEngines.delete(engine);
+    Engine.clear(engine);
+  };
+}
+
+// Tilt (phones): gravity follows the device, in every apple card.
+let tiltOn = false;
+function onTilt(e) {
+  if (e.beta == null || e.gamma == null) return;
+  const rad = Math.PI / 180, G = 1.35;
+  const gx = Math.sin(e.gamma * rad), gy = Math.max(0.3, Math.sin(e.beta * rad));
+  const turn = ((screen.orientation && screen.orientation.angle) || window.orientation || 0) * rad;
+  const c = Math.cos(turn), s = Math.sin(turn);
+  for (const engine of tiltEngines) {
+    engine.gravity.x = (gx * c + gy * s) * G;
+    engine.gravity.y = Math.max(0.3, -gx * s + gy * c) * G;
+  }
+}
+function enableTilt() {
+  if (tiltOn || !window.DeviceOrientationEvent) return;
+  const start = () => { tiltOn = true; addEventListener("deviceorientation", onTilt); };
+  if (typeof DeviceOrientationEvent.requestPermission === "function") {
+    DeviceOrientationEvent.requestPermission().then((p) => { if (p === "granted") start(); }).catch(() => {});
+  } else start();
+}
+if (typeof window.DeviceOrientationEvent?.requestPermission !== "function") enableTilt();
+
+(function drawLogo() {
+  const g = glyph(76);
+  if (!g) return;
+  $("#logo").innerHTML = ('<img alt="" src="' + g.url + '">').repeat(4);
+})();
+
+let teardowns = [];
+function mountAllApples() {
+  teardowns.forEach((t) => t());
+  const L = PHONE.matches ? LAYOUTS.phone : LAYOUTS.desktop;
+  teardowns = [...document.querySelectorAll(".apples")].map((fit) => mountApples(fit, L));
+}
+mountAllApples();
+PHONE.addEventListener("change", () => { mountAllApples(); applyWeather(); });
+
+
+/* ---------- Apple card background = live weather in Almaty (Open-Meteo, free, no key) ---------- */
+// Looks: [top color, bottom color, text color]. Day and night versions.
+const SKIES = {
+  clear:  { day: ["#bfe0ff", "#eaf5ff", "#000"], night: ["#0d1b3d", "#26375f", "#fff"] },
+  cloudy: { day: ["#d3dae2", "#eef1f4", "#000"], night: ["#1f2633", "#3a4352", "#fff"] },
+  fog:    { day: ["#dfe1e3", "#f2f2f2", "#000"], night: ["#2b2f35", "#474c53", "#fff"] },
+  rain:   { day: ["#9fb0c2", "#d5dde6", "#000"], night: ["#141c28", "#2e3a4b", "#fff"] },
+  snow:   { day: ["#e3ebf3", "#ffffff", "#000"], night: ["#1c2536", "#3b4760", "#fff"] },
+  storm:  { day: ["#6f7b8c", "#b3bcc8", "#000"], night: ["#0b0f17", "#262d3a", "#fff"] }
+};
+function kindOf(code) {   // WMO weather codes
+  if (code <= 1) return "clear";
+  if (code <= 3) return "cloudy";
+  if (code <= 48) return "fog";
+  if (code >= 95) return "storm";
+  if ((code >= 71 && code <= 77) || code === 85 || code === 86) return "snow";
+  return "rain";
+}
+const weatherFx = [];
+let weatherNow = null;
+const WEATHER_SNAPSHOT = "clear";   // Almaty weather when this version was built; live data replaces it on the real site
+function almatyIsDay() { const h = (new Date().getUTCHours() + 5) % 24; return h >= 7 && h < 19; }
+function applyWeather() {
+  weatherFx.forEach((f) => f.stop());
+  weatherFx.length = 0;
+  const w = weatherNow || { kind: WEATHER_SNAPSHOT, day: almatyIsDay() };
+  document.querySelectorAll(".apples .stage").forEach((stage) => {
+    const intro = stage.querySelector(".intro"), cv = stage.querySelector(".sky");
+    if (!w.kind) {   // no live data: grey card from Figma, night = dark grey
+      stage.style.background = w.day ? "" : "#2a2a2e";
+      intro.style.color = w.day ? "" : "#fff";
+    } else {
+      const [a, b, t] = SKIES[w.kind][w.day ? "day" : "night"];
+      stage.style.background = `linear-gradient(180deg, ${a}, ${b})`;
+      intro.style.color = t;
+    }
+    weatherFx.push(particles(stage, cv, w));
+  });
+}
+function particles(stage, cv, w) {
+  const fx = { stop() { alive = false; } };
+  let alive = true;
+  const W = parseFloat(stage.style.width) || 800, H = parseFloat(stage.style.height) || 800;
+  const K = Math.min(2, devicePixelRatio || 1);
+  cv.width = W * K; cv.height = H * K; cv.style.width = W + "px"; cv.style.height = H + "px";
+  const g = cv.getContext("2d"); g.setTransform(K, 0, 0, K, 0, 0); g.clearRect(0, 0, W, H);
+  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow" : (!w.day && (w.kind === "clear" || !w.kind)) ? "stars" : null;
+  if (!type) return fx;
+  const n = type === "rain" ? Math.round(W / 6) : type === "snow" ? Math.round(W / 9) : Math.round(W / 10);
+  const P = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random(), v: Math.random() }));
+  const s = W / 800;
+  let flash = 0, last = 0;
+  function draw(t) {
+    if (!alive) return;
+    requestAnimationFrame(draw);
+    if (!stage.dataset.seen && last) return;
+    const dt = Math.min(50, t - (last || t)) / 16.7; last = t;
+    g.clearRect(0, 0, W, H);
+    if (type === "rain") {
+      g.strokeStyle = w.day ? "rgba(60,80,110,.35)" : "rgba(200,215,235,.35)"; g.lineWidth = 1.2 * s; g.beginPath();
+      for (const p of P) {
+        p.y += (9 + p.v * 6) * s * dt; p.x -= 1.5 * s * dt;
+        if (p.y > H) { p.y = -20 * s; p.x = Math.random() * (W + 40); }
+        g.moveTo(p.x, p.y); g.lineTo(p.x - 2 * s, p.y + (12 + p.v * 8) * s);
+      }
+      g.stroke();
+      if (w.kind === "storm") {
+        if (flash <= 0 && Math.random() < 0.003 * dt) flash = 1;
+        if (flash > 0) { g.fillStyle = `rgba(255,255,255,${flash * 0.5})`; g.fillRect(0, 0, W, H); flash -= 0.06 * dt; }
+      }
+    } else if (type === "snow") {
+      g.fillStyle = w.day ? "rgba(150,170,195,.7)" : "rgba(255,255,255,.85)";
+      for (const p of P) {
+        p.y += (0.6 + p.v * 1.1) * s * dt; p.x += Math.sin(t / 900 + p.r * 9) * 0.4 * s * dt;
+        if (p.y > H + 5) { p.y = -5; p.x = Math.random() * W; }
+        g.beginPath(); g.arc(p.x, p.y, (1.5 + p.r * 2.5) * s, 0, 7); g.fill();
+      }
+    } else {
+      for (const p of P) {
+        g.fillStyle = `rgba(255,255,255,${0.25 + 0.6 * Math.abs(Math.sin(t / 1400 + p.r * 20))})`;
+        g.beginPath(); g.arc(p.x, p.y * 0.75, (0.6 + p.v * 1.2) * s, 0, 7); g.fill();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+  return fx;
+}
+applyWeather();   // until live data arrives: Almaty day/night
+fetch("https://api.open-meteo.com/v1/forecast?latitude=43.2389&longitude=76.8897&current=weather_code,is_day")
+  .then((r) => r.json())
+  .then((d) => { if (d && d.current) { weatherNow = { kind: kindOf(d.current.weather_code), day: !!d.current.is_day }; applyWeather(); } })
+  .catch(() => {});
+
+/* ---------- Project window ---------- */
+function mediaHTML(m) {
+  let inner;
+  if (m.soon || !m.src) inner = `<div class="media-soon">Video coming soon</div>`;
+  else {
+    const pos = m.crop ? `style="width:${m.crop.w}%;height:${m.crop.h}%;left:${m.crop.x}%;top:${m.crop.y}%"` : `class="fill"`;
+    inner = m.video
+      ? `<video src="${esc(m.src)}" ${pos} muted loop playsinline preload="metadata" data-auto aria-label="${esc(m.alt)}"></video>`
+      : `<img src="${esc(m.src)}" alt="${esc(m.alt)}" ${pos} loading="lazy">`;
+  }
+  return `<figure class="media" style="--fw:${m.fw || 470};--fh:${m.fh || 709}"><div class="media-frame${m.round ? " round" : ""}">${inner}</div>${m.caption ? `<figcaption>${esc(m.caption)}</figcaption>` : ""}</figure>`;
+}
+function projectHTML(p) {
+  // Images that follow each other are grouped, so the space between them is even (imageGap); text and images get the bigger gap.
+  const parts = [];
+  for (const b of p.blocks) {
+    if (b.type === "note") { parts.push(`<div class="note"><div class="note-body">${b.html}</div></div>`); continue; }
+    const row = `<div class="media-row" style="max-width:calc(${b.width || 979} * var(--mk));gap:calc(${b.gap ?? 36} * var(--mk))">${b.items.map(mediaHTML).join("")}</div>`;
+    const last = parts[parts.length - 1];
+    if (last && last.group) last.rows.push(row); else parts.push({ group: true, rows: [row] });
+  }
+  const gap = p.imageGap ?? 45;
+  const blocks = parts.map((x) => x.group ? `<div class="media-group" style="gap:calc(${gap} * var(--mk))">${x.rows.join("")}</div>` : x).join("");
+  const lc = p.logoCrop ? ` style="inset:auto;width:${p.logoCrop.w}%;height:${p.logoCrop.h}%;left:${p.logoCrop.x}%;top:${p.logoCrop.y}%"` : "";
+  return `<header class="cs-head">
+      <div class="cs-brand">
+        <span class="cs-logo">${p.logo ? `<img src="${esc(p.logo)}" alt=""${lc}>` : ""}</span>
+        <div><h2 class="cs-title" id="cs-title">${esc(p.title)}</h2><p class="cs-time">${esc(p.timeline)}</p></div>
+      </div>
+      <hr class="cs-rule">
+    </header>${blocks}`;
+}
+
+const modal = $("#modal"), scrim = $("#scrim"), expandBtn = $("#expand-btn");
+const EXPAND = '<path d="M24 1.09v6.55a1.09 1.09 0 0 1-2.18 0V3.72l-6.68 6.68a1.09 1.09 0 1 1-1.54-1.54l6.68-6.68h-3.92a1.09 1.09 0 1 1 0-2.18h6.55C23.51 0 24 .49 24 1.09ZM8.86 13.6l-6.68 6.68v-3.92a1.09 1.09 0 1 0-2.18 0v6.55C0 23.51.49 24 1.09 24h6.55a1.09 1.09 0 1 0 0-2.18H3.72l6.68-6.68a1.09 1.09 0 1 0-1.54-1.54Z"/>';
+const SHRINK = '<path d="M13.09 1.09v8.73c0 .6.49 1.09 1.09 1.09h8.73a1.09 1.09 0 1 0 0-2.18h-6.1l6.86-6.86A1.09 1.09 0 0 0 22.13.33l-6.86 6.86v-6.1a1.09 1.09 0 1 0-2.18 0ZM10.91 22.91v-8.73c0-.6-.49-1.09-1.09-1.09H1.09a1.09 1.09 0 1 0 0 2.18h6.1L.33 22.13a1.09 1.09 0 0 0 1.54 1.54l6.86-6.86v6.1a1.09 1.09 0 1 0 2.18 0Z"/>';
+let lastFocus = null;
+
+function setExpanded(on) {
+  modal.classList.toggle("expanded", on);
+  expandBtn.setAttribute("aria-pressed", String(on));
+  expandBtn.setAttribute("aria-label", on ? "Exit full screen" : "Expand to full screen");
+  $("#expand-icon").innerHTML = on ? SHRINK : EXPAND;
+}
+setExpanded(false);
+
+function openProject(id, trigger) {
+  const p = PROJECTS[id];
+  if (!p) return;
+  lastFocus = trigger || document.activeElement;
+  $("#cs").innerHTML = projectHTML(p);
+  watchVideos($("#cs"));
+  $("#cs").style.setProperty("--accent", p.accent || "#d9d9d9");
+  $("#modal-scroll").scrollTop = 0;
+  modal.hidden = scrim.hidden = false;
+  document.body.classList.add("locked");
+  requestAnimationFrame(() => { modal.classList.add("open"); scrim.classList.add("open"); });
+  modal.focus({ preventScroll: true });   // keyboard users can Tab to the buttons
+  if (location.hash !== "#" + id) history.replaceState(null, "", "#" + id);
+}
+function closeProject() {
+  modal.classList.remove("open");
+  scrim.classList.remove("open");
+  setExpanded(false);
+  document.body.classList.remove("locked");
+  setTimeout(() => { $("#cs").querySelectorAll("video").forEach((v) => vidIO.unobserve(v)); modal.hidden = scrim.hidden = true; $("#cs").innerHTML = ""; }, 350);
+  history.replaceState(null, "", location.pathname + location.search);
+  if (lastFocus) lastFocus.focus({ preventScroll: true });
+}
+
+$("#grid").addEventListener("click", (e) => {
+  const card = e.target.closest("[data-open]");
+  if (card) openProject(card.dataset.open, card);
+});
+$("#close-btn").addEventListener("click", closeProject);
+scrim.addEventListener("click", closeProject);
+expandBtn.addEventListener("click", () => setExpanded(!modal.classList.contains("expanded")));
+document.addEventListener("keydown", (e) => {
+  if (modal.hidden) return;
+  if (e.key === "Escape") closeProject();
+  if (e.key === "Tab") {
+    const f = [...modal.querySelectorAll("button, a[href]")].filter((el) => el.offsetParent);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+});
+
+
+/* ---------- Living Archive ---------- */
+const ARCHIVE = [
+  { src: "assets/arch-oki.webp", w: 1400, h: 1371, caption: "Oki (Aleem) Mascot design, 2026" },
+  { src: "assets/arch-sansu.webp", w: 1254, h: 1254, caption: "Sansu Brand Design, February 2026" },
+  { src: "assets/arch-circles.webp", w: 1400, h: 840, caption: "Circles, Parsons Fall 2026" },
+  { src: "assets/arch-change.mp4", poster: "assets/arch-change.jpg", video: true, w: 1400, h: 800, caption: "Change, Speing 2024", href: "https://aiyazhumagaliyeva.github.io/change/index.html" },
+  { src: "assets/arch-mantra.webp", w: 1338, h: 1516, caption: "Mantra Merch, Parsons Fall 2024..." },
+  { src: "assets/arch-poster.webp", w: 1400, h: 1390, caption: "Poster Design, Parsons Fall 2024" },
+  { src: "assets/arch-fish.webp", w: 1400, h: 1120, caption: "Fish, Parsons Fall 2024" },
+  { src: "assets/arch-tag.webp", w: 1062, h: 641, caption: "Tag Design, Fall 2023" },
+  { src: "assets/arch-merch.webp", w: 1400, h: 1304, caption: "Brand Merchendise, Winter 2026" },
+  { src: "assets/arch-qazaq.webp", w: 1256, h: 912, caption: "Qazaq Blend Brand Design, Winter 2024" }
+];
+function archItemHTML(a, i) {
+  const ar = `--ar:${a.w} / ${a.h}`;
+  const media = a.video
+    ? `<video class="arch-media" style="${ar}" src="${esc(a.src)}" poster="${esc(a.poster)}" muted loop playsinline preload="metadata" data-auto aria-hidden="true"></video>`
+    : `<img class="arch-media" style="${ar}" src="${esc(a.src)}" alt="${esc(a.caption)}" loading="lazy" width="${a.w}" height="${a.h}">`;
+  const cap = `<span class="arch-cap">${esc(a.caption)}</span>`;
+  return a.href
+    ? `<a class="arch-item" href="${esc(a.href)}" target="_blank" rel="noopener">${media}${cap}</a>`
+    : `<button class="arch-item" type="button" data-zoom="${i}" aria-label="View ${esc(a.caption)}">${media}${cap}</button>`;
+}
+function renderArchive() {   // like Cargo: each item goes into the shortest column
+  const n = PHONE.matches ? 1 : 3, cols = Array.from({ length: n }, () => ({ h: 0, html: "" }));
+  const CARGO_COLS = [0, 1, 2, 2, 0, 1, 2, 1, 0, 2];   // same columns as the old Cargo page
+  ARCHIVE.forEach((a, i) => {
+    const c = n === 3 && CARGO_COLS[i] != null ? cols[CARGO_COLS[i]] : cols.reduce((m, x) => x.h < m.h - 0.01 ? x : m, cols[0]);
+    c.html += archItemHTML(a, i); c.h += a.h / a.w + 0.08;
+  });
+  $("#arch-cols").innerHTML = cols.map((c) => `<div class="arch-col">${c.html}</div>`).join("");
+  watchVideos($("#arch-cols"));
+}
+renderArchive();
+PHONE.addEventListener("change", renderArchive);
+const zoom = $("#zoom");
+$("#arch-cols").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-zoom]"); if (!b) return;
+  const a = ARCHIVE[+b.dataset.zoom];
+  $("#zoom-img").src = a.src; $("#zoom-img").alt = a.caption; $("#zoom-cap").textContent = a.caption;
+  zoom.hidden = false; document.body.classList.add("locked");
+  requestAnimationFrame(() => zoom.classList.add("open"));
+});
+function closeZoom() { zoom.classList.remove("open"); document.body.classList.remove("locked"); setTimeout(() => { zoom.hidden = true; }, 250); }
+zoom.addEventListener("click", closeZoom);
+addEventListener("keydown", (e) => { if (e.key === "Escape" && !zoom.hidden) closeZoom(); });
+
+/* ---------- Pages: #about shows About, anything else shows the homepage ---------- */
+function route() {
+  const h = location.hash.slice(1);
+  const page = h === "about" || h === "archive" ? h : "home";
+  $("#about").hidden = page !== "about";
+  $("#archive").hidden = page !== "archive";
+  $("#home").hidden = page !== "home";
+  document.querySelectorAll(".nav a, .foot-nav a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + page));
+  if (page !== "home") { if (!modal.hidden) closeProject(); scrollTo(0, 0); }
+  if (PROJECTS[h] && modal.hidden) openProject(h);   // yoursite.com/#orderly opens that project
+}
+addEventListener("hashchange", route);
+$("#logo").addEventListener("click", (e) => { e.preventDefault(); history.pushState(null, "", location.pathname + location.search); route(); scrollTo(0, 0); });
+route();
+</script>
+
 </html>
