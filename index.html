@@ -84,6 +84,13 @@
   .stage .clock b { font-family: var(--font); font-weight: 400; font-size: 40px; transition: opacity .2s; }
   .stage .clock.on b { font-family: "Anton SC", Impact, sans-serif; }
   .stage .clock:not(.on):hover b { opacity: .7; }
+  /* Figma "Vector 12": hand-drawn circle around the selected time, drawn again each time it is picked */
+  .stage .scribble { position: absolute; z-index: 2; top: 300px; width: 254px; height: 196px; overflow: visible; pointer-events: none; color: var(--ink); }
+  .stage .scribble.almaty { left: 24px; }
+  .stage .scribble.nyc { left: 531px; transform: scaleX(-1); }
+  .stage .scribble path { fill: none; stroke: currentColor; stroke-width: 3.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .stage .scribble.draw path { animation: scribble 1s cubic-bezier(.55, .1, .35, 1) forwards; }
+  @keyframes scribble { to { stroke-dashoffset: 0; } }
   .stage .clock span { font-size: 26px; }
   .stage .clock.almaty { left: 47px; gap: 9px; align-items: flex-start; }
   .stage .clock.nyc { right: 47px; gap: 13px; align-items: flex-end; }
@@ -250,6 +257,7 @@
     .media { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
+    .stage .scribble path { stroke-dashoffset: 0; }
     *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
   }
 </style>
@@ -536,7 +544,8 @@ $("#grid").innerHTML = CARDS.map((c) => c.type === "link" ? linkCardHTML(c) : c.
        <p class="bio">${esc(INTRO.bio)}</p>
        <p class="quote">“From one <a href="${esc(INTRO.link)}" target="_blank" rel="noopener">Big apple</a> to another 🍎”</p>
        <button type="button" class="clock almaty on" data-city="almaty" aria-pressed="true"><b data-tz="Asia/Almaty">–</b><span>Almaty Time</span></button>
-       <button type="button" class="clock nyc" data-city="nyc" aria-pressed="false"><b data-tz="America/New_York">–</b><span>NYC Time</span></button></div></div>`
+       <button type="button" class="clock nyc" data-city="nyc" aria-pressed="false"><b data-tz="America/New_York">–</b><span>NYC Time</span></button>
+       <svg class="scribble almaty" viewBox="0 0 232 157" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M154.599 4.7905C154.425 4.7905 149.066 4.81772 139.025 5.12712M139.025 5.12712C135.223 5.24429 130.749 5.40193 125.63 5.61388C109.709 6.27321 86.1775 14.2456 60.4765 22.2208C45.6407 26.8245 29.2587 39.9796 11.3881 60.8555C0.200569 73.9243 1.97542 83.299 2.29146 103.077C2.52791 117.874 14.488 130.55 24.2794 139.327C33.7877 147.851 43.8615 148.672 83.0325 153.95C104.732 156.873 128.131 152.824 149.8 148.286C164.53 145.201 177.331 140.056 189.824 134.716C209.277 126.399 223.725 109.268 227.775 95.1979C234.687 71.1859 224.367 61.6872 212.259 45.1541C203.972 33.8384 193.093 26.1798 184.98 20.9775C176.72 15.6817 164.018 11.3645 148.764 6.89725C145.762 6.23688 142.5 5.64772 139.025 5.12712ZM139.025 5.12712C124.753 2.98862 106.902 2.00708 88.8273 2C80.622 2.07033 78.9132 2.29253 77.1526 2.52146"/></svg></div></div>`
   : `<button class="project${c.noStroke ? " no-stroke" : ""}" type="button" data-open="${esc(c.id)}" aria-label="Open ${esc(c.title)}" style="--pr:${c.phone.size[0]} / ${c.phone.size[1]}">
        <span class="desk">${cardMediaHTML(c.media)}<span class="card-title"${c.titleColor ? ` style="color:${c.titleColor}"` : ""}>${esc(c.title)}</span></span>
        ${phoneCardHTML(c)}</button>`
@@ -782,8 +791,8 @@ PHONE.addEventListener("change", () => { mountAllApples(); applyWeather(); });
 /* ---------- Apple card background = live weather in Almaty (Open-Meteo, free, no key) ---------- */
 // Looks: [top color, bottom color, text color]. Day and night versions.
 const SKIES = {
-  clear:  { day: ["#bfe0ff", "#eaf5ff", "#000"], night: ["#0d1b3d", "#26375f", "#fff"] },
-  cloudy: { day: ["#d3dae2", "#eef1f4", "#000"], night: ["#1f2633", "#3a4352", "#fff"] },
+  clear:  { day: ["#9fd3ff", "#fff1db", "#000"], night: ["#0d1b3d", "#26375f", "#fff"] },
+  cloudy: { day: ["#bccfe2", "#f3efe8", "#000"], night: ["#1f2633", "#3a4352", "#fff"] },
   fog:    { day: ["#dfe1e3", "#f2f2f2", "#000"], night: ["#2b2f35", "#474c53", "#fff"] },
   rain:   { day: ["#9fb0c2", "#d5dde6", "#000"], night: ["#141c28", "#2e3a4b", "#fff"] },
   snow:   { day: ["#e3ebf3", "#ffffff", "#000"], night: ["#1c2536", "#3b4760", "#fff"] },
@@ -819,6 +828,45 @@ function applyWeather() {
     weatherFx.push(particles(stage, cv, w));
   });
 }
+/* Day: soft sun glow top-right + slow drifting clouds (more of them when cloudy) */
+function cloudSprite(w, h) {
+  const c = document.createElement("canvas"), K = 2; c.width = w * K; c.height = h * K;
+  const g = c.getContext("2d"); g.scale(K, K); g.filter = "blur(6px)"; g.fillStyle = "rgba(255,255,255,.85)";
+  // puffs stay well inside the sprite so the blur never gets cut off
+  const blobs = [[.28, .62, .2], [.45, .48, .27], [.64, .55, .23], [.78, .66, .15], [.5, .7, .2]];
+  for (const [x, y, r] of blobs) { g.beginPath(); g.arc(x * w, y * h, r * h, 0, 7); g.fill(); }
+  g.fillRect(w * .26, h * .62, w * .52, h * .18);
+  return c;
+}
+function sunnySky(stage, g, W, H, cloudy, fx) {
+  let alive = true; fx.stop = () => { alive = false; };
+  const n = cloudy ? 7 : 3;
+  const clouds = Array.from({ length: n }, (_, i) => {
+    const w = 190 + Math.random() * 150, h = w * 0.42;
+    return { sp: cloudSprite(w, h), w, h, x: (i / n) * (W + w) - w * 0.5 + Math.random() * 80, y: 40 + Math.random() * 260, v: 0.08 + Math.random() * 0.1, a: cloudy ? 0.9 : 0.75 };
+  });
+  let last = 0;
+  function draw(t) {
+    if (!alive) return;
+    requestAnimationFrame(draw);
+    if (!stage.dataset.seen && last) return;
+    const dt = Math.min(50, t - (last || t)) / 16.7; last = t;
+    g.clearRect(0, 0, W, H);
+    if (!cloudy) {   // sun: warm glow that breathes slowly
+      const pulse = 1 + Math.sin(t / 2200) * 0.06, cx = W * 0.84, cy = H * 0.13, r = 230 * pulse;
+      const sun = g.createRadialGradient(cx, cy, 0, cx, cy, r);
+      sun.addColorStop(0, "rgba(255,248,214,.95)"); sun.addColorStop(0.18, "rgba(255,236,170,.75)");
+      sun.addColorStop(0.45, "rgba(255,214,140,.28)"); sun.addColorStop(1, "rgba(255,214,140,0)");
+      g.fillStyle = sun; g.fillRect(0, 0, W, H);
+    }
+    for (const c of clouds) {
+      c.x += c.v * dt; if (c.x > W + 20) { c.x = -c.w - 20; c.y = 40 + Math.random() * 260; }
+      g.globalAlpha = c.a; g.drawImage(c.sp, c.x, c.y, c.w, c.h); g.globalAlpha = 1;
+    }
+  }
+  requestAnimationFrame(draw);
+  return fx;
+}
 function particles(stage, cv, w) {
   const fx = { stop() { alive = false; } };
   let alive = true;
@@ -826,8 +874,10 @@ function particles(stage, cv, w) {
   const K = Math.min(2, devicePixelRatio || 1);
   cv.width = W * K; cv.height = H * K; cv.style.width = W + "px"; cv.style.height = H + "px";
   const g = cv.getContext("2d"); g.setTransform(K, 0, 0, K, 0, 0); g.clearRect(0, 0, W, H);
-  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow" : (!w.day && (w.kind === "clear" || !w.kind)) ? "stars" : null;
+  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow"
+    : !w.day && (w.kind === "clear" || !w.kind) ? "stars" : w.day && (w.kind === "clear" || w.kind === "cloudy" || !w.kind) ? "sunny" : null;
   if (!type) return fx;
+  if (type === "sunny") return sunnySky(stage, g, W, H, w.kind === "cloudy", fx);
   const n = type === "rain" ? Math.round(W / 6) : type === "snow" ? Math.round(W / 9) : Math.round(W / 10);
   const P = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random(), v: Math.random() }));
   const s = W / 800;
@@ -881,10 +931,20 @@ Object.entries(CITIES).forEach(([c, o]) => fetch(`https://api.open-meteo.com/v1/
   .then((r) => r.json())
   .then((d) => { if (d && d.current) { WEATHER[c] = { kind: kindOf(d.current.weather_code), day: !!d.current.is_day }; if (c === city) applyWeather(); } })
   .catch(() => {}));
+function drawScribble() {   // restart the drawing animation around the selected city
+  document.querySelectorAll(".stage .scribble").forEach((sv) => {
+    sv.classList.remove("draw", "almaty", "nyc"); sv.classList.add(city);
+    void sv.getBoundingClientRect(); sv.classList.add("draw");
+  });
+}
+const scribbleIO = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { drawScribble(); scribbleIO.disconnect(); } }, { threshold: 0.5 });
+document.querySelectorAll(".apples").forEach((a) => scribbleIO.observe(a));
 $("#grid").addEventListener("pointerdown", (e) => { if (e.target.closest(".clock")) e.stopPropagation(); }, true);
 $("#grid").addEventListener("click", (e) => {
   const b = e.target.closest(".clock"); if (!b) return;
+  if (b.dataset.city === city) return;
   city = b.dataset.city;
+  drawScribble();
   document.querySelectorAll(".stage .clock").forEach((x) => { const on = x.dataset.city === city; x.classList.toggle("on", on); x.setAttribute("aria-pressed", String(on)); });
   applyWeather();
 });
