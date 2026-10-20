@@ -7,7 +7,7 @@
 <title>Aiya Zhumagaliyeva</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Inter:wght@400&display=swap">
 <style>
   /* SIZES
      Desktop: every number below is a Figma px from the 1728px frame, multiplied by --u.
@@ -71,9 +71,17 @@
   .stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; background: var(--card); overflow: hidden; isolation: isolate; user-select: none; -webkit-user-select: none;
            transition: background 1.2s ease; }
   .stage .sky { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-  .stage .intro { position: absolute; z-index: 2; transform: translateX(-50%); text-align: center; pointer-events: none; transition: color 1.2s ease; }
-  .stage .bio { margin: 0; font-weight: 400; line-height: normal; }
-  .stage .quote { margin: 0; line-height: normal; white-space: nowrap; }
+  /* Figma "changed frame 01" (Almaty day) and "changed frame 02" (Almaty night), 800×800 */
+  .stage { --ink: #ff2726; background: #bbf5ff; color: var(--ink); }
+  .stage.night { --ink: #ffffff; background: #141630; }
+  .stage .bio { position: absolute; z-index: 2; left: 42px; top: 43px; width: 665px; margin: 0; font-family: "Anton SC", Impact, sans-serif; font-size: 50px; line-height: normal; pointer-events: none; }
+  .stage .quote { position: absolute; z-index: 2; left: 42px; top: 199px; margin: 0; font-size: 26px; line-height: normal; white-space: nowrap; pointer-events: none; }
+  .stage .quote a { pointer-events: auto; text-decoration: underline; text-underline-offset: 3px; }
+  .stage .clock { position: absolute; z-index: 2; top: 348px; display: flex; flex-direction: column; line-height: normal; white-space: nowrap; pointer-events: none; }
+  .stage .clock b { font-family: "Anton SC", Impact, sans-serif; font-weight: 400; font-size: 40px; }
+  .stage .clock span { font-size: 26px; }
+  .stage .clock.almaty { left: 47px; gap: 9px; align-items: flex-start; }
+  .stage .clock.nyc { right: 47px; gap: 13px; align-items: flex-end; }
   .apple { position: absolute; z-index: 1; left: 0; top: 0; max-width: none; will-change: transform; pointer-events: none; -webkit-user-drag: none; }
   .stage, .logo, .project { -webkit-tap-highlight-color: transparent; outline: none; }
   .logo img { -webkit-user-drag: none; user-select: none; }
@@ -123,10 +131,17 @@
   .arch-item .arch-media { display: block; width: 100%; height: auto; aspect-ratio: var(--ar); object-fit: cover; background: #f4f4f4; transition: opacity .3s var(--ease); }
   .arch-item:hover .arch-media { opacity: .85; }
   .arch-cap { display: block; margin-top: calc(12 * var(--u)); font-size: calc(16 * var(--u)); line-height: 1.3; color: rgba(0, 0, 0, .4); }
-  .zoom { position: fixed; inset: 0; z-index: 20; background: #fff; display: grid; place-items: center; padding: calc(48 * var(--u)); cursor: zoom-out; opacity: 0; transition: opacity .25s var(--ease); }
+  /* Picture viewer: click a picture, then zoom with the wheel / trackpad pinch, drag to move */
+  .zoom { position: fixed; inset: 0; z-index: 30; background: #fff; overflow: hidden; opacity: 0; transition: opacity .25s var(--ease); touch-action: none; cursor: zoom-in; }
   .zoom.open { opacity: 1; }
-  .zoom img { max-width: 100%; max-height: calc(100dvh - 140px); object-fit: contain; display: block; }
-  .zoom p { margin: 16px 0 0; text-align: center; font-size: calc(16 * var(--u)); color: rgba(0, 0, 0, .4); }
+  .zoom.zoomed { cursor: grab; }
+  .zoom.dragging { cursor: grabbing; }
+  .zoom img { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; user-select: none; -webkit-user-drag: none; will-change: transform; }
+  .zoom p { position: absolute; z-index: 1; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center; font-size: 16px; color: rgba(0, 0, 0, .4); pointer-events: none; }
+  .zoom-close { position: absolute; z-index: 1; top: 28px; left: 28px; width: 20px; height: 20px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .zoom-close svg { width: 100%; height: 100%; display: block; }
+  .zoom-hint { position: absolute; z-index: 1; top: 28px; right: 28px; font-size: 14px; color: rgba(0, 0, 0, .4); pointer-events: none; }
+  .media-frame img { cursor: zoom-in; }
 
   /* ---------- Project window (Figma: 1272×821, radius 30; icons 20; title 24, date 16, text 18, captions 18) ---------- */
   .scrim { position: fixed; inset: 0; z-index: 10; background: var(--scrim); opacity: 0; transition: opacity .35s var(--ease); }
@@ -174,7 +189,6 @@
     .nav { display: none; }
     .nav-mobile { display: block; position: absolute; right: 20px; top: 21px; font-size: 16px; line-height: 1.2; }
     .grid { grid-template-columns: minmax(0, 420px); gap: 40px; padding: 10px 20px 48px; }
-    .apples { aspect-ratio: 354 / 269; }
     /* Phone cards (Figma "PHONE EXAMPLE" frames): radius 20, name always shown under the picture, no hover */
     .project { aspect-ratio: var(--pr); border-width: 3px; border-radius: 20px; }
     .project.no-stroke { border: 0; }
@@ -189,7 +203,7 @@
     .arch-cols { flex-direction: column; gap: 0; }
     .arch-item { margin-bottom: 28px; }
     .arch-cap { font-size: 14px; margin-top: 8px; }
-    .zoom { padding: 20px; }
+    .zoom-hint { display: none; }
     .about-in { flex-direction: column; gap: 28px; }
     .about-photo { flex: none; width: 100%; border-radius: 20px; }
     .about-text { flex: none; font-size: 16px; }
@@ -237,7 +251,11 @@
 <main id="archive" class="archive" hidden>
   <div class="arch-cols" id="arch-cols"></div>
 </main>
-<div class="zoom" id="zoom" hidden><figure style="margin:0"><img id="zoom-img" alt=""><p id="zoom-cap"></p></figure></div>
+<div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Picture viewer">
+  <button class="zoom-close" id="zoom-close" type="button" aria-label="Close picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.65 21.95a1.2 1.2 0 1 1-1.7 1.7L12 13.7l-9.95 9.95a1.2 1.2 0 0 1-1.7-1.7L10.3 12 .35 2.05a1.2 1.2 0 0 1 1.7-1.7L12 10.3 21.95.35a1.2 1.2 0 1 1 1.7 1.7L13.7 12l9.95 9.95Z"/></svg></button>
+  <span class="zoom-hint">Scroll or pinch to zoom · drag to move</span>
+  <img id="zoom-img" alt="" draggable="false"><p id="zoom-cap"></p>
+</div>
 
 <main id="about" class="about" hidden>
   <div class="about-in">
@@ -307,7 +325,7 @@ const NAV = [
 ];
 const INTRO = {
   bio: "Aiya is a Product Designer from Kazakhstan 🇰🇿, based in NYC.",
-  quote: "“From one Big apple to another 🍎”"
+  link: "https://www.euronews.com/2026/10/05/is-kazakhstan-the-birthplace-of-apples-heres-how-the-fruit-spread-across-the-world"
 };
 
 const CARDS = [
@@ -352,7 +370,7 @@ const PROJECTS = {
       ]},
       { type: "media", width: 995, items: [
         { src: "assets/orderly-weekly.mp4", video: true, caption: "Solo event creation", alt: "Prototype: creating a solo event", fw: 486, fh: 709, round: true, crop: { w: 132.06, h: 131.45, x: -16.03, y: -15.51 } },
-        { src: "assets/orderly-notifications.png", caption: "Notifications", alt: "Orderly notifications on the lock screen", fw: 473, fh: 699, round: true, crop: { w: 68.76, h: 97.59, x: 15.62, y: 2.41 } }
+        { src: "assets/orderly-notifications.webp", caption: "Notifications", alt: "Orderly notifications on the lock screen", fw: 473, fh: 699, round: true, crop: { w: 68.76, h: 97.59, x: 15.62, y: 2.41 } }
       ]}
     ]
   },
@@ -366,13 +384,13 @@ const PROJECTS = {
       ]},
       { type: "note", html: "<p>PowerPoints imagines the body as a system of energy points. Each body part has a capacity of 0 to 10, allowing users to move points from one area to another when something becomes exhausted. The same ability extends to other people, making it possible to send or request energy from friends.</p>" },
       { type: "media", width: 1060, items: [
-        { src: "assets/pp-body.png", caption: "Selecting a body part", alt: "PowerPoints body part selection screen", fw: 528, fh: 770, round: true, crop: PHONE_A },
-        { src: "assets/pp-transmit.png", caption: "Point transmission", alt: "PowerPoints point transmission screen", fw: 496, fh: 770, round: true, crop: PHONE_B }
+        { src: "assets/pp-body.webp", caption: "Selecting a body part", alt: "PowerPoints body part selection screen", fw: 512, fh: 770, round: true },
+        { src: "assets/pp-transmit.webp", caption: "Point transmission", alt: "PowerPoints point transmission screen", fw: 512, fh: 770, round: true }
       ]},
       { type: "note", html: "<p>The interactive body dashboard lets users select individual body parts, check their energy levels, and reallocate points where needed. Through the contacts screen, users can also search for friends, choose a type of discomfort, and send or request points. Both interactions are designed to make an imaginary superpower feel simple and familiar.</p>" },
       { type: "media", width: 1060, items: [
-        { src: "assets/pp-contacts.png", caption: "Contact list", alt: "PowerPoints contact list screen", fw: 496, fh: 770, round: true, crop: PHONE_B },
-        { src: "assets/pp-sending.png", caption: "Sending points", alt: "PowerPoints sending points screen", fw: 528, fh: 770, round: true, crop: { w: 123.66, h: 123.09, x: -9.75, y: -11.33 } }
+        { src: "assets/pp-contacts.webp", caption: "Contact list", alt: "PowerPoints contact list screen", fw: 512, fh: 770, round: true },
+        { src: "assets/pp-sending.webp", caption: "Sending points", alt: "PowerPoints sending points screen", fw: 512, fh: 770, round: true }
       ]}
     ]
   },
@@ -490,7 +508,10 @@ function linkCardHTML(c) {
 }
 $("#grid").innerHTML = CARDS.map((c) => c.type === "link" ? linkCardHTML(c) : c.type === "apples"
   ? `<div class="apples"><div class="stage"><canvas class="sky" aria-hidden="true"></canvas>
-       <div class="intro"><p class="bio">${esc(INTRO.bio)}</p><p class="quote">${esc(INTRO.quote)}</p></div></div></div>`
+       <p class="bio">${esc(INTRO.bio)}</p>
+       <p class="quote">“From one <a href="${esc(INTRO.link)}" target="_blank" rel="noopener">Big apple</a> to another 🍎”</p>
+       <div class="clock almaty"><b data-tz="Asia/Almaty">–</b><span>Almaty Time</span></div>
+       <div class="clock nyc"><b data-tz="America/New_York">–</b><span>NYC Time</span></div></div></div>`
   : `<button class="project${c.noStroke ? " no-stroke" : ""}" type="button" data-open="${esc(c.id)}" aria-label="Open ${esc(c.title)}" style="--pr:${c.phone.size[0]} / ${c.phone.size[1]}">
        <span class="desk">${cardMediaHTML(c.media)}<span class="card-title">${esc(c.title)}</span></span>
        ${phoneCardHTML(c)}</button>`
@@ -501,7 +522,7 @@ watchVideos($("#grid"));
 // Two layouts from Figma: desktop card 800×800, phone card 354×403.
 const LAYOUTS = {
   desktop: { W: 800, H: 800, size: 76, count: 30, bio: { top: 235, x: 391, w: 720, fs: 42 }, quote: { fs: 26, gap: 39 }, radius: 60 },
-  phone:   { W: 354, H: 269, size: 34, count: 14, bio: { top: 64, x: 177, w: 313, fs: 20 }, quote: { fs: 16, gap: 24 }, radius: 20 }
+  phone:   { W: 800, H: 800, size: 76, count: 26, radius: 45 }
 };
 const glyphCache = {};
 function glyph(size) {   // draw 🍎 once at 2x, crop it tight, reuse that picture
@@ -532,10 +553,6 @@ function mountApples(fit, L) {
   stage.querySelectorAll(".apple").forEach((a) => a.remove());
   const COUNT = L.count;
   // Intro text in Figma px inside the stage
-  const intro = stage.querySelector(".intro");
-  Object.assign(intro.style, { left: L.bio.x + "px", top: L.bio.top + "px", width: L.bio.w + "px" });
-  Object.assign(intro.querySelector(".bio").style, { fontSize: L.bio.fs + "px" });
-  Object.assign(intro.querySelector(".quote").style, { fontSize: L.quote.fs + "px", marginTop: L.quote.gap + "px" });
   Object.assign(stage.style, { width: W + "px", height: H + "px", borderRadius: L.radius + "px" });
 
   let scale = 1, mouse = null, alive = true;
@@ -639,12 +656,12 @@ function mountApples(fit, L) {
     const p = local(e), now = performance.now();
     const speed = lastP ? Math.min(60, Math.hypot(p.x - lastP.x, p.y - lastP.y) / k / Math.max(8, now - lastP.t) * 16) : 0;
     lastP = { ...p, t: now };
-    const reach = 95 * k;
+    const reach = 150 * k;
     for (const { body } of apples) {
       const dx = body.position.x - p.x, dy = body.position.y - p.y, d = Math.hypot(dx, dy);
       if (d > reach) continue;
-      const q = 1 - d / reach, push = q * (1.2 + speed * 0.35) * k;
-      Body.setVelocity(body, capVel(body.velocity.x + dx / (d || 1) * push, body.velocity.y + dy / (d || 1) * push * 0.6 - q * (1.5 + speed * 0.25) * k, 16 * k));
+      const q = 1 - d / reach, push = q * (2.4 + speed * 0.6) * k;
+      Body.setVelocity(body, capVel(body.velocity.x + dx / (d || 1) * push, body.velocity.y + dy / (d || 1) * push * 0.6 - q * (3 + speed * 0.4) * k, 22 * k));
       Body.setAngularVelocity(body, body.angularVelocity + (Math.random() - 0.5) * 0.06 * q);
     }
   };
@@ -654,12 +671,12 @@ function mountApples(fit, L) {
     enableTilt();
     const p = local(e);
     if (mouse && Query.point(apples.map((a) => a.body), p).length) return;   // computer: pressing an apple grabs it
-    const reach = 170 * k;
+    const reach = 240 * k;
     for (const { body } of apples) {
       const dx = body.position.x - p.x, dy = body.position.y - p.y, d = Math.hypot(dx, dy);
       if (d > reach) continue;
       const q = 1 - d / reach;
-      Body.setVelocity(body, { x: body.velocity.x + (dx / (d || 1) * 9 * q + (Math.random() - 0.5) * 2) * k, y: body.velocity.y - (11 + Math.random() * 4) * q * k });
+      Body.setVelocity(body, { x: body.velocity.x + (dx / (d || 1) * 13 * q + (Math.random() - 0.5) * 3) * k, y: body.velocity.y - (15 + Math.random() * 5) * q * k });
       Body.setAngularVelocity(body, body.angularVelocity + (Math.random() - 0.5) * 0.35 * q);
     }
   };
@@ -757,22 +774,15 @@ function kindOf(code) {   // WMO weather codes
 }
 const weatherFx = [];
 let weatherNow = null;
-const WEATHER_SNAPSHOT = "clear";   // Almaty weather when this version was built; live data replaces it on the real site
+const WEATHER_SNAPSHOT = null;   // Almaty weather when this version was built; live data replaces it on the real site
 function almatyIsDay() { const h = (new Date().getUTCHours() + 5) % 24; return h >= 7 && h < 19; }
 function applyWeather() {
   weatherFx.forEach((f) => f.stop());
   weatherFx.length = 0;
   const w = weatherNow || { kind: WEATHER_SNAPSHOT, day: almatyIsDay() };
   document.querySelectorAll(".apples .stage").forEach((stage) => {
-    const intro = stage.querySelector(".intro"), cv = stage.querySelector(".sky");
-    if (!w.kind) {   // no live data: grey card from Figma, night = dark grey
-      stage.style.background = w.day ? "" : "#2a2a2e";
-      intro.style.color = w.day ? "" : "#fff";
-    } else {
-      const [a, b, t] = SKIES[w.kind][w.day ? "day" : "night"];
-      stage.style.background = `linear-gradient(180deg, ${a}, ${b})`;
-      intro.style.color = t;
-    }
+    const cv = stage.querySelector(".sky");
+    stage.classList.toggle("night", !w.day);   // Figma: changed frame 01 = day, 02 = night
     weatherFx.push(particles(stage, cv, w));
   });
 }
@@ -783,7 +793,7 @@ function particles(stage, cv, w) {
   const K = Math.min(2, devicePixelRatio || 1);
   cv.width = W * K; cv.height = H * K; cv.style.width = W + "px"; cv.style.height = H + "px";
   const g = cv.getContext("2d"); g.setTransform(K, 0, 0, K, 0, 0); g.clearRect(0, 0, W, H);
-  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow" : (!w.day && (w.kind === "clear" || !w.kind)) ? "stars" : null;
+  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow" : null;
   if (!type) return fx;
   const n = type === "rain" ? Math.round(W / 6) : type === "snow" ? Math.round(W / 9) : Math.round(W / 10);
   const P = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random(), v: Math.random() }));
@@ -824,6 +834,14 @@ function particles(stage, cv, w) {
   requestAnimationFrame(draw);
   return fx;
 }
+function tickClocks() {
+  const now = new Date();
+  document.querySelectorAll(".clock b[data-tz]").forEach((b) => {
+    b.textContent = now.toLocaleTimeString("en-US", { timeZone: b.dataset.tz, hour: "numeric", minute: "2-digit" });
+  });
+  if (!weatherNow) document.querySelectorAll(".apples .stage").forEach((st) => st.classList.toggle("night", !almatyIsDay()));
+}
+tickClocks(); setInterval(tickClocks, 15000);
 applyWeather();   // until live data arrives: Almaty day/night
 fetch("https://api.open-meteo.com/v1/forecast?latitude=43.2389&longitude=76.8897&current=weather_code,is_day")
   .then((r) => r.json())
@@ -955,17 +973,81 @@ function renderArchive() {   // like Cargo: each item goes into the shortest col
 }
 renderArchive();
 PHONE.addEventListener("change", renderArchive);
-const zoom = $("#zoom");
+/* ---------- Picture viewer (archive + project pictures) ---------- */
+const zoom = $("#zoom"), zimg = $("#zoom-img");
+let Z = { s: 1, x: 0, y: 0, fit: 1 }, ptrs = new Map(), pinch = null, dragFrom = null, moved = false;
+function zApply() { zimg.style.transform = `translate(${Z.x}px, ${Z.y}px) scale(${Z.s})`; zoom.classList.toggle("zoomed", Z.s > Z.fit * 1.01); }
+function zFit() {
+  const W = innerWidth, H = innerHeight, pad = PHONE.matches ? 20 : 70, iw = zimg.naturalWidth || 1, ih = zimg.naturalHeight || 1;
+  Z.fit = Math.min((W - pad * 2) / iw, (H - pad * 2) / ih, 1.5);
+  Z.s = Z.fit; Z.x = (W - iw * Z.s) / 2; Z.y = (H - ih * Z.s) / 2; zApply();
+}
+function zClamp() {   // keep the picture on screen
+  const W = innerWidth, H = innerHeight, w = zimg.naturalWidth * Z.s, h = zimg.naturalHeight * Z.s;
+  Z.x = w <= W ? (W - w) / 2 : Math.min(0, Math.max(W - w, Z.x));
+  Z.y = h <= H ? (H - h) / 2 : Math.min(0, Math.max(H - h, Z.y));
+}
+function zZoomAt(cx, cy, factor) {
+  const s = Math.min(Z.fit * 8, Math.max(Z.fit, Z.s * factor)), k = s / Z.s;
+  Z.x = cx - (cx - Z.x) * k; Z.y = cy - (cy - Z.y) * k; Z.s = s; zClamp(); zApply();
+}
+function openZoom(src, caption) {
+  zimg.onload = zFit; zimg.src = src; zimg.alt = caption || ""; $("#zoom-cap").textContent = caption || "";
+  zoom.hidden = false; document.body.classList.add("locked");
+  if (zimg.complete) zFit();
+  requestAnimationFrame(() => zoom.classList.add("open"));
+  $("#zoom-close").focus({ preventScroll: true });
+}
+function closeZoom() {
+  zoom.classList.remove("open");
+  if (modal.hidden) document.body.classList.remove("locked");
+  setTimeout(() => { zoom.hidden = true; zimg.removeAttribute("src"); }, 250);
+}
+zoom.addEventListener("wheel", (e) => {   // mouse wheel and trackpad pinch (ctrl+wheel) both zoom
+  e.preventDefault();
+  const d = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+  zZoomAt(e.clientX, e.clientY, Math.exp(-d * (e.ctrlKey ? 0.01 : 0.0022)));
+}, { passive: false });
+zoom.addEventListener("pointerdown", (e) => {
+  if (e.target.closest(".zoom-close")) return;
+  zoom.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); moved = false;
+  if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) }; }
+  else dragFrom = { x: e.clientX - Z.x, y: e.clientY - Z.y, sx: e.clientX, sy: e.clientY };
+});
+zoom.addEventListener("pointermove", (e) => {
+  if (!ptrs.has(e.pointerId)) return;
+  ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pinch && ptrs.size === 2) {
+    const [a, b] = [...ptrs.values()], d = Math.hypot(a.x - b.x, a.y - b.y);
+    zZoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, d / pinch.d); pinch.d = d; moved = true; return;
+  }
+  if (dragFrom) {
+    if (Math.hypot(e.clientX - dragFrom.sx, e.clientY - dragFrom.sy) > 4) moved = true;
+    if (Z.s > Z.fit * 1.01) { Z.x = e.clientX - dragFrom.x; Z.y = e.clientY - dragFrom.y; zClamp(); zApply(); zoom.classList.add("dragging"); }
+  }
+});
+const zUp = (e) => {
+  ptrs.delete(e.pointerId); zoom.classList.remove("dragging");
+  if (ptrs.size < 2) pinch = null;
+  if (!ptrs.size) {
+    // a click without dragging: zoom in 2.5× where clicked, or back out when already zoomed
+    if (!moved && e.type === "pointerup") { if (Z.s > Z.fit * 1.01) zFit(); else zZoomAt(e.clientX, e.clientY, 2.5); }
+    dragFrom = null;
+  } else { const [p] = [...ptrs.values()]; dragFrom = { x: p.x - Z.x, y: p.y - Z.y, sx: p.x, sy: p.y }; }
+};
+zoom.addEventListener("pointerup", zUp);
+zoom.addEventListener("pointercancel", zUp);
+$("#zoom-close").addEventListener("click", closeZoom);
+addEventListener("resize", () => { if (!zoom.hidden) zFit(); });
+addEventListener("keydown", (e) => { if (e.key === "Escape" && !zoom.hidden) { e.stopImmediatePropagation(); closeZoom(); } }, true);
 $("#arch-cols").addEventListener("click", (e) => {
   const b = e.target.closest("[data-zoom]"); if (!b) return;
-  const a = ARCHIVE[+b.dataset.zoom];
-  $("#zoom-img").src = a.src; $("#zoom-img").alt = a.caption; $("#zoom-cap").textContent = a.caption;
-  zoom.hidden = false; document.body.classList.add("locked");
-  requestAnimationFrame(() => zoom.classList.add("open"));
+  const a = ARCHIVE[+b.dataset.zoom]; openZoom(a.src, a.caption);
 });
-function closeZoom() { zoom.classList.remove("open"); document.body.classList.remove("locked"); setTimeout(() => { zoom.hidden = true; }, 250); }
-zoom.addEventListener("click", closeZoom);
-addEventListener("keydown", (e) => { if (e.key === "Escape" && !zoom.hidden) closeZoom(); });
+$("#cs").addEventListener("click", (e) => {
+  const img = e.target.closest(".media-frame img"); if (!img) return;
+  const fig = img.closest(".media"); openZoom(img.currentSrc || img.src, fig?.querySelector("figcaption")?.textContent || "");
+});
 
 /* ---------- Pages: #about shows About, anything else shows the homepage ---------- */
 function route() {
