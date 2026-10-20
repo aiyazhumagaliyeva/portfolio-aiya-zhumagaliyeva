@@ -875,7 +875,7 @@ function particles(stage, cv, w) {
   cv.width = W * K; cv.height = H * K; cv.style.width = W + "px"; cv.style.height = H + "px";
   const g = cv.getContext("2d"); g.setTransform(K, 0, 0, K, 0, 0); g.clearRect(0, 0, W, H);
   const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow"
-    : !w.day && (w.kind === "clear" || !w.kind) ? "stars" : "clouds";
+    : !w.day ? "stars" : "clouds";   // night: always stars (unless rain/snow)
   if (type === "clouds") return sunnySky(stage, g, W, H, w.kind !== "clear" && !!w.kind, fx, !w.day);
   const n = type === "rain" ? Math.round(W / 6) : type === "snow" ? Math.round(W / 9) : Math.round(W / 10);
   const P = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random(), v: Math.random() }));
