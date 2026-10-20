@@ -135,6 +135,7 @@
            transform: translate(-50%, -50%) scale(.96); opacity: 0; background: var(--bg); border-radius: calc(30 * var(--mk)); overflow: hidden; display: flex; flex-direction: column;
            transition: opacity .3s var(--ease), transform .45s var(--ease), width .5s var(--ease), height .5s var(--ease), border-radius .5s var(--ease); }
   .modal.open { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .modal, .modal:focus, .modal:focus-visible, .modal-scroll:focus, .modal-scroll:focus-visible { outline: none; }
   .modal.expanded { width: 100vw; height: 100dvh; border-radius: 0; }
   .modal-controls { position: absolute; z-index: 2; top: 0; left: 0; right: 0; background: var(--bg); display: flex; justify-content: space-between;
                     padding: calc(30 * var(--mk)) calc(27 * var(--mk)) calc(12 * var(--mk)) calc(28 * var(--mk)); }
