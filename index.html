@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Aiya Zhumagaliyeva — product designer from Kazakhstan, based in NYC.">
 <title>Aiya Zhumagaliyeva</title>
+<link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Inter:wght@400&display=swap">
@@ -64,7 +65,7 @@
 
   /* ---------- Grid (Figma: cards 800×800, gap 30, 49 from the sides, starts 135 from the top) ---------- */
   .grid { display: grid; grid-template-columns: repeat(2, minmax(0, calc(800 * var(--u)))); justify-content: center; gap: calc(30 * var(--u));
-          padding: calc(35 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
+          padding: calc(4 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
 
   /* Apple card: a fixed-size stage (800×800, phone 354×269) scaled to fit — text and apples scale together. */
   .apples { position: relative; width: 100%; aspect-ratio: 1 / 1; }
@@ -72,8 +73,8 @@
            transition: background 1.2s ease; }
   .stage .sky { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
   /* Figma "changed frame 01" (Almaty day) and "changed frame 02" (Almaty night), 800×800 */
-  .stage { --ink: #ff2726; background: #bbf5ff; color: var(--ink); }
-  .stage.night { --ink: #ffffff; background: #141630; }
+  .stage { --ink: #ff2726; background: linear-gradient(180deg, #bfe0ff, #eaf5ff); color: var(--ink); }
+  .stage.night { --ink: #ffffff; background: linear-gradient(180deg, #0d1b3d, #26375f); }
   .stage .bio { position: absolute; z-index: 2; left: 42px; top: 43px; width: 665px; margin: 0; font-family: "Anton SC", Impact, sans-serif; font-size: 50px; line-height: normal; pointer-events: none; }
   .stage .quote { position: absolute; z-index: 2; left: 42px; top: 199px; margin: 0; font-size: 26px; line-height: normal; white-space: nowrap; pointer-events: none; }
   .stage .quote a { pointer-events: auto; text-decoration: underline; text-underline-offset: 3px; }
@@ -123,7 +124,17 @@
 
 
   /* ---------- Living Archive (layout from the old Cargo page: 3 columns, captions under each picture) ---------- */
-  .archive { padding: calc(35 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
+  .archive { padding: calc(10 * var(--u)) calc(49 * var(--u)) calc(100 * var(--u)); }
+  /* Figma: "Archive" 18px at y 110, size slider on the right, pictures start at y 163 */
+  .arch-bar { height: calc(53 * var(--u)); display: flex; justify-content: space-between; align-items: flex-start; font-size: calc(18 * var(--u)); line-height: normal; }
+  .arch-size { display: flex; align-items: center; gap: calc(14 * var(--u)); height: calc(22 * var(--u)); cursor: pointer; }
+  .arch-size svg { width: calc(14 * var(--u)); height: calc(14 * var(--u)); fill: #b3b3b3; }
+  .arch-size input { -webkit-appearance: none; appearance: none; width: calc(100 * var(--u)); height: calc(13 * var(--u)); margin: 0; background: transparent; cursor: pointer; }
+  .arch-size input::-webkit-slider-runnable-track { height: 1px; background: #d3d3d3; }
+  .arch-size input::-moz-range-track { height: 1px; background: #d3d3d3; }
+  .arch-size input::-webkit-slider-thumb { -webkit-appearance: none; width: calc(13 * var(--u)); height: calc(13 * var(--u)); margin-top: calc(-6 * var(--u)); border-radius: 50%; background: #9b9b9b; border: 0; }
+  .arch-size input::-moz-range-thumb { width: calc(13 * var(--u)); height: calc(13 * var(--u)); border-radius: 50%; background: #9b9b9b; border: 0; }
+  .arch-media.round { border-radius: calc(30 * var(--u)); }
   .arch-cols { display: flex; align-items: flex-start; gap: calc(15 * var(--u)); }
   .arch-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
   .arch-item { display: block; margin: 0 0 calc(30 * var(--u)); padding: 0; border: 0; background: none; text-align: left; font: inherit; color: inherit; cursor: zoom-in; width: 100%; }
@@ -136,12 +147,12 @@
   .zoom.open { opacity: 1; }
   .zoom.zoomed { cursor: grab; }
   .zoom.dragging { cursor: grabbing; }
-  .zoom img { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; user-select: none; -webkit-user-drag: none; will-change: transform; }
+  .zoom img, .zoom video { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 0 0; user-select: none; -webkit-user-drag: none; will-change: transform; }
   .zoom p { position: absolute; z-index: 1; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center; font-size: 16px; color: rgba(0, 0, 0, .4); pointer-events: none; }
   .zoom-close { position: absolute; z-index: 1; top: 28px; left: 28px; width: 20px; height: 20px; padding: 0; border: 0; background: none; cursor: pointer; }
   .zoom-close svg { width: 100%; height: 100%; display: block; }
   .zoom-hint { position: absolute; z-index: 1; top: 28px; right: 28px; font-size: 14px; color: rgba(0, 0, 0, .4); pointer-events: none; }
-  .media-frame img { cursor: zoom-in; }
+  .media-frame img, .media-frame video { cursor: zoom-in; }
 
   /* ---------- Project window (Figma: 1272×821, radius 30; icons 20; title 24, date 16, text 18, captions 18) ---------- */
   .scrim { position: fixed; inset: 0; z-index: 10; background: var(--scrim); opacity: 0; transition: opacity .35s var(--ease); }
@@ -200,6 +211,9 @@
     .mob-title { position: absolute; left: 0; right: 0; text-align: center; font-size: 18px; line-height: normal; }
     .about { padding: 10px 20px 48px; }
     .archive { padding: 10px 20px 48px; }
+    .arch-bar { height: 40px; font-size: 16px; }
+    .arch-size { display: none; }
+    .arch-media.round { border-radius: 20px; }
     .arch-cols { flex-direction: column; gap: 0; }
     .arch-item { margin-bottom: 28px; }
     .arch-cap { font-size: 14px; margin-top: 8px; }
@@ -249,12 +263,20 @@
 </main>
 
 <main id="archive" class="archive" hidden>
+  <div class="arch-bar">
+    <span>Archive</span>
+    <label class="arch-size" title="Picture size">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><rect x="0" y="0" width="6" height="6" rx="1.5"/><rect x="8" y="0" width="6" height="6" rx="1.5"/><rect x="0" y="8" width="6" height="6" rx="1.5"/><rect x="8" y="8" width="6" height="6" rx="1.5"/></svg>
+      <input id="arch-size" type="range" min="1" max="3" step="1" value="3" aria-label="Columns">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><rect x="0" y="0" width="3.6" height="3.6" rx="1"/><rect x="5.2" y="0" width="3.6" height="3.6" rx="1"/><rect x="10.4" y="0" width="3.6" height="3.6" rx="1"/><rect x="0" y="5.2" width="3.6" height="3.6" rx="1"/><rect x="5.2" y="5.2" width="3.6" height="3.6" rx="1"/><rect x="10.4" y="5.2" width="3.6" height="3.6" rx="1"/><rect x="0" y="10.4" width="3.6" height="3.6" rx="1"/><rect x="5.2" y="10.4" width="3.6" height="3.6" rx="1"/><rect x="10.4" y="10.4" width="3.6" height="3.6" rx="1"/></svg>
+    </label>
+  </div>
   <div class="arch-cols" id="arch-cols"></div>
 </main>
 <div class="zoom" id="zoom" hidden role="dialog" aria-modal="true" aria-label="Picture viewer">
   <button class="zoom-close" id="zoom-close" type="button" aria-label="Close picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.65 21.95a1.2 1.2 0 1 1-1.7 1.7L12 13.7l-9.95 9.95a1.2 1.2 0 0 1-1.7-1.7L10.3 12 .35 2.05a1.2 1.2 0 0 1 1.7-1.7L12 10.3 21.95.35a1.2 1.2 0 1 1 1.7 1.7L13.7 12l9.95 9.95Z"/></svg></button>
-  <span class="zoom-hint">Scroll or pinch to zoom · drag to move</span>
-  <img id="zoom-img" alt="" draggable="false"><p id="zoom-cap"></p>
+  <span class="zoom-hint">Scroll or pinch to zoom · drag to move · click outside to close</span>
+  <img id="zoom-img" alt="" draggable="false"><video id="zoom-vid" muted loop playsinline hidden></video><p id="zoom-cap"></p>
 </div>
 
 <main id="about" class="about" hidden>
@@ -330,13 +352,12 @@ const INTRO = {
 
 const CARDS = [
   { type: "apples" },
-  { type: "project", id: "open", title: "Open 10AM - 8PM", noStroke: true,
+  { type: "project", id: "open", title: "Open 10AM - 8PM", noStroke: true, titleColor: "#ffffff",
     media: { src: "assets/open-cover.jpg", alt: "Open 10AM - 8PM spiral-bound book", box: [800, 820], crop: { w: 115.75, h: 98.84, x: -7.88, y: 0.58 }, fillCard: true },
     phone: { size: [349, 326], box: [-3, 0, 355, 326], crop: { w: 124, h: 117.98, x: -13.74, y: -16.6 }, titleTop: 283.5 } },
   { type: "project", id: "orderly", title: "Orderly",
     media: { src: "assets/orderly-ai-suggest.mp4", video: true, alt: "Orderly app prototype", box: [800, 735], crop: { w: 74.9, h: 118.84, x: 12.55, y: -8.2 } },
     phone: { size: [349, 570], box: [0, 0, 349, 514], crop: { w: 117.18, h: 119.02, x: -8.59, y: -7.26 }, titleTop: 516 } },
-  { type: "link", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/", src: "assets/almaty-card.mp4", poster: "assets/almaty-card.jpg", video: true, title: "Apple is from Almaty" },
   { type: "project", id: "powerpoints", title: "PowerPoints",
     media: { src: "assets/pp-card.png", alt: "PowerPoints app on a phone", box: [762, 718] },
     phone: { size: [349, 570], box: [0, 0, 349, 513], titleTop: 515.5 } },
@@ -370,7 +391,7 @@ const PROJECTS = {
       ]},
       { type: "media", width: 995, items: [
         { src: "assets/orderly-weekly.mp4", video: true, caption: "Solo event creation", alt: "Prototype: creating a solo event", fw: 486, fh: 709, round: true, crop: { w: 132.06, h: 131.45, x: -16.03, y: -15.51 } },
-        { src: "assets/orderly-notifications.webp", caption: "Notifications", alt: "Orderly notifications on the lock screen", fw: 473, fh: 699, round: true, crop: { w: 68.76, h: 97.59, x: 15.62, y: 2.41 } }
+        { src: "assets/orderly-notifications.webp", caption: "Notifications", alt: "Orderly notifications on the lock screen", fw: 473, fh: 699, round: true, crop: { w: 66.52, h: 97.59, x: 16.74, y: 2.41 } }
       ]}
     ]
   },
@@ -513,7 +534,7 @@ $("#grid").innerHTML = CARDS.map((c) => c.type === "link" ? linkCardHTML(c) : c.
        <div class="clock almaty"><b data-tz="Asia/Almaty">–</b><span>Almaty Time</span></div>
        <div class="clock nyc"><b data-tz="America/New_York">–</b><span>NYC Time</span></div></div></div>`
   : `<button class="project${c.noStroke ? " no-stroke" : ""}" type="button" data-open="${esc(c.id)}" aria-label="Open ${esc(c.title)}" style="--pr:${c.phone.size[0]} / ${c.phone.size[1]}">
-       <span class="desk">${cardMediaHTML(c.media)}<span class="card-title">${esc(c.title)}</span></span>
+       <span class="desk">${cardMediaHTML(c.media)}<span class="card-title"${c.titleColor ? ` style="color:${c.titleColor}"` : ""}>${esc(c.title)}</span></span>
        ${phoneCardHTML(c)}</button>`
 ).join("");
 watchVideos($("#grid"));
@@ -782,7 +803,9 @@ function applyWeather() {
   const w = weatherNow || { kind: WEATHER_SNAPSHOT, day: almatyIsDay() };
   document.querySelectorAll(".apples .stage").forEach((stage) => {
     const cv = stage.querySelector(".sky");
-    stage.classList.toggle("night", !w.day);   // Figma: changed frame 01 = day, 02 = night
+    stage.classList.toggle("night", !w.day);   // day: red text (Figma frame 01), night: white text (frame 02)
+    const sky = SKIES[w.kind || "clear"][w.day ? "day" : "night"];
+    stage.style.background = `linear-gradient(180deg, ${sky[0]}, ${sky[1]})`;
     weatherFx.push(particles(stage, cv, w));
   });
 }
@@ -793,7 +816,7 @@ function particles(stage, cv, w) {
   const K = Math.min(2, devicePixelRatio || 1);
   cv.width = W * K; cv.height = H * K; cv.style.width = W + "px"; cv.style.height = H + "px";
   const g = cv.getContext("2d"); g.setTransform(K, 0, 0, K, 0, 0); g.clearRect(0, 0, W, H);
-  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow" : null;
+  const type = w.kind === "rain" || w.kind === "storm" ? "rain" : w.kind === "snow" ? "snow" : (!w.day && (w.kind === "clear" || !w.kind)) ? "stars" : null;
   if (!type) return fx;
   const n = type === "rain" ? Math.round(W / 6) : type === "snow" ? Math.round(W / 9) : Math.round(W / 10);
   const P = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random(), v: Math.random() }));
@@ -839,7 +862,8 @@ function tickClocks() {
   document.querySelectorAll(".clock b[data-tz]").forEach((b) => {
     b.textContent = now.toLocaleTimeString("en-US", { timeZone: b.dataset.tz, hour: "numeric", minute: "2-digit" });
   });
-  if (!weatherNow) document.querySelectorAll(".apples .stage").forEach((st) => st.classList.toggle("night", !almatyIsDay()));
+  const st = document.querySelector(".apples .stage");   // day ↔ night changed (no live data): redraw the sky
+  if (!weatherNow && st && st.classList.contains("night") === almatyIsDay()) applyWeather();
 }
 tickClocks(); setInterval(tickClocks, 15000);
 applyWeather();   // until live data arrives: Almaty day/night
@@ -939,51 +963,56 @@ document.addEventListener("keydown", (e) => {
 
 
 /* ---------- Living Archive ---------- */
-const ARCHIVE = [
-  { src: "assets/arch-oki.webp", w: 1400, h: 1371, caption: "Oki (Aleem) Mascot design, 2026" },
-  { src: "assets/arch-sansu.webp", w: 1254, h: 1254, caption: "Sansu Brand Design, February 2026" },
-  { src: "assets/arch-circles.webp", w: 1400, h: 840, caption: "Circles, Parsons Fall 2026" },
-  { src: "assets/arch-change.mp4", poster: "assets/arch-change.jpg", video: true, w: 1400, h: 800, caption: "Change, Speing 2024", href: "https://aiyazhumagaliyeva.github.io/change/index.html" },
-  { src: "assets/arch-mantra.webp", w: 1338, h: 1516, caption: "Mantra Merch, Parsons Fall 2024..." },
-  { src: "assets/arch-poster.webp", w: 1400, h: 1390, caption: "Poster Design, Parsons Fall 2024" },
-  { src: "assets/arch-fish.webp", w: 1400, h: 1120, caption: "Fish, Parsons Fall 2024" },
-  { src: "assets/arch-tag.webp", w: 1062, h: 641, caption: "Tag Design, Fall 2023" },
-  { src: "assets/arch-merch.webp", w: 1400, h: 1304, caption: "Brand Merchendise, Winter 2026" },
-  { src: "assets/arch-qazaq.webp", w: 1256, h: 912, caption: "Qazaq Blend Brand Design, Winter 2024" }
+const ARCHIVE = [   // reading order; col = column in the 3-column Figma frame; h = picture height in that frame (533 wide)
+  { src: "assets/almaty-card.mp4", poster: "assets/almaty-card.jpg", video: true, h: 522, col: 0, round: true, caption: "Apples are from Almaty, Side Project, 2026", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/" },
+  { src: "assets/arch-sansu.webp", h: 533, col: 1, caption: "Sansu Brand Design, February 2026" },
+  { src: "assets/arch-circles.webp", h: 320, col: 2, caption: "Circles, Parsons Fall 2026" },
+  { src: "assets/arch-oki.webp", h: 522, col: 0, caption: "Oki (Aleem) Mascot design, 2026" },
+  { src: "assets/arch-poster.webp", h: 530, col: 1, round: true, caption: "Poster Design, Parsons Fall 2024" },
+  { src: "assets/arch-change.mp4", poster: "assets/arch-change.jpg", video: true, h: 305, col: 2, caption: "Change, Speing 2024", href: "https://aiyazhumagaliyeva.github.io/change/index.html" },
+  { src: "assets/arch-mantra.webp", h: 604, col: 0, round: true, caption: "Mantra Merch, Parsons Fall 2024..." },
+  { src: "assets/arch-tag.webp", h: 322, col: 1, round: true, caption: "Tag Design, Fall 2023" },
+  { src: "assets/arch-fish.webp", h: 427, col: 2, round: true, caption: "Fish, Parsons Fall 2024" },
+  { src: "assets/arch-merch.webp", h: 497, col: 0, caption: "Brand Merchendise, Winter 2026" },
+  { src: "assets/arch-qazaq.webp", h: 387, col: 2, caption: "Qazaq Blend Brand Design, Winter 2024" }
 ];
+const ARCH_W = 533.333;
 function archItemHTML(a, i) {
-  const ar = `--ar:${a.w} / ${a.h}`;
+  const st = `style="--ar:${ARCH_W} / ${a.h}"`, cls = `arch-media${a.round ? " round" : ""}`;
   const media = a.video
-    ? `<video class="arch-media" style="${ar}" src="${esc(a.src)}" poster="${esc(a.poster)}" muted loop playsinline preload="metadata" data-auto aria-hidden="true"></video>`
-    : `<img class="arch-media" style="${ar}" src="${esc(a.src)}" alt="${esc(a.caption)}" loading="lazy" width="${a.w}" height="${a.h}">`;
+    ? `<video class="${cls}" ${st} src="${esc(a.src)}" poster="${esc(a.poster)}" muted loop playsinline preload="metadata" data-auto aria-hidden="true"></video>`
+    : `<img class="${cls}" ${st} src="${esc(a.src)}" alt="${esc(a.caption)}" loading="lazy">`;
   const cap = `<span class="arch-cap">${esc(a.caption)}</span>`;
   return a.href
     ? `<a class="arch-item" href="${esc(a.href)}" target="_blank" rel="noopener">${media}${cap}</a>`
     : `<button class="arch-item" type="button" data-zoom="${i}" aria-label="View ${esc(a.caption)}">${media}${cap}</button>`;
 }
-function renderArchive() {   // like Cargo: each item goes into the shortest column
-  const n = PHONE.matches ? 1 : 3, cols = Array.from({ length: n }, () => ({ h: 0, html: "" }));
-  const CARGO_COLS = [0, 1, 2, 2, 0, 1, 2, 1, 0, 2];   // same columns as the old Cargo page
+let archCols = 3;
+function renderArchive() {   // 3 columns = the Figma frame; other counts fill the shortest column
+  const n = PHONE.matches ? 1 : archCols, cols = Array.from({ length: n }, () => ({ h: 0, html: "" }));
   ARCHIVE.forEach((a, i) => {
-    const c = n === 3 && CARGO_COLS[i] != null ? cols[CARGO_COLS[i]] : cols.reduce((m, x) => x.h < m.h - 0.01 ? x : m, cols[0]);
-    c.html += archItemHTML(a, i); c.h += a.h / a.w + 0.08;
+    const c = n === 3 ? cols[a.col] : cols.reduce((m, x) => x.h < m.h - 0.01 ? x : m, cols[0]);
+    c.html += archItemHTML(a, i); c.h += a.h / ARCH_W + 0.08;
   });
   $("#arch-cols").innerHTML = cols.map((c) => `<div class="arch-col">${c.html}</div>`).join("");
   watchVideos($("#arch-cols"));
 }
+$("#arch-size").addEventListener("input", (e) => { archCols = +e.target.value; renderArchive(); });
 renderArchive();
 PHONE.addEventListener("change", renderArchive);
 /* ---------- Picture viewer (archive + project pictures) ---------- */
-const zoom = $("#zoom"), zimg = $("#zoom-img");
+const zoom = $("#zoom"), zimgEl = $("#zoom-img"), zvid = $("#zoom-vid");
+let zimg = zimgEl;   // the element being shown: picture or video
+const natW = () => zimg.naturalWidth || zimg.videoWidth || 1, natH = () => zimg.naturalHeight || zimg.videoHeight || 1;
 let Z = { s: 1, x: 0, y: 0, fit: 1 }, ptrs = new Map(), pinch = null, dragFrom = null, moved = false;
 function zApply() { zimg.style.transform = `translate(${Z.x}px, ${Z.y}px) scale(${Z.s})`; zoom.classList.toggle("zoomed", Z.s > Z.fit * 1.01); }
 function zFit() {
-  const W = innerWidth, H = innerHeight, pad = PHONE.matches ? 20 : 70, iw = zimg.naturalWidth || 1, ih = zimg.naturalHeight || 1;
+  const W = innerWidth, H = innerHeight, pad = PHONE.matches ? 20 : 70, iw = natW(), ih = natH();
   Z.fit = Math.min((W - pad * 2) / iw, (H - pad * 2) / ih, 1.5);
   Z.s = Z.fit; Z.x = (W - iw * Z.s) / 2; Z.y = (H - ih * Z.s) / 2; zApply();
 }
 function zClamp() {   // keep the picture on screen
-  const W = innerWidth, H = innerHeight, w = zimg.naturalWidth * Z.s, h = zimg.naturalHeight * Z.s;
+  const W = innerWidth, H = innerHeight, w = natW() * Z.s, h = natH() * Z.s;
   Z.x = w <= W ? (W - w) / 2 : Math.min(0, Math.max(W - w, Z.x));
   Z.y = h <= H ? (H - h) / 2 : Math.min(0, Math.max(H - h, Z.y));
 }
@@ -991,17 +1020,21 @@ function zZoomAt(cx, cy, factor) {
   const s = Math.min(Z.fit * 8, Math.max(Z.fit, Z.s * factor)), k = s / Z.s;
   Z.x = cx - (cx - Z.x) * k; Z.y = cy - (cy - Z.y) * k; Z.s = s; zClamp(); zApply();
 }
-function openZoom(src, caption) {
-  zimg.onload = zFit; zimg.src = src; zimg.alt = caption || ""; $("#zoom-cap").textContent = caption || "";
+function openZoom(src, caption, isVideo) {
+  zimg = isVideo ? zvid : zimgEl;
+  zvid.hidden = !isVideo; zimgEl.hidden = !!isVideo;
+  if (isVideo) { zvid.onloadedmetadata = zFit; zvid.src = src; zvid.muted = true; const pr = zvid.play(); if (pr) pr.catch(() => {}); }
+  else { zimgEl.onload = zFit; zimgEl.src = src; zimgEl.alt = caption || ""; }
+  $("#zoom-cap").textContent = caption || "";
   zoom.hidden = false; document.body.classList.add("locked");
-  if (zimg.complete) zFit();
+  if (isVideo ? zvid.readyState >= 1 : zimgEl.complete) zFit();
   requestAnimationFrame(() => zoom.classList.add("open"));
   $("#zoom-close").focus({ preventScroll: true });
 }
 function closeZoom() {
   zoom.classList.remove("open");
   if (modal.hidden) document.body.classList.remove("locked");
-  setTimeout(() => { zoom.hidden = true; zimg.removeAttribute("src"); }, 250);
+  setTimeout(() => { zoom.hidden = true; zimgEl.removeAttribute("src"); zvid.pause(); zvid.removeAttribute("src"); zvid.load(); }, 250);
 }
 zoom.addEventListener("wheel", (e) => {   // mouse wheel and trackpad pinch (ctrl+wheel) both zoom
   e.preventDefault();
@@ -1030,8 +1063,13 @@ const zUp = (e) => {
   ptrs.delete(e.pointerId); zoom.classList.remove("dragging");
   if (ptrs.size < 2) pinch = null;
   if (!ptrs.size) {
-    // a click without dragging: zoom in 2.5× where clicked, or back out when already zoomed
-    if (!moved && e.type === "pointerup") { if (Z.s > Z.fit * 1.01) zFit(); else zZoomAt(e.clientX, e.clientY, 2.5); }
+    // a click without dragging: outside the picture closes; on it, zoom in 2.5× (or back out)
+    if (!moved && e.type === "pointerup") {
+      const r = zimg.getBoundingClientRect();
+      const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) closeZoom();
+      else if (Z.s > Z.fit * 1.01) zFit(); else zZoomAt(e.clientX, e.clientY, 2.5);
+    }
     dragFrom = null;
   } else { const [p] = [...ptrs.values()]; dragFrom = { x: p.x - Z.x, y: p.y - Z.y, sx: p.x, sy: p.y }; }
 };
@@ -1045,8 +1083,9 @@ $("#arch-cols").addEventListener("click", (e) => {
   const a = ARCHIVE[+b.dataset.zoom]; openZoom(a.src, a.caption);
 });
 $("#cs").addEventListener("click", (e) => {
-  const img = e.target.closest(".media-frame img"); if (!img) return;
-  const fig = img.closest(".media"); openZoom(img.currentSrc || img.src, fig?.querySelector("figcaption")?.textContent || "");
+  const el = e.target.closest(".media-frame img, .media-frame video"); if (!el) return;
+  const fig = el.closest(".media"), cap = fig?.querySelector("figcaption")?.textContent || "";
+  openZoom(el.currentSrc || el.src, cap, el.tagName === "VIDEO");
 });
 
 /* ---------- Pages: #about shows About, anything else shows the homepage ---------- */
