@@ -78,8 +78,12 @@
   .stage .bio { position: absolute; z-index: 2; left: 42px; top: 43px; width: 665px; margin: 0; font-family: "Anton SC", Impact, sans-serif; font-size: 50px; line-height: normal; pointer-events: none; }
   .stage .quote { position: absolute; z-index: 2; left: 42px; top: 199px; margin: 0; font-size: 26px; line-height: normal; white-space: nowrap; pointer-events: none; }
   .stage .quote a { pointer-events: auto; text-decoration: underline; text-underline-offset: 3px; }
-  .stage .clock { position: absolute; z-index: 2; top: 348px; display: flex; flex-direction: column; line-height: normal; white-space: nowrap; pointer-events: none; }
-  .stage .clock b { font-family: "Anton SC", Impact, sans-serif; font-weight: 400; font-size: 40px; }
+  .stage .clock { position: absolute; z-index: 2; top: 348px; display: flex; flex-direction: column; line-height: normal; white-space: nowrap;
+                  padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+  /* the selected city is bold (Anton SC); the card shows that city's sky */
+  .stage .clock b { font-family: var(--font); font-weight: 400; font-size: 40px; transition: opacity .2s; }
+  .stage .clock.on b { font-family: "Anton SC", Impact, sans-serif; }
+  .stage .clock:not(.on):hover b { opacity: .7; }
   .stage .clock span { font-size: 26px; }
   .stage .clock.almaty { left: 47px; gap: 9px; align-items: flex-start; }
   .stage .clock.nyc { right: 47px; gap: 13px; align-items: flex-end; }
@@ -267,7 +271,7 @@
     <span>Archive</span>
     <label class="arch-size" title="Picture size">
       <svg viewBox="0 0 14 14" aria-hidden="true"><rect x="0" y="0" width="6" height="6" rx="1.5"/><rect x="8" y="0" width="6" height="6" rx="1.5"/><rect x="0" y="8" width="6" height="6" rx="1.5"/><rect x="8" y="8" width="6" height="6" rx="1.5"/></svg>
-      <input id="arch-size" type="range" min="1" max="3" step="1" value="3" aria-label="Columns">
+      <input id="arch-size" type="range" min="1" max="5" step="1" value="3" aria-label="Pictures per row">
       <svg viewBox="0 0 14 14" aria-hidden="true"><rect x="0" y="0" width="3.6" height="3.6" rx="1"/><rect x="5.2" y="0" width="3.6" height="3.6" rx="1"/><rect x="10.4" y="0" width="3.6" height="3.6" rx="1"/><rect x="0" y="5.2" width="3.6" height="3.6" rx="1"/><rect x="5.2" y="5.2" width="3.6" height="3.6" rx="1"/><rect x="10.4" y="5.2" width="3.6" height="3.6" rx="1"/><rect x="0" y="10.4" width="3.6" height="3.6" rx="1"/><rect x="5.2" y="10.4" width="3.6" height="3.6" rx="1"/><rect x="10.4" y="10.4" width="3.6" height="3.6" rx="1"/></svg>
     </label>
   </div>
@@ -531,8 +535,8 @@ $("#grid").innerHTML = CARDS.map((c) => c.type === "link" ? linkCardHTML(c) : c.
   ? `<div class="apples"><div class="stage"><canvas class="sky" aria-hidden="true"></canvas>
        <p class="bio">${esc(INTRO.bio)}</p>
        <p class="quote">“From one <a href="${esc(INTRO.link)}" target="_blank" rel="noopener">Big apple</a> to another 🍎”</p>
-       <div class="clock almaty"><b data-tz="Asia/Almaty">–</b><span>Almaty Time</span></div>
-       <div class="clock nyc"><b data-tz="America/New_York">–</b><span>NYC Time</span></div></div></div>`
+       <button type="button" class="clock almaty on" data-city="almaty" aria-pressed="true"><b data-tz="Asia/Almaty">–</b><span>Almaty Time</span></button>
+       <button type="button" class="clock nyc" data-city="nyc" aria-pressed="false"><b data-tz="America/New_York">–</b><span>NYC Time</span></button></div></div>`
   : `<button class="project${c.noStroke ? " no-stroke" : ""}" type="button" data-open="${esc(c.id)}" aria-label="Open ${esc(c.title)}" style="--pr:${c.phone.size[0]} / ${c.phone.size[1]}">
        <span class="desk">${cardMediaHTML(c.media)}<span class="card-title"${c.titleColor ? ` style="color:${c.titleColor}"` : ""}>${esc(c.title)}</span></span>
        ${phoneCardHTML(c)}</button>`
@@ -794,13 +798,19 @@ function kindOf(code) {   // WMO weather codes
   return "rain";
 }
 const weatherFx = [];
-let weatherNow = null;
+const CITIES = {
+  almaty: { tz: "Asia/Almaty", lat: 43.2389, lon: 76.8897 },
+  nyc: { tz: "America/New_York", lat: 40.7128, lon: -74.006 }
+};
+const WEATHER = { almaty: null, nyc: null };
+let city = "almaty";
+const weatherNowFor = () => WEATHER[city];
 const WEATHER_SNAPSHOT = null;   // Almaty weather when this version was built; live data replaces it on the real site
-function almatyIsDay() { const h = (new Date().getUTCHours() + 5) % 24; return h >= 7 && h < 19; }
+function cityIsDay(c) { const h = +new Date().toLocaleString("en-US", { timeZone: CITIES[c].tz, hour: "numeric", hour12: false }) % 24; return h >= 7 && h < 19; }
 function applyWeather() {
   weatherFx.forEach((f) => f.stop());
   weatherFx.length = 0;
-  const w = weatherNow || { kind: WEATHER_SNAPSHOT, day: almatyIsDay() };
+  const w = weatherNowFor() || { kind: WEATHER_SNAPSHOT, day: cityIsDay(city) };
   document.querySelectorAll(".apples .stage").forEach((stage) => {
     const cv = stage.querySelector(".sky");
     stage.classList.toggle("night", !w.day);   // day: red text (Figma frame 01), night: white text (frame 02)
@@ -863,14 +873,21 @@ function tickClocks() {
     b.textContent = now.toLocaleTimeString("en-US", { timeZone: b.dataset.tz, hour: "numeric", minute: "2-digit" });
   });
   const st = document.querySelector(".apples .stage");   // day ↔ night changed (no live data): redraw the sky
-  if (!weatherNow && st && st.classList.contains("night") === almatyIsDay()) applyWeather();
+  if (!weatherNowFor() && st && st.classList.contains("night") === cityIsDay(city)) applyWeather();
 }
 tickClocks(); setInterval(tickClocks, 15000);
-applyWeather();   // until live data arrives: Almaty day/night
-fetch("https://api.open-meteo.com/v1/forecast?latitude=43.2389&longitude=76.8897&current=weather_code,is_day")
+applyWeather();   // until live data arrives: day/night from the clock
+Object.entries(CITIES).forEach(([c, o]) => fetch(`https://api.open-meteo.com/v1/forecast?latitude=${o.lat}&longitude=${o.lon}&current=weather_code,is_day`)
   .then((r) => r.json())
-  .then((d) => { if (d && d.current) { weatherNow = { kind: kindOf(d.current.weather_code), day: !!d.current.is_day }; applyWeather(); } })
-  .catch(() => {});
+  .then((d) => { if (d && d.current) { WEATHER[c] = { kind: kindOf(d.current.weather_code), day: !!d.current.is_day }; if (c === city) applyWeather(); } })
+  .catch(() => {}));
+$("#grid").addEventListener("pointerdown", (e) => { if (e.target.closest(".clock")) e.stopPropagation(); }, true);
+$("#grid").addEventListener("click", (e) => {
+  const b = e.target.closest(".clock"); if (!b) return;
+  city = b.dataset.city;
+  document.querySelectorAll(".stage .clock").forEach((x) => { const on = x.dataset.city === city; x.classList.toggle("on", on); x.setAttribute("aria-pressed", String(on)); });
+  applyWeather();
+});
 
 /* ---------- Project window ---------- */
 function mediaHTML(m) {
@@ -964,7 +981,7 @@ document.addEventListener("keydown", (e) => {
 
 /* ---------- Living Archive ---------- */
 const ARCHIVE = [   // reading order; col = column in the 3-column Figma frame; h = picture height in that frame (533 wide)
-  { src: "assets/almaty-card.mp4", poster: "assets/almaty-card.jpg", video: true, h: 522, col: 0, round: true, caption: "Apples are from Almaty, Side Project, 2026", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/" },
+  { src: "assets/arch-apples.mp4", poster: "assets/arch-apples.jpg", video: true, h: 522, col: 0, round: true, caption: "Apples are from Almaty, Side Project, 2026", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/" },
   { src: "assets/arch-sansu.webp", h: 533, col: 1, caption: "Sansu Brand Design, February 2026" },
   { src: "assets/arch-circles.webp", h: 320, col: 2, caption: "Circles, Parsons Fall 2026" },
   { src: "assets/arch-oki.webp", h: 522, col: 0, caption: "Oki (Aleem) Mascot design, 2026" },
