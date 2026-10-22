@@ -1039,17 +1039,18 @@ document.addEventListener("keydown", (e) => {
 
 /* ---------- Living Archive ---------- */
 const ARCHIVE = [   // reading order; col = column in the 3-column Figma frame; h = picture height in that frame (533 wide)
-  { src: "assets/arch-apples.mp4", poster: "assets/arch-apples.jpg", video: true, h: 522, col: 0, round: true, caption: "Apples are from Almaty, Side Project, 2026", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/" },
-  { src: "assets/arch-sansu.webp", h: 533, col: 1, caption: "Sansu Brand Design, February 2026" },
-  { src: "assets/arch-circles.webp", h: 320, col: 2, caption: "Circles, Parsons Fall 2026" },
-  { src: "assets/arch-oki.webp", h: 522, col: 0, caption: "Oki (Aleem) Mascot design, 2026" },
-  { src: "assets/arch-poster.webp", h: 530, col: 1, round: true, caption: "Poster Design, Parsons Fall 2024" },
-  { src: "assets/arch-change.mp4", poster: "assets/arch-change.jpg", video: true, h: 305, col: 2, caption: "Change, Speing 2024", href: "https://aiyazhumagaliyeva.github.io/change/index.html" },
-  { src: "assets/arch-mantra.webp", h: 604, col: 0, round: true, caption: "Mantra Merch, Parsons Fall 2024..." },
-  { src: "assets/arch-tag.webp", h: 322, col: 1, round: true, caption: "Tag Design, Fall 2023" },
-  { src: "assets/arch-fish.webp", h: 427, col: 2, round: true, caption: "Fish, Parsons Fall 2024" },
-  { src: "assets/arch-merch.webp", h: 497, col: 0, caption: "Brand Merchendise, Winter 2026" },
-  { src: "assets/arch-qazaq.webp", h: 387, col: 2, caption: "Qazaq Blend Brand Design, Winter 2024" }
+  { src: "assets/arch-allwater.jpg", h: 309, col: 0, caption: "All Water LLC, Parsons, Fall 2026", href: "https://aiyazhumagaliyeva.github.io/all-water-llc/" },
+  { src: "assets/arch-apples.mp4", poster: "assets/arch-apples.jpg", video: true, h: 522, col: 1, caption: "Apples are from Almaty, Side Project, 2026", href: "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/" },
+  { src: "assets/arch-circles.webp", h: 320, col: 2, caption: "Circles, Parsons, Fall 2026" },
+  { src: "assets/arch-oki.webp", h: 522, col: 0, caption: "Mascot design, Oki (Aleem), 2026" },
+  { src: "assets/arch-sansu.webp", h: 533, col: 1, caption: "Sansu Brand Design, Side Project, February 2026" },
+  { src: "assets/arch-change.mp4", poster: "assets/arch-change.jpg", video: true, h: 305, col: 2, caption: "Change, Parsons, Spring 2024", href: "https://aiyazhumagaliyeva.github.io/change/index.html" },
+  { src: "assets/arch-mantra.webp", h: 604, col: 0, caption: "Mantra Merch, Parsons, Fall 2024" },
+  { src: "assets/arch-poster.webp", h: 530, col: 1, caption: "Poster Design, Parsons, Fall 2024" },
+  { src: "assets/arch-fish.webp", h: 427, col: 2, caption: "Fish, Parsons, Fall 2024" },
+  { src: "assets/arch-merch.webp", h: 497, col: 0, caption: "Brand Merchandise, Side Project, Winter 2026" },
+  { src: "assets/arch-tag.webp", h: 322, col: 1, caption: "Tag Design, Side Project, Fall 2023" },
+  { src: "assets/arch-qazaq.webp", h: 387, col: 2, caption: "Qazaq Blend Brand Design, Side Project, Winter 2024" }
 ];
 const ARCH_W = 533.333;
 function archItemHTML(a, i) {
