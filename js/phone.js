@@ -78,7 +78,7 @@
   /* home cards — all the same size (354 × 454); the Orderly and PowerPoints phones are the same size (360 tall) */
   const CS = [354, 454];
   const CARDS = [
-    { id: "orderly", title: "Orderly", src: "assets/orderly-ai-suggest.mp4", v: 1, size: CS, box: [2.1, -44, 349.8, 507.8], tt: 410 },
+    { id: "orderly", title: "Orderly", src: "assets/orderly-card.mp4", poster: "assets/orderly-card-poster.webp", v: 1, size: CS, box: [2.1, -44, 349.8, 507.8], tt: 410 },
     { id: "powerpoints", title: "PowerPoints", src: "assets/pp-card.png", size: CS, box: [-42.7, 0.8, 444.6, 419], tt: 410 },
     { id: "afterimage", title: "After the Image", src: "assets/ati-card.png", size: CS, box: [0, 38, 354, 333.6], fit: "contain", tt: 410 },
     { id: "open", title: "Open 10AM - 8PM", src: "assets/open-cover.jpg", size: CS, box: [0, 0, 354, 454], tt: 410, light: true, noStroke: true }
@@ -86,7 +86,7 @@
   function card(c) {
     const [W, H] = c.size, [x, y, w, h] = c.box;
     const pos = c.c ? `style="width:${c.c[0]}%;height:${c.c[1]}%;left:${c.c[2]}%;top:${c.c[3]}%"` : `class="fill${c.fit === "contain" ? " contain" : ""}"`;
-    const tag = c.v ? `<video src="${c.src}" muted loop playsinline preload="metadata" data-auto ${pos}></video>` : `<img src="${c.src}" alt="" loading="lazy" ${pos}>`;
+    const tag = c.v ? `<video src="${c.src}"${c.poster ? ` poster="${c.poster}"` : ""} muted loop playsinline preload="metadata" data-auto ${pos}></video>` : `<img src="${c.src}" alt="" loading="lazy" ${pos}>`;
     return `<a class="ph-card${c.light ? " light" : ""}${c.noStroke ? " nostroke" : ""}" href="#${c.id}" style="width:${p(W)};height:${p(H)}">
       <span class="ph-card-m" style="left:${pct(x, W)};top:${pct(y, H)};width:${pct(w, W)};height:${pct(h, H)}">${tag}</span>
       <span class="ph-card-t" style="top:${pct(c.tt, H)}">${c.title}</span></a>`;

@@ -22,7 +22,7 @@
 
   /* ---------- Home cards (Figma px inside a 769×680 card; default → hover) ---------- */
   const CARDS = [
-    { id: "orderly", title: "Orderly", src: "assets/orderly-ai-suggest.mp4", video: true,
+    { id: "orderly", title: "Orderly", src: "assets/orderly-card.mp4", poster: "assets/orderly-card-poster.webp", video: true,
       rest: [153.7, 0.1, 451.6, 694], hover: [129.8, -11, 499.5, 765.3] },
     { id: "powerpoints", title: "PowerPoints", src: "assets/pp-card.png", mul: true,
       rest: [90, 68, 579, 545], hover: [70, 48, 619, 582.6] },
@@ -37,7 +37,7 @@
   const hv = (r, h) => `translate(${((h[0] - r[0]) / r[2] * 100).toFixed(3)}%, ${((h[1] - r[1]) / r[3] * 100).toFixed(3)}%) scale(${(h[2] / r[2]).toFixed(4)})`;
   function cardHTML(c) {
     const media = c.video
-      ? `<video class="m" src="${c.src}" muted loop playsinline preload="metadata" data-auto style="${rect(c.rest)};--hv:${hv(c.rest, c.hover)}"></video>`
+      ? `<video class="m" src="${c.src}"${c.poster ? ` poster="${c.poster}"` : ""} muted loop playsinline preload="metadata" data-auto style="${rect(c.rest)};--hv:${hv(c.rest, c.hover)}"></video>`
       : `<img class="m${c.mul ? " mul" : ""}" src="${c.src}" alt="" loading="lazy" style="${rect(c.rest)};--hv:${hv(c.rest, c.hover)}">`;
     return `<a class="card${c.light ? " light" : ""}${c.noStroke ? " nostroke" : ""}" href="#${c.id}" data-card="${c.id}" aria-label="${c.title}"${c.titleTop ? ` style="--tt:${pc(c.titleTop, 680)}"` : ""}>
       ${media}<span class="t">${c.title}</span></a>`;
