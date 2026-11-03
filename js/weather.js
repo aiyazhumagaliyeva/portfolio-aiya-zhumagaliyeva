@@ -44,7 +44,7 @@
     const W = this.W || 1, H = this.H || 1, s = Math.max(this.s || 1, 0.35);
     const n = { drizzle: 70, rain: 170, storm: 240, snow: 120 }[kind] || 0;
     this.parts = Array.from({ length: n }, () => this.spawn(true));
-    const cl = { cloudy: 7, fog: 6, drizzle: 6, rain: 7, storm: 8, snow: 5 }[kind] || 0;
+    const cl = 0;   // no cloud shapes — cloudy days only get a soft grey wash
     if (!SPR.light) { SPR.light = cloudSprite(false); SPR.dark = cloudSprite(true); }
     this.clouds = Array.from({ length: cl }, (_, i) => ({
       x: rnd(-0.2, 1.05) * W, y: rnd(-0.12, 0.55) * H, w: rnd(380, 720) * s, v: rnd(6, 16) * s, a: rnd(0.55, 1), dark: kind === "storm" || (kind === "rain" && i % 2 === 0)
@@ -68,6 +68,7 @@
       g.fillStyle = gr; g.fillRect(0, 0, W, H);
     }
     if (k === "storm") { g.fillStyle = "rgba(40,50,72,.16)"; g.fillRect(0, 0, W, H); }
+    if (k === "cloudy" || k === "drizzle" || k === "rain") { g.fillStyle = "rgba(225,230,238,.10)"; g.fillRect(0, 0, W, H); }
     // clouds drifting right
     this.clouds.forEach((c) => {
       c.x += c.v * dt; if (c.x > W + 40) { c.x = -c.w - rnd(0, 200); c.y = rnd(-0.12, 0.55) * H; }
