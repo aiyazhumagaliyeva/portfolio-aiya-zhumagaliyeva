@@ -93,10 +93,10 @@
   }
 
   window.PHONE_PAGES = {
-    home: (intro, foot) => `<main data-page="home" class="ph">
+    home: (intro, foot) => `<main data-page="home" class="ph home">${window.SKY_HTML}
       <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><a class="ph-nav" href="#about">About</a></header>
       <div class="ph-col">
-        <section class="frame intro" id="intro" aria-label="Introduction">${intro}</section>
+        <section class="hero" id="intro" data-units="hero" aria-label="Introduction">${intro}</section>
         ${CARDS.map(card).join("")}
         ${foot}
       </div></main>`,

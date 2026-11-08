@@ -192,9 +192,13 @@
       .then((r) => r.json()).then((j) => {
         NYC.live = { temp: Math.round(j.current.temperature_2m), code: j.current.weather_code, isDay: !!j.current.is_day,
                      sunrise: toMin(j.daily.sunrise[0]), sunset: toMin(j.daily.sunset[0]) };
+        try { localStorage.setItem("nycWeather", JSON.stringify(NYC.live)); } catch (e) {}
         NYC.listeners.forEach((f) => f(NYC.live));
-      }).catch(() => {   // no internet / blocked: use the saved snapshot if there is one
-        if (window.NYC_SNAPSHOT && !NYC.live) { NYC.live = window.NYC_SNAPSHOT; NYC.listeners.forEach((f) => f(NYC.live)); }
+      }).catch(() => {   // weather service down: use the last weather this browser saw, or the saved snapshot
+        if (NYC.live) return;
+        let last = null; try { last = JSON.parse(localStorage.getItem("nycWeather") || "null"); } catch (e) {}
+        const snap = last || window.NYC_SNAPSHOT;
+        if (snap) { NYC.live = snap; NYC.listeners.forEach((f) => f(NYC.live)); }
       });
   }
   NYC.on = (f) => { NYC.listeners.push(f); if (NYC.live) f(NYC.live); };

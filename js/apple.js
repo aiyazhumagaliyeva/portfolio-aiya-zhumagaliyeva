@@ -130,6 +130,35 @@
     };
     requestAnimationFrame(step);
 
+    /* o.flee: no dragging — the apple hops away from the mouse instead */
+    if (o.flee) {
+      let lastHop = 0, scaredT = 0;
+      addEventListener("pointermove", (e) => {
+        if (!started || e.pointerType === "touch") return;
+        const f = frame.getBoundingClientRect(), k = unit();
+        const px = (e.clientX - f.left) / k, py = (e.clientY - f.top) / k;
+        const dx = st.x - px, dy = st.y - py, d = Math.hypot(dx, dy), R = o.fleeR || 330;
+        if (d > R) return;
+        const now = performance.now();
+        let dir = Math.sign(dx) || 1;
+        // cornered against a wall → jump over the mouse to the other side
+        if ((dir < 0 && st.x < o.minX + 60) || (dir > 0 && st.x > o.maxX - 60)) dir = -dir;
+        st.vx += dir * (R - d) * 6;
+        st.vx = Math.max(-1800, Math.min(1800, st.vx));
+        if (st.y >= o.y - 2 && now - lastHop > 380) { st.vy = -(700 + (R - d) * 2.4); lastHop = now; }
+        st.va += dir * 60;
+        obj.dragging = true; obj.refresh && obj.refresh();   // squints while running
+        clearTimeout(scaredT); scaredT = setTimeout(() => { obj.dragging = false; obj.refresh && obj.refresh(); }, 650);
+      }, { passive: true });
+      // touch: tapping the apple makes it hop
+      el.addEventListener("pointerdown", (e) => {
+        if (e.pointerType !== "touch" || st.y < o.y - 2) return;
+        st.vy = -1100; st.vx += (Math.random() < 0.5 ? -1 : 1) * 500; st.va += 120;
+        obj.dragging = true; obj.refresh && obj.refresh();
+        setTimeout(() => { obj.dragging = false; obj.refresh && obj.refresh(); }, 650);
+      });
+      return;
+    }
     el.addEventListener("pointerdown", (e) => {
       if (e.button !== 0) return;
       e.preventDefault(); el.setPointerCapture(e.pointerId);

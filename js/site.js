@@ -152,9 +152,9 @@
     </div>
     ${footHTML()}</main>`;
 
-  const HOME = `<main data-page="home">
+  const HOME = `<main data-page="home" class="home">${window.SKY_HTML}
     <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about">About</a></nav></header>
-    <div class="row"><section class="frame intro" id="intro" aria-label="Introduction">${window.INTRO_HTML}</section></div>
+    <section class="hero" id="intro" data-units="hero" aria-label="Introduction">${window.INTRO_HTML}</section>
     <div class="cards">${cardHTML(CARDS[0])}${cardHTML(CARDS[1])}</div>
     <div class="cards">${cardHTML(CARDS[2])}${cardHTML(CARDS[3])}</div>
     ${footHTML()}<div class="trail"></div></main>`;
@@ -168,9 +168,9 @@
 
   /* ---------- Frame units + skies + apples ---------- */
   function setFrameUnits(root) {
-    root.querySelectorAll(".frame").forEach((f) => {
+    root.querySelectorAll(".frame, [data-units]").forEach((f) => {
       const w = f.getBoundingClientRect().width || 1590 * U;   // (phone: 354 phone px wide)
-      f.style.setProperty("--fu", w / FRAME_UNITS(PHONE.matches) + "px");
+      f.style.setProperty("--fu", w / (f.dataset.units === "hero" ? HERO_UNITS(PHONE.matches) : FRAME_UNITS(PHONE.matches)) + "px");
     });
     const colW = innerWidth - 32;
     document.documentElement.style.setProperty("--m", PHONE.matches ? colW / 1000 + "px" : "var(--u)");
@@ -194,7 +194,7 @@
       app.insertAdjacentHTML("beforeend", html);
       const el = app.lastElementChild; pages[name] = el;
       setFrameUnits(el); watchVideos(el); mountFooter(el);
-      if (name === "home") window.mountIntro($("#intro"), { phone: PHONE.matches });
+      if (name === "home") window.mountIntro($("#intro"), el.querySelector(".hero-sky"), { phone: PHONE.matches });
     }
     return pages[name];
   }
