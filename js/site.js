@@ -28,7 +28,7 @@
       rest: [83.1, 60, 610, 574.8], hover: [48.4, 56.5, 670.1, 631.4] },   // phone sits exactly where the Orderly phone sits, at rest and on hover
     { id: "afterimage", title: "After the Image", src: "assets/ati-card.png", mul: true,
       rest: [-1, -19, 762, 718], hover: [-20, 4, 800, 753.8] },
-    { id: "open", title: "Open 10AM - 8PM", src: "assets/open-cover.jpg", light: true, noStroke: true, titleTop: 20,
+    { id: "open", title: "Open 10AM - 8PM", src: "assets/open-cover.jpg", light: true, noStroke: true,
       rest: [-63, -5.2, 926, 810.5], hover: [-177, -89.6, 1118.9, 979.3] }
   ];
   const pc = (v, of) => (v / of * 100).toFixed(3) + "%";
