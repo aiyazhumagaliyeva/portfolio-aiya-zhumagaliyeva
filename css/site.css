@@ -92,7 +92,7 @@ img, video { display: block; }
 .hero-text { position: absolute; z-index: 2; left: 0; top: calc(284.8 * var(--fu)); width: calc(1046 * var(--fu)); display: flex; flex-direction: column; gap: calc(34 * var(--fu)); }
 .hero .intro-text { position: static; width: calc(980 * var(--fu)); margin: 0; color: #000; text-shadow: none; font-family: var(--helv); font-size: calc(35 * var(--fu)); line-height: normal; }
 .hero .intro-wx { position: static; margin: 0; color: #000; text-shadow: none; font-family: var(--helv); font-size: calc(30 * var(--fu)); line-height: calc(38 * var(--fu)); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.hero .apple { z-index: 1; will-change: transform; cursor: grab; touch-action: none; }
+.hero .apple { z-index: 1; cursor: grab; touch-action: none; }
 .hero .apple.held { cursor: grabbing; }
 .hero-text { pointer-events: none; }   /* the apple can be grabbed even when it is behind the text */
 .hero-text a { pointer-events: auto; }

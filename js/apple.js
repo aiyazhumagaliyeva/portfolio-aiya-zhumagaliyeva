@@ -19,8 +19,8 @@
     const id = "alm" + ++uid;
     host.classList.add("apple");
     host.innerHTML = `
-      <img class="apple-img" src="assets/apple.webp" alt="" draggable="false">
       <svg class="apple-face" viewBox="0 0 431 431" aria-hidden="true">
+        <image href="assets/apple.webp" x="0" y="0" width="431" height="431"/>
         <defs><clipPath id="${id}"><path d="${ALMOND}"/></clipPath></defs>
         <g class="st-open">${EYES.map((e) => `
           <g transform="translate(${e.x} ${e.y})"><path d="${ALMOND}" fill="#fff"/>
