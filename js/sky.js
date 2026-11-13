@@ -187,18 +187,50 @@
   /* Live NYC weather (Open-Meteo, no key). cb({temp, code, isDay, sunrise, sunset}) */
   const NYC = { live: null, listeners: [] };
   const toMin = (s) => { const m = /T(\d\d):(\d\d)/.exec(s || ""); return m ? +m[1] * 60 + +m[2] : null; };
+  function publish(live) {
+    NYC.live = live;
+    try { localStorage.setItem("nycWeather", JSON.stringify(live)); } catch (e) {}
+    NYC.listeners.forEach((f) => f(live));
+  }
+  // US weather service (backup): its text → the same weather codes Open-Meteo uses
+  function codeFromText(t) {
+    t = (t || "").toLowerCase();
+    if (/thunder/.test(t)) return 95;
+    if (/snow|sleet|ice/.test(t)) return 71;
+    if (/drizzle/.test(t)) return 51;
+    if (/rain|shower/.test(t)) return 61;
+    if (/fog|mist|haze|smoke/.test(t)) return 45;
+    if (/partly/.test(t)) return 2;
+    if (/mostly (clear|sunny)|fair/.test(t)) return 1;
+    if (/cloud|overcast/.test(t)) return 3;
+    if (/clear|sunny/.test(t)) return 0;
+    return null;
+  }
+  function fetchNWS() {
+    return fetch("https://api.weather.gov/stations/KNYC/observations/latest", { headers: { Accept: "application/geo+json" } })
+      .then((r) => r.json()).then((j) => {
+        const pr = j.properties, temp = pr.temperature && pr.temperature.value;
+        if (temp == null) throw new Error("no temperature");
+        const live = { temp: Math.round(temp), code: codeFromText(pr.textDescription) };
+        if (NYC.live && NYC.live.sunrise != null) { live.sunrise = NYC.live.sunrise; live.sunset = NYC.live.sunset; }
+        publish(live);
+      });
+  }
+  let retry = null;
   function fetchNYC() {
     fetch("https://api.open-meteo.com/v1/forecast?latitude=40.7128&longitude=-74.006&current=temperature_2m,weather_code,is_day&daily=sunrise,sunset&timezone=America%2FNew_York&forecast_days=1")
       .then((r) => r.json()).then((j) => {
-        NYC.live = { temp: Math.round(j.current.temperature_2m), code: j.current.weather_code, isDay: !!j.current.is_day,
-                     sunrise: toMin(j.daily.sunrise[0]), sunset: toMin(j.daily.sunset[0]) };
-        try { localStorage.setItem("nycWeather", JSON.stringify(NYC.live)); } catch (e) {}
-        NYC.listeners.forEach((f) => f(NYC.live));
-      }).catch(() => {   // weather service down: use the last weather this browser saw, or the saved snapshot
-        if (NYC.live) return;
-        let last = null; try { last = JSON.parse(localStorage.getItem("nycWeather") || "null"); } catch (e) {}
-        const snap = last || window.NYC_SNAPSHOT;
-        if (snap) { NYC.live = snap; NYC.listeners.forEach((f) => f(NYC.live)); }
+        publish({ temp: Math.round(j.current.temperature_2m), code: j.current.weather_code, isDay: !!j.current.is_day,
+                  sunrise: toMin(j.daily.sunrise[0]), sunset: toMin(j.daily.sunset[0]) });
+      })
+      .catch(() => fetchNWS())   // Open-Meteo down or over its limit → try the US weather service
+      .catch(() => {   // both down: show the last weather this browser saw (or the saved snapshot) and try again soon
+        if (!NYC.live) {
+          let last = null; try { last = JSON.parse(localStorage.getItem("nycWeather") || "null"); } catch (e) {}
+          const snap = last || window.NYC_SNAPSHOT;
+          if (snap) { NYC.live = snap; NYC.listeners.forEach((f) => f(snap)); }
+        }
+        clearTimeout(retry); retry = setTimeout(fetchNYC, 3 * 60 * 1000);
       });
   }
   NYC.on = (f) => { NYC.listeners.push(f); if (NYC.live) f(NYC.live); };
