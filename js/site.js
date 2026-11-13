@@ -152,7 +152,7 @@
     ["Brand Designer at Energo University", "December 2024", "I designed a merchandise collection for a 5,000+ student campus, drawing on Kazakh ornamental patterns, nomadic architecture, and traditional musical instruments. The collection now regularly appears in student-generated social media content and worn by students on campus."]
   ].map(([t, d, x]) => `<div class="job"><h3>${t}</h3><p class="when">${d}</p><p>${x}</p></div>`).join("");
   const ABOUT = `<main class="ab" data-page="about">
-    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about" aria-current="page">About</a><a href="#playground">Playground</a></nav></header>
+    <header class="top"><a class="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="nav"><a href="#about" aria-current="page">About</a><a href="#playground">Playground</a></nav></header>
     <div class="col">
       <div class="ab-photo"><img src="assets/about.jpg" alt="Aiya Zhumagaliyeva"></div>
       <div class="txt">${BIO}</div>
@@ -184,13 +184,13 @@
     return href ? `<a class="pg-item" href="${href}" target="_blank" rel="noopener">${inner}</a>` : `<div class="pg-item">${inner}</div>`;
   }
   const PLAYGROUND = `<main data-page="playground" class="pg">
-    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about">About</a><a href="#playground" aria-current="page">Playground</a></nav></header>
+    <header class="top"><a class="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="nav"><a href="#about">About</a><a href="#playground" aria-current="page">Playground</a></nav></header>
     <div class="pg-cols">${[0, 1, 2].map((c) => `<div class="pg-col">${PLAY.filter((x) => x[2] === c).map(playItem).join("")}</div>`).join("")}</div>
     ${footHTML()}</main>`;
   window.PLAY_LIST = () => PLAY.map(playItem).join("");
 
   const HOME = `<main data-page="home" class="home">${window.SKY_HTML}
-    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about">About</a><a href="#playground">Playground</a></nav></header>
+    <header class="top"><a class="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="nav"><a href="#about">About</a><a href="#playground">Playground</a></nav></header>
     <section class="hero" id="intro" data-units="hero" aria-label="Introduction">${window.INTRO_HTML}</section>
     <div class="cards">${cardHTML(CARDS[0])}${cardHTML(CARDS[1])}</div>
     <div class="cards">${cardHTML(CARDS[2])}${cardHTML(CARDS[3])}</div>

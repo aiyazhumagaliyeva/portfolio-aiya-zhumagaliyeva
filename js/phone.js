@@ -102,14 +102,14 @@
 
   window.PHONE_PAGES = {
     home: (intro, foot) => `<main data-page="home" class="ph home">${window.SKY_HTML}
-      <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="ph-navs"><a class="ph-nav" href="#about">About</a><a class="ph-nav" href="#playground">Playground</a></nav></header>
+      <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="ph-navs"><a class="ph-nav" href="#about">About</a><a class="ph-nav" href="#playground">Playground</a></nav></header>
       <div class="ph-col">
         <section class="hero" id="intro" data-units="hero" aria-label="Introduction">${intro}</section>
         ${CARDS.map(card).join("")}
         ${foot}
       </div></main>`,
     playground: (foot) => `<main data-page="playground" class="ph">
-      <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="ph-navs"><a class="ph-nav" href="#about">About</a><a class="ph-nav" href="#playground">Playground</a></nav></header>
+      <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="ph-navs"><a class="ph-nav" href="#about">About</a><a class="ph-nav" href="#playground">Playground</a></nav></header>
       <div class="ph-col"><div class="pg-list">${window.PLAY_LIST()}</div>${foot}</div></main>`,
     case: (id, back, foot) => {
       const c = CASES[id];
@@ -123,7 +123,7 @@
         </div></main>`;
     },
     about: (back, foot, bio, jobs) => `<main data-page="about" class="ph">
-      <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="ph-navs"><a class="ph-nav" href="#about">About</a><a class="ph-nav" href="#playground">Playground</a></nav></header>
+      <header class="ph-top"><a class="ph-logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="ph-navs"><a class="ph-nav" href="#about">About</a><a class="ph-nav" href="#playground">Playground</a></nav></header>
       <div class="ph-col ph-col-ab">
         <div class="ph-stack" style="gap:${p(23)}">
           ${group(40, [`<div class="mi ph-photo" style="width:${p(360)};height:${p(239.9)};border-radius:${p(40)}"><img src="assets/about.jpg" alt="Aiya Zhumagaliyeva" style="width:115.31%;height:115.33%;left:-7.61%;top:-15.41%"></div>`, text(bio)])}

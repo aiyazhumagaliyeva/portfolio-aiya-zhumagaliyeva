@@ -105,6 +105,14 @@ img, video { display: block; }
   .ph-top { position: relative; z-index: 2; }
 }
 
+/* the 4 apples hop one after another on hover (from the old site) */
+.logo, .ph-logo { display: inline-flex; }
+.logo > span, .ph-logo > span { display: inline-block; transition: transform .45s var(--ease); }
+.logo:hover > span, .ph-logo:hover > span { transform: translateY(-20%) rotate(-8deg); }
+.logo:hover > span:nth-child(2), .ph-logo:hover > span:nth-child(2) { transition-delay: .04s; }
+.logo:hover > span:nth-child(3), .ph-logo:hover > span:nth-child(3) { transition-delay: .08s; }
+.logo:hover > span:nth-child(4), .ph-logo:hover > span:nth-child(4) { transition-delay: .12s; }
+
 /* ---------- Playground (3 columns of work, picture + caption) ---------- */
 .nav { display: flex; gap: calc(40 * var(--u)); }
 .nav a[aria-current] { text-decoration: underline; text-underline-position: from-font; }
