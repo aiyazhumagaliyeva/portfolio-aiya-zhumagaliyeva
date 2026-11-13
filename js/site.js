@@ -67,14 +67,22 @@
       { t: "<p>People in New York have a hard time keeping up with friends. New York offers endless opportunities, yet many students struggle to build meaningful relationships. Between demanding schedules, long commutes, and the city's fast pace, staying connected often becomes an afterthought, leading to missed events, weaker social networks, and feelings of isolation. Orderly solves that issue by making it easier to stay in touch with your friends.</p>", pad: 58 },
       { caps: ["Customizable themes", "In-app chatting"], gap: 311, items: [
         ["assets/orderly-themes.mp4", 457, 709, { v: 1, c: PH_B, r: TOP20 }], ["assets/orderly-chat.png", 486, 709, { c: PH_A, r: TOP20 }]] },
-      { t: "<p>How do you stay close with friends when meeting up takes 4 apps?</p><p>It often takes more than one app to meet up with friends (maps, calendar, a messenger, and often also a searching tool to find where to go), making reaching out and planning feel actually impossible. What if there was an app that combined the 4 inside?</p>" },
-      { items: [["assets/orderly-screens.png", 825, 437, { c: [112.75, 105.49, -6.38, -2.65] }]] },
       { t: "<p>The app features weekly workload overview, easily accessible schedule on hand, and customizable time slots where you can insert where your loved ones live and know when you call them at any time.</p>" },
       { items: [["assets/orderly-widgets.png", 831, 582, { c: [100, 99.44, 0, 0.28] }]] },
       { caps: ["Group event creation", "AI meet-up suggestions"], gap: 314, items: [
         ["assets/orderly-group-event.mp4", 457, 709, { v: 1, c: PH_B, r: TOP20 }], ["assets/orderly-ai-suggest.mp4", 486, 709, { v: 1, c: PH_C, r: TOP20 }]] },
       { caps: ["Solo event creation", "Notifications"], gap: 343, items: [
-        ["assets/orderly-weekly.mp4", 486, 709, { v: 1, c: PH_C, r: TOP20 }], ["assets/orderly-notifications.webp", 473, 699, { c: [66.52, 97.59, 16.74, 2.41], r: TOP20 }]] }
+        ["assets/orderly-weekly.mp4", 486, 709, { v: 1, c: PH_C, r: TOP20 }], ["assets/orderly-notifications.webp", 473, 699, { c: [66.52, 97.59, 16.74, 2.41], r: TOP20 }]] },
+      { t: "<p><b>How do you stay close with friends when meeting up takes 4 apps?</b></p><p>It often takes more than one app to meet up with friends (maps, calendar, a messenger, and often also a searching tool to find where to go), making reaching out and planning feel actually impossible. What if there was an app that combined the 4 inside?</p>" },
+      { items: [["assets/or-motion.mp4", 994, 352, { v: 1, poster: "assets/or-motion-poster.webp" }]] },
+      { t: "<p><b>Targeting people</b></p><p>I interviewed 4 students from post-Soviet countries studying in New York, ages 18–21, about daily life, family back home, and the tools they use.</p>" },
+      { mgap: 10, items: [["assets/or-notes4.webp", 372, 533, {}], ["assets/or-notes2.webp", 387, 533, {}]] },
+      { t: "<p><b>A few things kept coming up across all of the interviews.</b></p><p>First, staying close takes a lot of effort. In New York you don’t see the same people every day, so friendships only last if you actively keep them going.</p><p>Second, time zones restrict when people can talk to home. One student calls her family only in a small window because of a 13–14 hour difference, another said her mom’s most common text is “Are you asleep?”</p><p>The tools they use right now don’t help much. Notion feels too complex to set up, and Apple Calendar shows too little to connect with someone. As one student put it, there should be a “golden middle.”</p>" },
+      { items: [["assets/or-events.webp", 995, 487, {}]] },
+      { t: "<p><b>First ideas</b><br>I started with time management, but the interviews showed the bigger problem was staying in touch with friends nearby and family far away. So Orderly became a planner built around people, not just tasks: one place for your schedule, your friends, and the time back home.</p>" },
+      { mgap: 0, items: [["assets/or-old1.webp", 497.5, 390.8, {}], ["assets/or-old2.webp", 497.5, 390.8, {}]] },
+      { t: "<p><b>Iterations</b><br>Small details came straight from interviews: the week starts on Monday, and each time zone tells you if your family is likely asleep.</p>" },
+      { items: [["assets/or-sketches.webp", 995, 432, {}]] },
     ]},
     powerpoints: { title: "PowerPoints", when: "April 2025", blocks: [
       { t: "<p>Long hours of studying and working can leave students physically exhausted and mentally drained. Between all-nighters, demanding deadlines, and hours spent at a desk, pain and fatigue often build up in different parts of the body. But what if we could move that discomfort somewhere else, or share it with someone else? PowerPoints explores this possibility through a speculative app that allows users to track, redistribute, and transfer physical energy and pain within their bodies and between other people.</p>" },
@@ -114,7 +122,7 @@
   function itemHTML([src, w, h, o]) {
     const v = o.v, crop = o.c;
     const pos = crop ? `style="width:${crop[0]}%;height:${crop[1]}%;left:${crop[2]}%;top:${crop[3]}%"` : `class="fill"`;
-    const tag = v ? `<video src="${src}" muted loop playsinline preload="metadata" data-auto ${pos}></video>` : `<img src="${src}" alt="" loading="lazy" ${pos}>`;
+    const tag = v ? `<video src="${src}"${o.poster ? ` poster="${o.poster}"` : ""} muted loop playsinline preload="metadata" data-auto ${pos}></video>` : `<img src="${src}" alt="" loading="lazy" ${pos}>`;
     if (o.inner) {   // a smaller rounded box centred in its slot
       return `<div style="flex:none;width:${mx(w)};height:${mx(h)};display:flex;justify-content:center"><div class="mi" style="width:${mx(o.inner)};height:100%;border-radius:${o.r ? `calc(${parseFloat(o.r)} * var(--m))` : 0}">${tag}</div></div>`;
     }
@@ -143,7 +151,8 @@
     ["Product Designer at Oki (Aleem)", "August 2025 – May 2026", "I designed “Aleem,” the mascot of an AI English-learning app that hit #1 in the App Store Education category across five Central Asian countries, surpassing Duolingo in ranking within three days; 300,000+ downloads by December 2025."],
     ["Brand Designer at Energo University", "December 2024", "I designed a merchandise collection for a 5,000+ student campus, drawing on Kazakh ornamental patterns, nomadic architecture, and traditional musical instruments. The collection now regularly appears in student-generated social media content and worn by students on campus."]
   ].map(([t, d, x]) => `<div class="job"><h3>${t}</h3><p class="when">${d}</p><p>${x}</p></div>`).join("");
-  const ABOUT = `<main class="ab" data-page="about">${BACK}
+  const ABOUT = `<main class="ab" data-page="about">
+    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about" aria-current="page">About</a><a href="#playground">Playground</a></nav></header>
     <div class="col">
       <div class="ab-photo"><img src="assets/about.jpg" alt="Aiya Zhumagaliyeva"></div>
       <div class="txt">${BIO}</div>
@@ -151,8 +160,37 @@
     </div>
     ${footHTML()}</main>`;
 
+  /* ---------- Playground (Figma "new" page → playground): 3 columns, picture + caption ---------- */
+  const PLAY = [   // [src, Figma height at 533.3 wide, column, caption, link, poster]
+    ["assets/arch-allwater.jpg", 309, 0, "All Water LLC, Parsons, Fall 2026", "https://aiyazhumagaliyeva.github.io/all-water-llc/"],
+    ["assets/arch-apples.mp4", 522, 1, "Apples are from Almaty, Side Project, 2026", "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/", "assets/arch-apples.jpg"],
+    ["assets/arch-circles.webp", 320, 2, "Circles, Parsons, Fall 2026"],
+    ["assets/arch-oki.webp", 522, 0, "Mascot design, Oki (Aleem), 2026"],
+    ["assets/arch-sansu.webp", 533, 1, "Sansu Brand Design, Side Project, February 2026"],
+    ["assets/arch-change.mp4", 305, 2, "Change, Parsons, Spring 2024", "https://aiyazhumagaliyeva.github.io/change/index.html", "assets/arch-change.jpg"],
+    ["assets/arch-mantra.webp", 604, 0, "Mantra Merch, Parsons, Fall 2024"],
+    ["assets/arch-poster.webp", 530, 1, "Poster Design, Parsons, Fall 2024"],
+    ["assets/arch-fish.webp", 427, 2, "Fish, Parsons, Fall 2024"],
+    ["assets/arch-merch.webp", 497, 0, "Brand Merchandise, Side Project, Winter 2026"],
+    ["assets/arch-tag.webp", 322, 1, "Tag Design, Side Project, Fall 2023"],
+    ["assets/arch-qazaq.webp", 387, 2, "Qazaq Blend Brand Design, Side Project, Winter 2024"]
+  ];
+  function playItem([src, h, , cap, href, poster]) {
+    const video = /\.mp4$/.test(src);
+    const m = video ? `<video class="fill" src="${src}"${poster ? ` poster="${poster}"` : ""} muted loop playsinline preload="metadata" data-auto></video>`
+                    : `<img class="fill" src="${src}" alt="${cap}" loading="lazy">`;
+    const box = href ? `<div class="pg-m" style="aspect-ratio:533.3 / ${h}">${m}</div>` : `<div class="mi pg-m" style="aspect-ratio:533.3 / ${h}">${m}</div>`;
+    const inner = `${box}<span class="pg-cap">${cap}</span>`;
+    return href ? `<a class="pg-item" href="${href}" target="_blank" rel="noopener">${inner}</a>` : `<div class="pg-item">${inner}</div>`;
+  }
+  const PLAYGROUND = `<main data-page="playground" class="pg">
+    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about">About</a><a href="#playground" aria-current="page">Playground</a></nav></header>
+    <div class="pg-cols">${[0, 1, 2].map((c) => `<div class="pg-col">${PLAY.filter((x) => x[2] === c).map(playItem).join("")}</div>`).join("")}</div>
+    ${footHTML()}</main>`;
+  window.PLAY_LIST = () => PLAY.map(playItem).join("");
+
   const HOME = `<main data-page="home" class="home">${window.SKY_HTML}
-    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about">About</a></nav></header>
+    <header class="top"><a class="logo" href="#" aria-label="Home">🍎🍎🍎🍎</a><nav class="nav"><a href="#about">About</a><a href="#playground">Playground</a></nav></header>
     <section class="hero" id="intro" data-units="hero" aria-label="Introduction">${window.INTRO_HTML}</section>
     <div class="cards">${cardHTML(CARDS[0])}${cardHTML(CARDS[1])}</div>
     <div class="cards">${cardHTML(CARDS[2])}${cardHTML(CARDS[3])}</div>
@@ -188,8 +226,8 @@
   function page(name) {
     if (!pages[name]) {
       const P = PHONE.matches && window.PHONE_PAGES;
-      const html = P ? (name === "home" ? P.home(window.INTRO_HTML, footHTML()) : name === "about" ? P.about(BACK, footHTML(), BIO, JOBS) : P.case(name, BACK, footHTML()))
-                     : (name === "home" ? HOME : name === "about" ? ABOUT : caseHTML(name));
+      const html = P ? (name === "home" ? P.home(window.INTRO_HTML, footHTML()) : name === "about" ? P.about(BACK, footHTML(), BIO, JOBS) : name === "playground" ? P.playground(footHTML()) : P.case(name, BACK, footHTML()))
+                     : (name === "home" ? HOME : name === "about" ? ABOUT : name === "playground" ? PLAYGROUND : caseHTML(name));
       app.insertAdjacentHTML("beforeend", html);
       const el = app.lastElementChild; pages[name] = el;
       setFrameUnits(el); watchVideos(el); mountFooter(el);
@@ -199,11 +237,11 @@
   }
   function route() {
     const h = location.hash.slice(1);
-    const name = h === "about" || CASES[h] ? h : "home";
+    const name = h === "about" || h === "playground" || CASES[h] ? h : "home";
     Object.entries(pages).forEach(([k, el]) => (el.hidden = k !== name));
     const el = page(name); el.hidden = false;
     setFrameUnits(el);
-    document.title = name === "home" ? "Aiya Zhumagaliyeva" : (name === "about" ? "About" : CASES[name].title) + " — Aiya Zhumagaliyeva";
+    document.title = name === "home" ? "Aiya Zhumagaliyeva" : (name === "about" ? "About" : name === "playground" ? "Playground" : CASES[name].title) + " — Aiya Zhumagaliyeva";
     if (route.prev && route.prev !== name) scrollTo(0, name === "home" ? route.homeY || 0 : 0);
     route.prev = name;
   }
@@ -213,6 +251,7 @@
   PHONE.addEventListener("change", () => location.reload());
   app.addEventListener("click", (e) => {   // the back arrow / logo go home without leaving a "#" in the address
     const a = e.target.closest('a[href="#"]'); if (!a) return;
+    if (a.matches(".logo, .ph-logo")) { e.preventDefault(); location.assign(location.pathname + location.search); return; }   // the apples reload the whole page
     e.preventDefault(); history.pushState(null, "", location.pathname + location.search); route();
   });
   route();
