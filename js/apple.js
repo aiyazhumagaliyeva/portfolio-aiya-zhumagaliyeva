@@ -54,12 +54,13 @@
   Apple.prototype.refresh = function () { this.setState(this.face()); };
   Apple.prototype.scheduleBlink = function () {
     clearTimeout(this.bt);
-    this.bt = setTimeout(() => this.blink(), 10000 + Math.random() * 5000);   // every 10–15 s
+    const e = this.opt.every || [10000, 5000];   // default: every 10–15 s
+    this.bt = setTimeout(() => this.blink(), e[0] + Math.random() * e[1]);
   };
   Apple.prototype.blink = function () {
     this.blinking = true; this.refresh();
     clearTimeout(this.bo);
-    this.bo = setTimeout(() => { this.blinking = false; this.refresh(); if (this.opt.blink) this.scheduleBlink(); }, BLINK_MS);
+    this.bo = setTimeout(() => { this.blinking = false; this.refresh(); if (this.opt.blink) this.scheduleBlink(); }, this.opt.closed || BLINK_MS);
   };
   /* point the pupils at a screen point */
   Apple.prototype.aim = function (px, py) {
@@ -104,6 +105,8 @@
     const paint = () => {
       el.style.transform = `translate(calc(${(st.x - SW / 2).toFixed(2)} * var(--fu)), calc(${(st.y - SH / 2).toFixed(2)} * var(--fu))) rotate(${st.a.toFixed(2)}deg)`;
       obj.angle = st.a;
+      // "drag me" note follows the apple (above it, top right) until it is touched
+      if (o.hint) o.hint.style.transform = `translate(calc(${(st.x + (o.hintDx || 0)).toFixed(2)} * var(--fu)), calc(${(st.y + (o.hintDy || 200)).toFixed(2)} * var(--fu))) translateX(-50%)`;
     };
     paint();
     this.drop = () => { st.x = o.x; st.y = o.y - o.H - 300; st.vx = 0; st.vy = 0; st.a = o.a - 14; st.va = 0; started = true; };
@@ -165,6 +168,7 @@
       const f = frame.getBoundingClientRect(), k = unit();
       grab = { dx: (e.clientX - f.left) / k - st.x, dy: (e.clientY - f.top) / k - st.y };
       st.held = true; started = true; hist = [{ t: performance.now(), x: st.x, y: st.y }];
+      if (o.hint) o.hint.classList.add("gone");
       obj.dragging = true; obj.refresh && obj.refresh(); el.classList.add("held");
     });
     el.addEventListener("pointermove", (e) => {

@@ -5,11 +5,13 @@
 (function () {
   window.SKY_HTML = `<div class="hero-sky" aria-hidden="true"><canvas class="sky"></canvas><canvas class="wx-layer"></canvas></div>`;
   window.INTRO_HTML = `
+    <p class="intro-wx" aria-live="off"></p>
     <div class="hero-text">
-      <p class="intro-text">Aiya is a Product Designer from <a href="https://en.wikipedia.org/wiki/Kazakhstan" target="_blank" rel="noopener">Kazakhstan</a> 🇰🇿, now in NYC, who starts with research and builds what she designs. Focused on how people interact with each other and AI.</p>
-      <p class="intro-wx" aria-live="off"></p>
+      <p class="intro-text">Aiya is a Product Designer from <a href="https://en.wikipedia.org/wiki/Kazakhstan" target="_blank" rel="noopener">Kazakhstan</a> 🇰🇿, now in NYC. I like to start from research and build my designs!</p>
+      <p class="intro-now"><span class="live-dot" aria-hidden="true"></span>Right now exploring how people interact with each other and AI.</p>
     </div>
-    <div class="apple-slot" aria-hidden="true"></div>`;
+    <div class="apple-slot" aria-hidden="true"></div>
+    <p class="apple-hint" aria-hidden="true">drag me</p>`;
 
   /* frame units: desktop 1634.8 = the Figma intro container; phone 839.7 units = 354 phone px */
   window.FRAME_UNITS = (phone) => (phone ? 839.7 : 1590);
@@ -30,6 +32,7 @@
     const o = phone
       ? { W: 839.7, H: 250 * PK, x: 177 * PK, y: 250 * PK - 196, a: 30, minX: 215, maxX: 839.7 - 215 }
       : { W: 1634.8, H: 588.8, x: 1340.4, y: 294.4, a: 30, minX: 215, maxX: 1634.8 - 215 };
+    o.hint = frame.querySelector(".apple-hint"); o.hintDx = 170; o.hintDy = -235;   // shows on every visit until the apple is grabbed
     const phys = new ApplePhysics(apple, frame, o);
     new IntersectionObserver((es, ob) => { if (es[0].isIntersecting) { phys.start(); ob.disconnect(); } }, { threshold: 0.2 }).observe(frame);
 

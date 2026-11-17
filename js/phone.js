@@ -7,10 +7,10 @@
   /* item: [src, w, h, o]  o: v video, c crop [w%,h%,x%,y%], fit "contain" | "cover", r radius (n or [4]), cap caption */
   function item([src, w, h, o]) {
     o = o || {};
-    const pos = o.c ? `style="width:${o.c[0]}%;height:${o.c[1]}%;left:${o.c[2]}%;top:${o.c[3]}%"` : `class="fill${o.fit === "contain" ? " contain" : ""}"`;
+    const pos = o.c ? `style="width:${o.c[0]}%;height:${o.c[1]}%;left:${o.c[2]}%;top:${o.c[3]}%"` : `class="fill${o.fit === "contain" ? " contain" : ""}"${o.fit === "fill" ? ' style="object-fit:fill"' : ""}`;
     const tag = o.v ? `<video src="${src}"${o.poster ? ` poster="${o.poster}"` : ""} muted loop playsinline preload="metadata" data-auto ${pos}></video>` : `<img src="${src}" alt="" loading="lazy" ${pos}>`;
     const r = o.r == null ? "0" : (Array.isArray(o.r) ? o.r : [o.r]).map(p).join(" ");
-    const box = `<div class="mi" style="width:${p(w)};height:${p(h)};border-radius:${r}">${tag}</div>`;
+    const box = `<div class="mi" style="width:${p(w)};height:${p(h)};border-radius:${r}${o.ml ? `;margin-left:${p(o.ml)}` : ""}">${tag}</div>`;
     return o.cap ? `<div class="ph-fig">${box}<span class="ph-cap">${o.cap}</span></div>` : box;
   }
   const text = (html) => `<div class="ph-txt">${html}</div>`;
@@ -18,25 +18,26 @@
 
   const CASES = {
     orderly: { title: "Orderly", when: "September - December 2025", body: [group(40, [
-      text("<p>People in New York have a hard time keeping up with friends. New York offers endless opportunities, yet many students struggle to build meaningful relationships. Between demanding schedules, long commutes, and the city's fast pace, staying connected often becomes an afterthought, leading to missed events, weaker social networks, and feelings of isolation. Orderly solves that issue by making it easier to stay in touch with your friends.</p>"),
-      item(["assets/orderly-themes.mp4", 230, 468, { v: 1, c: [174, 125.28, -37, -12.64], r: TOP20, cap: "Customizable themes" }]),
-      item(["assets/orderly-chat.png", 244, 471, { c: [177.05, 133.16, -40.86, -17.2], r: TOP20, cap: "In-app chatting" }]),
-      text("<p>The app features weekly workload overview, easily accessible schedule on hand, and customizable time slots where you can insert where your loved ones live and know when you call them at any time.</p>"),
-      item(["assets/orderly-widgets.png", 354, 247.9, { c: [100, 99.44, 0, 0.28] }]),
-      item(["assets/orderly-group-event.mp4", 318, 460, { v: 1, c: [133, 134.26, -16.5, -17.16], r: TOP20, cap: "Group event creation" }]),
-      item(["assets/orderly-ai-suggest.mp4", 338, 446, { v: 1, c: [126.04, 138.68, -13.02, -19.14], r: TOP20, cap: "AI meet-up suggestions" }]),
+      text("<p>Orderly helps busy international students and young professionals stay in touch with loved ones across time zones.</p>"),
+      item(["assets/or-quotes.webp", 354, 173.1, {}]),
+      text("<p>Orderly lets you change the theme and set your first language, so the app feels more personal. It was made to test the hypothesis that apps feel unfriendly because of visual complexity and language barriers.</p>"),
+      item(["assets/or-themes.webp", 354, 221.3, {}]),
+      text("<p>The app allows you to put in multiple time zones, so you can at a glance see when to call your loved ones.</p>"),
+      item(["assets/or-zones.mp4", 354, 159.8, { v: 1, poster: "assets/or-zones-poster.webp", fit: "fill" }]),
+      text("<p>You can connect Orderly to your Google Calendar, and the app will show your weekly workload and daily schedule, so young professionals can stress less about their responsibilities.</p>"),
+      item(["assets/or-gcal.webp", 354, 262.6, {}]),
+      text("<p>Orderly also suggests when to meet up. Because it can see your and your friend’s calendars, it knows when you’re both free and where your events are. When you’re both free and nearby, the app suggests a time and place to meet, and writes the message for you.</p>"),
+      item(["assets/or-suggest.mp4", 354, 262.6, { v: 1, poster: "assets/or-suggest-poster.webp", fit: "fill" }]),
+      text("<p>Process</p><p>I started with time management: how might we help students organize their time and manage personal and school life in one place?</p>"),
+      item(["assets/or-motion.mp4", 354, 140.3, { v: 1, poster: "assets/or-motion-poster.webp" }]),
+      text("<p>Research<br>I interviewed 4 international students studying in New York, ages 18-21, about daily life, family back home, and the tools they use to stay in touch with family and friends.</p>"),
+      item(["assets/or-wire.webp", 354, 153.7, {}]),
+      text("<p>A few things kept coming up across all of the interviews:</p><p>Staying close takes a lot of effort. In New York you don’t see the same people every day, so friendships only last if you actively keep them going.<br>Time zones restrict when international students can call home. One student calls her family only in a small window because of a 13–14 hour difference, another said her mom’s most common text is “Are you asleep?”</p><p>The tools they use right now don’t help much. Notion feels too complex to set up, and Apple Calendar shows too little to connect with someone. As one student put it, there should be a “golden middle.”</p>"),
+      `<div class="mrow" style="gap:0">${item(["assets/or-old1.webp", 182, 143, {}])}${item(["assets/or-old2.webp", 188.4, 143, { ml: -16.3 }])}</div>`,
+      text("<p>The shift<br>The interviews showed the bigger problem wasn’t time management, it was staying in touch with friends nearby and family far away.</p>"),
       item(["assets/orderly-weekly.mp4", 338, 468, { v: 1, c: [128.4, 134.65, -14.2, -17.13], r: TOP20, cap: "Solo event creation" }]),
-      item(["assets/orderly-notifications.webp", 329, 487, { c: [66.52, 97.59, 16.74, 2.41], r: TOP20, cap: "Notifications" }]),
-      text("<p><b>How do you stay close with friends when meeting up takes 4 apps?</b></p><p>It often takes more than one app to meet up with friends (maps, calendar, a messenger, and often also a searching tool to find where to go), making reaching out and planning feel actually impossible. What if there was an app that combined the 4 inside?</p>"),
-      item(["assets/or-motion.mp4", 354, 125.4, { v: 1, poster: "assets/or-motion-poster.webp" }]),
-      text("<p><b>Targeting people</b></p><p>I interviewed 4 students from post-Soviet countries studying in New York, ages 18–21, about daily life, family back home, and the tools they use.</p>"),
-      `<div class="mrow" style="gap:${p(4)}">${item(["assets/or-notes4.webp", 172, 246.4, {}])}${item(["assets/or-notes2.webp", 178, 246.4, {}])}</div>`,
-      text("<p><b>A few things kept coming up across all of the interviews.</b></p><p>First, staying close takes a lot of effort. In New York you don’t see the same people every day, so friendships only last if you actively keep them going.</p><p>Second, time zones restrict when people can talk to home. One student calls her family only in a small window because of a 13–14 hour difference, another said her mom’s most common text is “Are you asleep?”</p><p>The tools they use right now don’t help much. Notion feels too complex to set up, and Apple Calendar shows too little to connect with someone. As one student put it, there should be a “golden middle.”</p>"),
-      item(["assets/or-events.webp", 354, 173.3, {}]),
-      text("<p><b>First ideas</b><br>I started with time management, but the interviews showed the bigger problem was staying in touch with friends nearby and family far away. So Orderly became a planner built around people, not just tasks: one place for your schedule, your friends, and the time back home.</p>"),
-      `<div class="mrow" style="gap:0">${item(["assets/or-old1.webp", 177, 139, {}])}${item(["assets/or-old2.webp", 177, 139, {}])}</div>`,
-      text("<p><b>Iterations</b><br>Small details came straight from interviews: the week starts on Monday, and each time zone tells you if your family is likely asleep.</p>"),
-      item(["assets/or-sketches.webp", 354, 153.7, {}])
+      item(["assets/orderly-group-event.mp4", 318, 460, { v: 1, c: [133, 134.26, -16.5, -17.16], r: TOP20, cap: "Group event creation" }]),
+      text("<p>This project was my first end-to-end app design. I learned how much real users shape the product. My first idea seemed more like time management, but talking to the target audience turned it into an app about staying connected.</p>")
     ])] },
     powerpoints: { title: "PowerPoints", when: "April 2025", body: [group(40, [
       text("<p>Long hours of studying and working can leave students physically exhausted and mentally drained. Between all-nighters, demanding deadlines, and hours spent at a desk, pain and fatigue often build up in different parts of the body. But what if we could move that discomfort somewhere else, or share it with someone else? PowerPoints explores this possibility through a speculative app that allows users to track, redistribute, and transfer physical energy and pain within their bodies and between other people.</p>"),
@@ -87,9 +88,7 @@
   const CS = [354, 454];
   const CARDS = [
     { id: "orderly", title: "Orderly", src: "assets/orderly-card.mp4", poster: "assets/orderly-card-poster.webp", v: 1, size: CS, box: [2.1, -44, 349.8, 507.8], tt: 410 },
-    { id: "powerpoints", title: "PowerPoints", src: "assets/pp-card.png", size: CS, box: [-42.7, 0.8, 444.6, 419], tt: 410 },
-    { id: "afterimage", title: "After the Image", src: "assets/ati-card.png", size: CS, box: [0, 38, 354, 333.6], fit: "contain", tt: 410 },
-    { id: "open", title: "Open 10AM - 8PM", src: "assets/open-cover.jpg", size: CS, box: [0, 0, 354, 454], tt: 410, light: true, noStroke: true }
+    { id: "powerpoints", title: "PowerPoints", src: "assets/pp-card.png", size: CS, box: [-42.7, 0.8, 444.6, 419], tt: 410 }
   ];
   function card(c) {
     const [W, H] = c.size, [x, y, w, h] = c.box;

@@ -254,3 +254,68 @@ a.pg-item:hover .pg-cap { color: #000; }
 }
 .cards + .foot-row { margin-top: calc(30 * var(--u)); }
 @media (max-width: 760px) { .cards + .foot-row { margin-top: 0; } }
+
+/* ===== Nov 16 Figma update ===== */
+/* header (all pages) */
+.logo { left: calc(47 * var(--u)); top: calc(42 * var(--u)); }
+.nav { right: calc(47 * var(--u)); top: calc(50 * var(--u)); font-family: var(--helv); font-size: calc(24 * var(--u)); }
+
+/* hero: weather top-left in white, intro + live line lower down */
+.hero .intro-wx { position: absolute; z-index: 3; left: calc(0.4 * var(--fu)); top: calc(7 * var(--fu)); color: #fff; font-size: calc(24 * var(--fu)); line-height: normal; }
+.hero-text { top: calc(396.8 * var(--fu)); width: calc(655 * var(--fu)); display: block; }
+.hero .intro-text { width: calc(655 * var(--fu)); font-size: calc(24 * var(--fu)); }
+.intro-now { position: absolute; left: 0; top: calc(76 * var(--fu)); margin: 0; display: flex; align-items: center; gap: calc(10 * var(--fu)); white-space: nowrap;
+  color: #ff0006; font-family: var(--helv); font-size: calc(20 * var(--fu)); line-height: normal; }
+.live-dot { position: relative; flex: none; width: calc(19 * var(--fu)); height: calc(19 * var(--fu)); }
+.live-dot::before, .live-dot::after { content: ""; position: absolute; border-radius: 50%; background: #ff0006; }
+.live-dot::after { inset: calc(3 * var(--fu)); }
+.live-dot::before { inset: 0; opacity: .3; animation: livePulse 1.6s ease-out infinite; }
+@keyframes livePulse { 0% { transform: scale(.6); opacity: .55; } 100% { transform: scale(1.5); opacity: 0; } }
+
+/* home cards: one row of two 819×740 cards, rising 56 into the hero */
+.cards { position: relative; z-index: 2; gap: calc(30 * var(--u)); padding: 0 calc(30 * var(--u)); margin-top: calc(-56 * var(--u)); }
+.card { width: calc(819 * var(--u)); height: calc(740 * var(--u)); background: #fff; }
+.card:hover .t, .card:focus-visible .t { top: var(--tt, 5%); }
+
+/* case pages v2 (Orderly, PowerPoints) */
+.cs.v2 .cs-head { width: calc(var(--hw) * var(--u)); margin-bottom: calc(var(--hg) * var(--u)); }
+.cs.v2 .col { width: calc(var(--cw) * var(--u)); }
+.cs.v2 .txt { width: calc(762 * var(--u)); font-family: var(--helv); }
+.cs.v2.or .col { width: auto; }
+.cs.v2.or .cs-head { gap: calc(10 * var(--u)); }
+.cs.v2.or .cs-head h1 { font-family: var(--helv); font-weight: 700; font-size: calc(30 * var(--u)); }
+.cs.v2.or .cs-head p { font-family: var(--helv); color: #000; }
+.cs.v2.or .foot-row { margin-top: calc(40 * var(--u)); }
+.cs.v2.pp .foot-row { margin-top: calc(53 * var(--u)); }
+
+/* playground */
+.pg-cap { color: #000; }
+
+/* about */
+.ab .col { width: calc(872 * var(--u)); gap: calc(50 * var(--u)); }
+.ab-photo { align-self: center; }
+.ab .txt { width: calc(762 * var(--u)); font-family: var(--helv); align-self: center; }
+.exp { padding: calc(10 * var(--u)) 0; gap: calc(40 * var(--u)); font-family: var(--helv); }
+.exp h2 { font-weight: 700; font-size: calc(32 * var(--u)); }
+.job { gap: calc(30 * var(--u)); }
+.job .jh { display: flex; flex-direction: column; gap: calc(20 * var(--u)); }
+.exp-list .job:first-child .jh { gap: calc(15 * var(--u)); }
+.job h3 { font-size: calc(28 * var(--u)); }
+.ab .foot-row { margin-top: calc(50 * var(--u)); }
+
+@media (max-width: 760px) {
+  .hero .intro-wx { position: absolute; left: 0; top: calc(12 * var(--p)); font-size: calc(15 * var(--p)); white-space: normal; }
+  .hero-text { position: relative; top: 0; width: 100%; display: flex; flex-direction: column; gap: calc(14 * var(--p)); }
+  .hero .intro-text { width: 100%; font-size: calc(20 * var(--p)); }
+  .intro-now { position: static; white-space: normal; font-size: calc(15 * var(--p)); gap: calc(8 * var(--p)); }
+  .live-dot { width: calc(15 * var(--p)); height: calc(15 * var(--p)); }
+  .live-dot::after { inset: calc(2.5 * var(--p)); }
+  .cards { margin-top: 0; }
+  .ph-jobs .jh { display: flex; flex-direction: column; gap: calc(10 * var(--p)); }
+}
+
+/* "drag me" note under the apple — goes away once the apple is touched */
+.apple-hint { position: absolute; z-index: 1; left: 0; top: 0; margin: 0; pointer-events: none; white-space: nowrap;
+  font-family: var(--helv); font-size: calc(20 * var(--fu)); line-height: normal; color: rgba(0, 0, 0, .55); transition: opacity .4s var(--ease); }
+.apple-hint.gone { opacity: 0; }
+@media (max-width: 760px) { .apple-hint { font-size: calc(30 * var(--fu)); } }

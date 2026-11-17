@@ -20,26 +20,27 @@
     instagram: "https://www.instagram.com/aiya_zhuma/"
   };
 
-  /* ---------- Home cards (Figma px inside a 769×680 card; default → hover) ---------- */
+  /* ---------- Home cards (Figma px inside an 819×740 card; default → hover) ---------- */
   const CARDS = [
     { id: "orderly", title: "Orderly", src: "assets/orderly-card.mp4", poster: "assets/orderly-card-poster.webp", video: true,
-      rest: [153.7, 0.1, 451.6, 694], hover: [129.8, -11, 499.5, 765.3] },
+      rest: [183.7, 30.1, 451.6, 694], hover: [159.8, 19, 499.5, 765.3] },
     { id: "powerpoints", title: "PowerPoints", src: "assets/pp-card.png", mul: true,
-      rest: [83.1, 60, 610, 574.8], hover: [48.4, 56.5, 670.1, 631.4] },   // phone sits exactly where the Orderly phone sits, at rest and on hover
+      rest: [113.1, 89.5, 610, 574.8], hover: [78.4, 86.5, 670.1, 631.4] },   // phone sits exactly where the Orderly phone sits, at rest and on hover
     { id: "afterimage", title: "After the Image", src: "assets/ati-card.png", mul: true,
       rest: [-1, -19, 762, 718], hover: [-20, 4, 800, 753.8] },
     { id: "open", title: "Open 10AM - 8PM", src: "assets/open-cover.jpg", light: true, noStroke: true,
       rest: [-63, -5.2, 926, 810.5], hover: [-177, -89.6, 1118.9, 979.3] }
   ];
   const pc = (v, of) => (v / of * 100).toFixed(3) + "%";
-  const rect = (r) => `left:${pc(r[0], 769)};top:${pc(r[1], 680)};width:${pc(r[2], 769)};height:${pc(r[3], 680)}`;
+  const CW = 819, CH = 740;   // card size (Figma)
+  const rect = (r) => `left:${pc(r[0], CW)};top:${pc(r[1], CH)};width:${pc(r[2], CW)};height:${pc(r[3], CH)}`;
   // hover = the Figma "Project Title" size, done with a smooth transform (scale + move)
   const hv = (r, h) => `translate(${((h[0] - r[0]) / r[2] * 100).toFixed(3)}%, ${((h[1] - r[1]) / r[3] * 100).toFixed(3)}%) scale(${(h[2] / r[2]).toFixed(4)})`;
   function cardHTML(c) {
     const media = c.video
       ? `<video class="m" src="${c.src}"${c.poster ? ` poster="${c.poster}"` : ""} muted loop playsinline preload="metadata" data-auto style="${rect(c.rest)};--hv:${hv(c.rest, c.hover)}"></video>`
       : `<img class="m${c.mul ? " mul" : ""}" src="${c.src}" alt="" loading="lazy" style="${rect(c.rest)};--hv:${hv(c.rest, c.hover)}">`;
-    return `<a class="card${c.light ? " light" : ""}${c.noStroke ? " nostroke" : ""}" href="#${c.id}" data-card="${c.id}" aria-label="${c.title}"${c.titleTop ? ` style="--tt:${pc(c.titleTop, 680)}"` : ""}>
+    return `<a class="card${c.light ? " light" : ""}${c.noStroke ? " nostroke" : ""}" href="#${c.id}" data-card="${c.id}" aria-label="${c.title}"${c.titleTop ? ` style="--tt:${pc(c.titleTop, CH)}"` : ""}>
       ${media}<span class="t">${c.title}</span></a>`;
   }
 
@@ -63,30 +64,32 @@
   const TOP20 = "20px 20px 0 0";
   const PH_A = [127.81, 127.22, -13.9, -13.4], PH_B = [133, 125.28, -16.5, -12.64], PH_C = [132.06, 131.45, -16.03, -15.51];
   const CASES = {
-    orderly: { title: "Orderly", when: "September - December 2025", blocks: [
-      { t: "<p>People in New York have a hard time keeping up with friends. New York offers endless opportunities, yet many students struggle to build meaningful relationships. Between demanding schedules, long commutes, and the city's fast pace, staying connected often becomes an afterthought, leading to missed events, weaker social networks, and feelings of isolation. Orderly solves that issue by making it easier to stay in touch with your friends.</p>", pad: 58 },
-      { caps: ["Customizable themes", "In-app chatting"], gap: 311, items: [
-        ["assets/orderly-themes.mp4", 457, 709, { v: 1, c: PH_B, r: TOP20 }], ["assets/orderly-chat.png", 486, 709, { c: PH_A, r: TOP20 }]] },
-      { t: "<p>The app features weekly workload overview, easily accessible schedule on hand, and customizable time slots where you can insert where your loved ones live and know when you call them at any time.</p>" },
-      { items: [["assets/orderly-widgets.png", 831, 582, { c: [100, 99.44, 0, 0.28] }]] },
-      { caps: ["Group event creation", "AI meet-up suggestions"], gap: 314, items: [
-        ["assets/orderly-group-event.mp4", 457, 709, { v: 1, c: PH_B, r: TOP20 }], ["assets/orderly-ai-suggest.mp4", 486, 709, { v: 1, c: PH_C, r: TOP20 }]] },
-      { caps: ["Solo event creation", "Notifications"], gap: 343, items: [
-        ["assets/orderly-weekly.mp4", 486, 709, { v: 1, c: PH_C, r: TOP20 }], ["assets/orderly-notifications.webp", 473, 699, { c: [66.52, 97.59, 16.74, 2.41], r: TOP20 }]] },
-      { t: "<p><b>How do you stay close with friends when meeting up takes 4 apps?</b></p><p>It often takes more than one app to meet up with friends (maps, calendar, a messenger, and often also a searching tool to find where to go), making reaching out and planning feel actually impossible. What if there was an app that combined the 4 inside?</p>" },
-      { items: [["assets/or-motion.mp4", 994, 352, { v: 1, poster: "assets/or-motion-poster.webp" }]] },
-      { t: "<p><b>Targeting people</b></p><p>I interviewed 4 students from post-Soviet countries studying in New York, ages 18–21, about daily life, family back home, and the tools they use.</p>" },
-      { mgap: 10, items: [["assets/or-notes4.webp", 372, 533, {}], ["assets/or-notes2.webp", 387, 533, {}]] },
-      { t: "<p><b>A few things kept coming up across all of the interviews.</b></p><p>First, staying close takes a lot of effort. In New York you don’t see the same people every day, so friendships only last if you actively keep them going.</p><p>Second, time zones restrict when people can talk to home. One student calls her family only in a small window because of a 13–14 hour difference, another said her mom’s most common text is “Are you asleep?”</p><p>The tools they use right now don’t help much. Notion feels too complex to set up, and Apple Calendar shows too little to connect with someone. As one student put it, there should be a “golden middle.”</p>" },
-      { items: [["assets/or-events.webp", 995, 487, {}]] },
-      { t: "<p><b>First ideas</b><br>I started with time management, but the interviews showed the bigger problem was staying in touch with friends nearby and family far away. So Orderly became a planner built around people, not just tasks: one place for your schedule, your friends, and the time back home.</p>" },
-      { mgap: 0, items: [["assets/or-old1.webp", 497.5, 390.8, {}], ["assets/or-old2.webp", 497.5, 390.8, {}]] },
-      { t: "<p><b>Iterations</b><br>Small details came straight from interviews: the week starts on Monday, and each time zone tells you if your family is likely asleep.</p>" },
-      { items: [["assets/or-sketches.webp", 995, 432, {}]] },
+    // new layout (Figma "new" page): 762 text column, wide 1174 media, Helvetica
+    orderly: { title: "Orderly", when: "September - December 2025", v2: { head: 762, col: 762, gap: 40, cls: "or" }, end: false, blocks: [
+      { t: "<p>Orderly helps busy international students and young professionals stay in touch with loved ones across time zones.</p>" },
+      { items: [["assets/or-quotes.webp", 1174, 574, {}]] },
+      { t: "<p>Orderly lets you change the theme and set your first language, so the app feels more personal. It was made to test the hypothesis that apps feel unfriendly because of visual complexity and language barriers.</p>" },
+      { items: [["assets/or-themes.webp", 1174, 734, {}]] },
+      { t: "<p>The app allows you to put in multiple time zones, so you can at a glance see when to call your loved ones.</p>" },
+      { items: [["assets/or-zones.mp4", 1174, 530, { v: 1, poster: "assets/or-zones-poster.webp", fit: "fill" }]] },
+      { t: "<p>You can connect Orderly to your Google Calendar, and the app will show your weekly workload and daily schedule, so young professionals can stress less about their responsibilities.</p>" },
+      { items: [["assets/or-gcal.webp", 1174, 871, {}]] },
+      { t: "<p>Orderly also suggests when to meet up. Because it can see your and your friend’s calendars, it knows when you’re both free and where your events are. When you’re both free and nearby, the app suggests a time and place to meet, and writes the message for you.</p>" },
+      { items: [["assets/or-suggest.mp4", 1174, 871, { v: 1, poster: "assets/or-suggest-poster.webp", fit: "fill" }]] },
+      { t: "<p>Process</p><p>I started with time management: how might we help students organize their time and manage personal and school life in one place?</p>" },
+      { items: [["assets/or-motion.mp4", 872, 345.5, { v: 1, poster: "assets/or-motion-poster.webp" }]] },
+      { t: "<p>Research<br>I interviewed 4 international students studying in New York, ages 18-21, about daily life, family back home, and the tools they use to stay in touch with family and friends.</p>" },
+      { items: [["assets/or-wire.webp", 873, 379, {}]] },
+      { t: "<p>A few things kept coming up across all of the interviews:</p><p>Staying close takes a lot of effort. In New York you don’t see the same people every day, so friendships only last if you actively keep them going.<br>Time zones restrict when international students can call home. One student calls her family only in a small window because of a 13–14 hour difference, another said her mom’s most common text is “Are you asleep?”</p><p>The tools they use right now don’t help much. Notion feels too complex to set up, and Apple Calendar shows too little to connect with someone. As one student put it, there should be a “golden middle.”</p>" },
+      { mgap: 0, items: [["assets/or-old1.webp", 481, 377.9, {}], ["assets/or-old2.webp", 498.1, 377.9, { ml: -43.1 }]] },
+      { t: "<p>The shift<br>The interviews showed the bigger problem wasn’t time management, it was staying in touch with friends nearby and family far away.</p>" },
+      { caps: ["Solo event creation", "Group event creation"], gap: 321, items: [
+        ["assets/orderly-weekly.mp4", 486, 709, { v: 1, c: PH_C, r: TOP20 }], ["assets/orderly-group-event.mp4", 454, 709, { v: 1, c: [140.39, 131.2, -22.63, -15.6], r: TOP20 }]] },
+      { t: "<p>This project was my first end-to-end app design. I learned how much real users shape the product. My first idea seemed more like time management, but talking to the target audience turned it into an app about staying connected.</p>" }
     ]},
-    powerpoints: { title: "PowerPoints", when: "April 2025", blocks: [
+    powerpoints: { title: "PowerPoints", when: "April 2025", v2: { head: 872, col: 872, gap: 53, cls: "pp" }, blocks: [
       { t: "<p>Long hours of studying and working can leave students physically exhausted and mentally drained. Between all-nighters, demanding deadlines, and hours spent at a desk, pain and fatigue often build up in different parts of the body. But what if we could move that discomfort somewhere else, or share it with someone else? PowerPoints explores this possibility through a speculative app that allows users to track, redistribute, and transfer physical energy and pain within their bodies and between other people.</p>" },
-      { items: [["assets/pp-brand.webp", 831, 546, {}]] },
+      { items: [["assets/pp-brand.webp", 985, 648, {}]] },
       { t: "<p>PowerPoints imagines the body as a system of energy points. Each body part has a capacity of 0 to 10, allowing users to move points from one area to another when something becomes exhausted. The same ability extends to other people, making it possible to send or request energy from friends.</p>" },
       { caps: ["Selecting a body part", "Point transmission"], gap: 330, items: [
         ["assets/pp-body.webp", 489, 712, { c: [127.81, 127.22, -13.85, -13.55], r: TOP20 }], ["assets/pp-transmit.webp", 459, 712, { c: [134.83, 126.23, -17.42, -13.12], r: TOP20 }]] },
@@ -121,13 +124,13 @@
 
   function itemHTML([src, w, h, o]) {
     const v = o.v, crop = o.c;
-    const pos = crop ? `style="width:${crop[0]}%;height:${crop[1]}%;left:${crop[2]}%;top:${crop[3]}%"` : `class="fill"`;
+    const pos = crop ? `style="width:${crop[0]}%;height:${crop[1]}%;left:${crop[2]}%;top:${crop[3]}%"` : `class="fill"${o.fit ? ` style="object-fit:${o.fit}"` : ""}`;
     const tag = v ? `<video src="${src}"${o.poster ? ` poster="${o.poster}"` : ""} muted loop playsinline preload="metadata" data-auto ${pos}></video>` : `<img src="${src}" alt="" loading="lazy" ${pos}>`;
     if (o.inner) {   // a smaller rounded box centred in its slot
       return `<div style="flex:none;width:${mx(w)};height:${mx(h)};display:flex;justify-content:center"><div class="mi" style="width:${mx(o.inner)};height:100%;border-radius:${o.r ? `calc(${parseFloat(o.r)} * var(--m))` : 0}">${tag}</div></div>`;
     }
     const r = o.r ? o.r.split(" ").map((x) => `calc(${parseFloat(x)} * var(--m))`).join(" ") : "0";
-    return `<div class="mi" style="width:${mx(w)};height:${mx(h)};border-radius:${r}">${tag}</div>`;
+    return `<div class="mi" style="width:${mx(w)};height:${mx(h)};border-radius:${r}${o.ml ? `;margin-left:${mx(o.ml)}` : ""}">${tag}</div>`;
   }
   function blockHTML(b) {
     if (b.t) return `<div class="txt"${b.pad ? ` style="padding-bottom:${px(b.pad)}"` : ""}>${b.t}</div>`;
@@ -138,9 +141,10 @@
   }
   function caseHTML(id) {
     const c = CASES[id];
-    return `<main class="cs" data-page="${id}">${BACK}
+    const v = c.v2 ? ` v2 ${c.v2.cls}" style="--hw:${c.v2.head};--cw:${c.v2.col};--hg:${c.v2.gap}` : "";
+    return `<main class="cs${v}" data-page="${id}">${BACK}
       <header class="cs-head"><h1>${c.title}</h1><p>${c.when}</p></header>
-      <div class="col${c.start ? " start" : ""}">${c.blocks.map(blockHTML).join("")}<div class="cs-end"></div></div>
+      <div class="col${c.start ? " start" : ""}">${c.blocks.map(blockHTML).join("")}${c.end === false ? "" : `<div class="cs-end"></div>`}</div>
       ${footHTML()}</main>`;
   }
 
@@ -148,9 +152,9 @@
         <p>When I came to <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener">Parsons</a>, design changed the way I think about creativity and became my way to contribute to the world around me. I've painted for loved ones, designed brand assets for local companies, and worked on UX projects. Now I start with research, build what I design, and focus on how people interact with each other and AI.</p>`;
   const JOBS = [
     ["Product Designer at Maxworld Inc.", "February - August 2026", `In Maxworld Inc., I was the sole designer on a web project. I led wireframing, visual direction, and user research for <a href="https://lovesigns.com" target="_blank" rel="noopener">Lovesigns.com,</a> from concept to developer handoff, and designed the full visual system and all site imagery. While working I conducted extended research using AI agents to inform product decisions.`],
-    ["Product Designer at Oki (Aleem)", "August 2025 – May 2026", "I designed “Aleem,” the mascot of an AI English-learning app that hit #1 in the App Store Education category across five Central Asian countries, surpassing Duolingo in ranking within three days; 300,000+ downloads by December 2025."],
+    ["Product Designer at Oki (Aleem)", "August 2025 - May 2026", `I designed <a href="https://oki.team" target="_blank" rel="noopener">“Aleem,”</a> the mascot of an AI English-learning app that hit #1 in the App Store Education category across five Central Asian countries, surpassing Duolingo in ranking within three days; 300,000+ downloads by December 2025.`],
     ["Brand Designer at Energo University", "December 2024", "I designed a merchandise collection for a 5,000+ student campus, drawing on Kazakh ornamental patterns, nomadic architecture, and traditional musical instruments. The collection now regularly appears in student-generated social media content and worn by students on campus."]
-  ].map(([t, d, x]) => `<div class="job"><h3>${t}</h3><p class="when">${d}</p><p>${x}</p></div>`).join("");
+  ].map(([t, d, x]) => `<div class="job"><div class="jh"><h3>${t}</h3><p class="when">${d}</p></div><p>${x}</p></div>`).join("");
   const ABOUT = `<main class="ab" data-page="about">
     <header class="top"><a class="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="nav"><a href="#about" aria-current="page">About</a><a href="#playground">Playground</a></nav></header>
     <div class="col">
@@ -162,6 +166,9 @@
 
   /* ---------- Playground (Figma "new" page → playground): 3 columns, picture + caption ---------- */
   const PLAY = [   // [src, Figma height at 533.3 wide, column, caption, link, poster]
+    ["assets/ati-fade-1.mp4", 335.9, 0, "After The Image, Parsons, Fall 2025", "#afterimage"],
+    ["assets/ati-fade-2.mp4", 396.9, 1, "After The Image, Parsons, Fall 2025", "#afterimage"],
+    ["assets/open-walkthrough.mp4", 404, 2, "Open 10AM-8PM, Parsons, Fall 2026", null, "assets/open-front.jpg"],   // no link for now
     ["assets/arch-allwater.jpg", 309, 0, "All Water LLC, Parsons, Fall 2026", "https://aiyazhumagaliyeva.github.io/all-water-llc/"],
     ["assets/arch-apples.mp4", 522, 1, "Apples are from Almaty, Side Project, 2026", "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/", "assets/arch-apples.jpg"],
     ["assets/arch-circles.webp", 320, 2, "Circles, Parsons, Fall 2026"],
@@ -181,7 +188,8 @@
                     : `<img class="fill" src="${src}" alt="${cap}" loading="lazy">`;
     const box = href ? `<div class="pg-m" style="aspect-ratio:533.3 / ${h}">${m}</div>` : `<div class="mi pg-m" style="aspect-ratio:533.3 / ${h}">${m}</div>`;
     const inner = `${box}<span class="pg-cap">${cap}</span>`;
-    return href ? `<a class="pg-item" href="${href}" target="_blank" rel="noopener">${inner}</a>` : `<div class="pg-item">${inner}</div>`;
+    const ext = href && href[0] !== "#" ? ' target="_blank" rel="noopener"' : "";   // case studies open here, other sites in a new tab
+    return href ? `<a class="pg-item" href="${href}"${ext}>${inner}</a>` : `<div class="pg-item">${inner}</div>`;
   }
   const PLAYGROUND = `<main data-page="playground" class="pg">
     <header class="top"><a class="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="nav"><a href="#about">About</a><a href="#playground" aria-current="page">Playground</a></nav></header>
@@ -193,14 +201,14 @@
     <header class="top"><a class="logo" href="#" aria-label="Home"><span>🍎</span><span>🍎</span><span>🍎</span><span>🍎</span></a><nav class="nav"><a href="#about">About</a><a href="#playground">Playground</a></nav></header>
     <section class="hero" id="intro" data-units="hero" aria-label="Introduction">${window.INTRO_HTML}</section>
     <div class="cards">${cardHTML(CARDS[0])}${cardHTML(CARDS[1])}</div>
-    <div class="cards">${cardHTML(CARDS[2])}${cardHTML(CARDS[3])}</div>
     ${footHTML()}<div class="trail"></div></main>`;
 
-  /* ---------- Videos play only while on screen ---------- */
+  /* ---------- Videos start when you scroll to them (40% on screen), from the beginning ---------- */
   const vidIO = new IntersectionObserver((es) => es.forEach((e) => {
     const v = e.target;
-    if (e.isIntersecting) { const p = v.play(); if (p) p.catch(() => {}); } else v.pause();
-  }), { rootMargin: "120px" });
+    if (e.intersectionRatio >= 0.4) { const p = v.play(); if (p) p.catch(() => {}); }
+    else { v.pause(); if (!e.isIntersecting) v.currentTime = 0; }   // fully off screen → rewind, so it starts fresh next time
+  }), { threshold: [0, 0.4] });
   const watchVideos = (root) => root.querySelectorAll("video[data-auto]").forEach((v) => { v.muted = true; vidIO.observe(v); });
 
   /* ---------- Frame units + skies + apples ---------- */
@@ -216,7 +224,7 @@
     root.querySelectorAll("[data-sky=foot]").forEach((f) => {
       if (f.dataset.on) return; f.dataset.on = 1;
       new SKY.Sky(f.querySelector("canvas"), { weights: [1, 0, 0] });   // the footer keeps the Figma look
-      new Apple(f.querySelector(".apple-slot"), { follow: false, blink: true });
+      new Apple(f.querySelector(".apple-slot"), { follow: false, blink: true, every: [3000, 2000], closed: 250 });   // footer: quick blink every 3–5 s
     });
   }
 
