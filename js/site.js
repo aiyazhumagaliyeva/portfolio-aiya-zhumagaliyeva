@@ -168,7 +168,7 @@
   const PLAY = [   // [src, Figma height at 533.3 wide, column, caption, link, poster]
     ["assets/ati-fade-1.mp4", 335.9, 0, "After The Image, Parsons, Fall 2025", "#afterimage"],
     ["assets/ati-fade-2.mp4", 396.9, 1, "After The Image, Parsons, Fall 2025", "#afterimage"],
-    ["assets/open-walkthrough.mp4", 404, 2, "Open 10AM-8PM, Parsons, Fall 2026", null, "assets/open-front.jpg"],   // no link for now
+    ["assets/open-book.mp4", 404, 2, "Open 10AM-8PM, Parsons, Fall 2026", null, "assets/open-book-poster.webp"],   // no link for now
     ["assets/arch-allwater.jpg", 309, 0, "All Water LLC, Parsons, Fall 2026", "https://aiyazhumagaliyeva.github.io/all-water-llc/"],
     ["assets/arch-apples.mp4", 522, 1, "Apples are from Almaty, Side Project, 2026", "https://aiyazhumagaliyeva.github.io/apple-is-from-almaty/", "assets/arch-apples.jpg"],
     ["assets/arch-circles.webp", 320, 2, "Circles, Parsons, Fall 2026"],
